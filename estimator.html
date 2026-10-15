@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0d14">
+  <meta name="description" content="Build a detailing plan and get an instant price estimate from NOIR Auto Atelier.">
+  <title>Estimator — NOIR Auto Atelier</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23eef1f7'/%3E%3Cstop offset='1' stop-color='%237d93c9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='15' fill='%230a0d14'/%3E%3Crect x='3' y='3' width='58' height='58' rx='12' fill='none' stroke='url(%23g)' stroke-opacity='.45' stroke-width='1.5'/%3E%3Cpath d='M18 40V16h5.5L40 34V16h6v24h-5.5L24 22v18z' fill='url(%23g)'/%3E%3Cpath d='M9 50c3-5 7-7 12-7h22c5 0 9 2 12 7' fill='none' stroke='%237d93c9' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='21' cy='50' r='3' fill='%23d5dbe8'/%3E%3Ccircle cx='43' cy='50' r='3' fill='%23d5dbe8'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Syne:wght@500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+</head>
+
+<body>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  <header class="site-header" id="top">
+    <a class="brand" href="index.html" aria-label="NOIR Auto Atelier home">
+      <span class="brand-mark"><svg viewBox="0 0 48 48" role="img" aria-label="NOIR Auto Atelier emblem"><defs><linearGradient id="nlg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--gold-light)"/><stop offset="1" stop-color="var(--secondary)"/></linearGradient></defs><path d="M24 2.5 43 9.5v14c0 11-7.5 18.5-19 22-11.5-3.5-19-11-19-22v-14z" fill="none" stroke="url(#nlg)" stroke-width="1.8"/><path d="M15 28V13h3.6L30 24.5V13h3v15h-3.6L18 16.5V28z" fill="url(#nlg)"/><path d="M9.5 35.5c2-3.2 4.6-4.5 8-4.5h13c3.4 0 6 1.3 8 4.5" fill="none" stroke="url(#nlg)" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="36" r="2.1" fill="url(#nlg)"/><circle cx="32" cy="36" r="2.1" fill="url(#nlg)"/><path d="M12 21 21 11" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".5"/></svg></span>
+      <span class="brand-copy"><strong>NOIR</strong><small>AUTO ATELIER</small></span>
+    </a>
+    <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
+    <nav class="main-nav" aria-label="Main navigation">
+      <div class="nav-dropdown">
+        <button class="nav-link nav-home-toggle" type="button" aria-expanded="false">Home <span aria-hidden="true">⌄</span></button>
+        <div class="nav-dropdown-menu">
+          <a href="index.html" class="nav-dropdown-link">Home</a>
+          <a href="home2.html" class="nav-dropdown-link">Home 2</a>
+        </div>
+      </div>
+      <a class="nav-link" href="about.html">About</a>
+      <a class="nav-link" href="services.html">Services</a>
+      <a class="nav-link active" href="estimator.html">Estimator</a>
+      <a class="nav-link" href="gallery.html">Gallery</a>
+      <a class="nav-link nav-dashboard" href="dashboard.html">Dashboard ↗</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn theme-toggle" type="button" aria-label="Switch to light mode" title="Switch to light mode"><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn rtl-toggle" type="button" aria-label="Switch to right-to-left layout" title="Toggle text direction">RTL</button>
+      <a class="button button-gold button-small header-login" href="login.html">Client login <span>↗</span></a>
+    </div>
+  </header>
+
+  <main>
+<section class="page-hero" style="--ph:url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2000&q=80')">
+      <p class="crumbs"><a href="index.html">Home</a> <span>/</span> Estimator</p>
+      <h1>Your plan,<br><em>priced.</em></h1>
+      <p class="page-lede">Choose your vehicle size and treatments. See the total and time estimate before you book.</p>
+    </section>
+<section class="estimator section-pad" id="estimator">
+      <div class="section-kicker reveal"><span>PRICE ESTIMATOR</span></div>
+      <div class="section-heading-row reveal"><div><p class="eyebrow">BUILD YOUR PLAN</p><h2>Know the price<br><em>before you book.</em></h2></div><p class="section-side-copy">Choose your vehicle size and treatments. Combine two for 5% off, or three or more for 10% off.</p></div>
+      <div class="est-grid reveal">
+        <div class="est-controls">
+          <fieldset><legend>1. Vehicle size</legend><div class="size-options">
+            <label class="pill"><input type="radio" name="size" value="1" data-label="Hatchback" checked><span>Hatchback</span></label>
+            <label class="pill"><input type="radio" name="size" value="1.15" data-label="Sedan"><span>Sedan</span></label>
+            <label class="pill"><input type="radio" name="size" value="1.3" data-label="SUV"><span>SUV</span></label>
+            <label class="pill"><input type="radio" name="size" value="1.5" data-label="Luxury or sports car"><span>Luxury / sports</span></label>
+          </div></fieldset>
+          <fieldset><legend>2. Treatments</legend><div class="est-treatments">
+            <label class="opt"><input type="checkbox" data-name="Ceramic coating" data-price="24999" data-days="3" checked><span class="opt-body"><span class="opt-name">Ceramic coating<small>Up to 5-year protection</small></span><span class="opt-price">₹24,999</span></span></label>
+            <label class="opt"><input type="checkbox" data-name="Paint correction" data-price="8499" data-days="2"><span class="opt-body"><span class="opt-name">Paint correction<small>Removes swirls and haze</small></span><span class="opt-price">₹8,499</span></span></label>
+            <label class="opt"><input type="checkbox" data-name="Interior atelier" data-price="5999" data-days="1"><span class="opt-body"><span class="opt-name">Interior atelier<small>Deep clean and condition</small></span><span class="opt-price">₹5,999</span></span></label>
+            <label class="opt"><input type="checkbox" data-name="Wheel &amp; glass protection" data-price="3499" data-days="1"><span class="opt-body"><span class="opt-name">Wheel &amp; glass protection<small>Repels water and brake dust</small></span><span class="opt-price">₹3,499</span></span></label>
+            <label class="opt"><input type="checkbox" data-name="Engine bay detail" data-price="2499" data-days="1"><span class="opt-body"><span class="opt-name">Engine bay detail<small>Safe clean and dress</small></span><span class="opt-price">₹2,499</span></span></label>
+          </div></fieldset>
+        </div>
+        <aside class="est-summary"><h3>Your plan</h3><ul id="estLines"></ul><div class="est-row"><span>Bundle discount</span><b id="estDiscount">—</b></div><div class="est-total"><span>Estimated total</span><strong id="estTotal">₹0</strong></div><p id="estTime"></p><button class="button button-gold button-full" type="button" id="estBook">Book with this plan <span>↗</span></button><small>Estimates only. Final price is confirmed after inspection.</small></aside>
+      </div>
+    </section><section class="plain section-pad" id="drivers">
+<div class="section-kicker reveal"><span>HOW PRICING WORKS</span></div>
+<div class="section-heading-row reveal"><div><p class="eyebrow">WHAT SHAPES YOUR QUOTE</p><h2>Four things<br><em>move the price.</em></h2></div><p class="section-side-copy">The estimator covers the first, and our inspection confirms the rest.</p></div>
+<div class="lab-grid"><article class="lab-card reveal"><div class="lab-ico"><svg viewBox="0 0 24 24"><path d="M3 15h18v3H3zM5 15l2-6h10l2 6"/><circle cx="7.5" cy="18.5" r="1.5"/><circle cx="16.5" cy="18.5" r="1.5"/></svg></div><h3>Vehicle size</h3><p>Price multiplies from ×1.0 for hatchbacks to ×1.5 for luxury and sports cars.</p><b>IN THE ESTIMATOR</b></article><article class="lab-card reveal"><div class="lab-ico"><svg viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></svg></div><h3>Paint condition</h3><p>Heavier swirls or oxidation need extra correction stages.</p><b>CONFIRMED AT INSPECTION</b></article><article class="lab-card reveal"><div class="lab-ico"><svg viewBox="0 0 24 24"><path d="M12 3c3 4 6 6.5 6 10a6 6 0 0 1-12 0c0-3.5 3-6 6-10z"/></svg></div><h3>Contamination</h3><p>Heavy tar, fallout or water spotting needs added decontamination.</p><b>CONFIRMED AT INSPECTION</b></article><article class="lab-card reveal"><div class="lab-ico"><svg viewBox="0 0 24 24"><path d="M3 12 12 3h8v8l-9 9z"/><circle cx="16" cy="8" r="1.3"/></svg></div><h3>Extras</h3><p>Add-ons such as headlights or engine bay are priced separately.</p><b>IN THE ESTIMATOR</b></article></div>
+</section>
+<section class="alt section-pad" id="samples">
+<div class="section-kicker reveal"><span>SAMPLE PLANS</span></div>
+<div class="section-heading-row reveal"><div><p class="eyebrow">START FROM A TEMPLATE</p><h2>Popular builds,<br><em>one tap away.</em></h2></div><p class="section-side-copy">Load a plan into the estimator and adjust it to suit your car.</p></div>
+<div class="plan-grid"><article class="plan reveal"><h3>Fresh start</h3><p class="plan-price"><strong>₹9,023</strong><small class="per">estimated</small></p><p class="muted-copy">Hatchback, 2 treatments, 5% bundle saving.</p><ul><li>Interior atelier</li><li>Wheel &amp; glass protection</li></ul><button class="button button-outline button-full" type="button" data-load data-size="1" data-items="Interior atelier|Wheel &amp; glass protection">Load this plan <span>↗</span></button></article><article class="plan reveal"><h3>Protect and shine</h3><p class="plan-price"><strong>₹36,597</strong><small class="per">estimated</small></p><p class="muted-copy">Sedan, 2 treatments, 5% bundle saving.</p><ul><li>Ceramic coating</li><li>Paint correction</li></ul><button class="button button-outline button-full" type="button" data-load data-size="1.15" data-items="Ceramic coating|Paint correction">Load this plan <span>↗</span></button></article><article class="plan reveal"><h3>The complete detail</h3><p class="plan-price"><strong>₹46,211</strong><small class="per">estimated</small></p><p class="muted-copy">SUV, 3 treatments, 10% bundle saving.</p><ul><li>Ceramic coating</li><li>Paint correction</li><li>Interior atelier</li></ul><button class="button button-outline button-full" type="button" data-load data-size="1.3" data-items="Ceramic coating|Paint correction|Interior atelier">Load this plan <span>↗</span></button></article></div>
+</section>
+<section class="plain section-pad" id="bundles">
+<div class="section-kicker reveal"><span>BUNDLE SAVINGS</span></div>
+<div class="section-heading-row reveal"><div><p class="eyebrow">THE MORE YOU COMBINE</p><h2>Combine and<br><em>save.</em></h2></div><p class="section-side-copy">Savings are applied automatically in the estimator above.</p></div>
+<div class="lab-grid cols3"><article class="lab-card reveal"><div class="lab-ico"><svg viewBox="0 0 24 24"><path d="M3 12 12 3h8v8l-9 9z"/><circle cx="16" cy="8" r="1.3"/></svg></div><h3>One treatment</h3><p>Standard pricing with no bundle discount.</p><b>0% OFF</b></article><article class="lab-card reveal"><div class="lab-ico"><svg viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></svg></div><h3>Two treatments</h3><p>Combine any two treatments in one booking.</p><b>5% OFF</b></article><article class="lab-card reveal"><div class="lab-ico"><svg viewBox="0 0 24 24"><path d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.5 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg></div><h3>Three or more</h3><p>Book three or more and save the most.</p><b>10% OFF</b></article></div>
+</section>
+<section class="alt section-pad" id="years">
+<div class="section-kicker reveal"><span>VALUE CALCULATOR</span></div>
+<div class="section-heading-row reveal"><div><p class="eyebrow">COST OVER TIME</p><h2>Coating vs<br><em>regular wax.</em></h2></div><p class="section-side-copy">Slide to see how a one-time coating compares over the years you keep your car.</p></div>
+<div class="calc reveal"><label for="yrs">Years you will keep the car: <b id="yrsOut">5</b></label><input id="yrs" type="range" min="1" max="10" value="5"><div class="bars"><div class="barrow"><span>Ceramic coating</span><div class="bar"><i id="barC"></i></div><b id="valC"></b></div><div class="barrow"><span>Quarterly wax</span><div class="bar"><i id="barW"></i></div><b id="valW"></b></div></div><small>Illustration only: coating at ₹24,999 renewed every 5 years (hatchback) against wax at ₹1,500 four times a year. Your real costs will differ.</small></div>
+</section>
+<section class="plain section-pad" id="scope">
+<div class="section-kicker reveal"><span>SCOPE</span></div>
+<div class="section-heading-row reveal"><div><p class="eyebrow">WHAT YOU GET</p><h2>Clear on what<br><em>is included.</em></h2></div></div>
+<div class="split two reveal"><div class="panel-box"><h3>In every estimate</h3><ul class="check-list"><li>Written inspection and condition report</li><li>Treatments exactly as listed</li><li>Progress photos during your booking</li><li>30-day touch-up promise</li></ul></div><div class="panel-box"><h3>Confirmed after inspection</h3><ul class="check-list"><li>Extra correction for heavy damage</li><li>Heavy contamination removal</li><li>Rust, dents or repainted panels</li><li>Final price and timeline</li></ul></div></div>
+</section>
+<section class="alt section-pad" id="steps">
+<div class="section-kicker reveal"><span>NEXT STEPS</span></div>
+<div class="section-heading-row reveal"><div><p class="eyebrow">FROM ESTIMATE TO BOOKING</p><h2>Four steps<br><em>to the keys.</em></h2></div></div>
+<div class="process-list narrow reveal"><div><span>01</span><div><strong>Build your plan</strong><small>Choose size and treatments above.</small></div><span class="process-plus">+</span></div><div><span>02</span><div><strong>Send your request</strong><small>Tell us your vehicle and a preferred date.</small></div><span class="process-plus">+</span></div><div><span>03</span><div><strong>Inspection and final quote</strong><small>We inspect the car and confirm the price in writing.</small></div><span class="process-plus">+</span></div><div><span>04</span><div><strong>Drop-off and updates</strong><small>Photo updates until hand-over day.</small></div><span class="process-plus">+</span></div></div>
+</section>
+<section class="plain section-pad" id="price-faq">
+<div class="section-kicker reveal"><span>PRICE QUESTIONS</span></div>
+<div class="section-heading-row reveal"><div><p class="eyebrow">GOOD TO KNOW</p><h2>Estimate<br><em>FAQs.</em></h2></div></div>
+<div class="faq-list reveal"><details class="faq-item" open><summary>Is the estimate final?</summary><p>No. It is a guide based on size and treatments. The final price is confirmed after inspection and put in writing.</p></details><details class="faq-item"><summary>How are vehicle sizes defined?</summary><p>Hatchback, sedan, SUV and luxury or sports. If your car sits between two, we quote the nearer size at inspection.</p></details><details class="faq-item"><summary>Do discounts stack?</summary><p>Bundle savings are 5% for two treatments and 10% for three or more, applied once to your plan total.</p></details><details class="faq-item"><summary>When do I pay?</summary><p>The final price and payment options are confirmed at inspection, before any work begins.</p></details></div>
+</section>
+<!-- NOIR v10 -->
+<section class="plain section-pad" id="nz-budget"><div class="section-kicker reveal"><span>BUDGET FINDER</span></div><div class="section-heading-row reveal"><div><p class="eyebrow">START WITH WHAT YOU HAVE</p><h2>Tell us your budget,<br><em>we suggest a plan.</em></h2></div><p class="section-side-copy">Slide to your budget for a hatchback.</p></div><div class="calc reveal"><label for="bgt">Budget: <b id="bgtOut">₹15,000</b></label><input id="bgt" type="range" min="2000" max="80000" step="500" value="15000"><div class="nx-emi-out"><div><span>Best fit</span><strong id="bgtPlan"></strong></div><div><span>What you get</span><p id="bgtText" style="margin:0"></p></div></div></div></section>
+<section class="alt section-pad" id="nz-size"><div class="section-kicker reveal"><span>SIZE GUIDE</span></div><div class="section-heading-row reveal"><div><p class="eyebrow">NOT SURE OF YOUR SIZE?</p><h2>Find your car<br><em>in the list.</em></h2></div><p class="section-side-copy">Typical models for each size band.</p></div><div class="lab-grid cols4"><article class="lab-card reveal"><div class="lab-ico"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.2 7.8 8 9 4.8-1.2 8-4.5 8-9V6z"/></svg></div><h3>Hatchback</h3><p>Swift, i10, Tiago, Baleno. Compact panels.</p><b>×1.0</b></article><article class="lab-card reveal"><div class="lab-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Sedan</h3><p>City, Verna, Slavia, Ciaz. Longer panels.</p><b>×1.15</b></article><article class="lab-card reveal"><div class="lab-ico"><svg viewBox="0 0 24 24"><path d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.5 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg></div><h3>SUV / MUV</h3><p>Creta, Seltos, XUV700, Innova. Tall bodies.</p><b>×1.3</b></article><article class="lab-card reveal"><div class="lab-ico"><svg viewBox="0 0 24 24"><path d="M12 3c3 4 6 6.5 6 10a6 6 0 0 1-12 0c0-3.5 3-6 6-10z"/></svg></div><h3>Luxury / sports</h3><p>3 Series, A4, C-Class, 911. Specialist paint.</p><b>×1.5</b></article></div></section>
+<section class="plain section-pad" id="nz-offers"><div class="nx-split"><div class="nx-photo reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1517026575980-3e1e2dedeab4?auto=format&fit=crop&w=1400&q=80" alt="Car in evening light" onerror="this.style.display='none'"><span class="nx-photo-tag">Seasonal</span></div><div class="nx-copy reveal"><div class="section-kicker"><span>SEASONAL OFFERS</span></div><h2>Timed for<br><em>the weather.</em></h2><p>Examples of what we run through the year. Ask the studio what is live.</p><div class="tour-list"><div class="tour-item"><span>Jun–Sep</span><div><strong>Monsoon shield</strong><small>Glass and wheel coating bundled with any wash plan.</small></div></div><div class="tour-item"><span>Mar–May</span><div><strong>Summer UV pack</strong><small>Coating and tint for heat protection.</small></div></div><div class="tour-item"><span>Oct–Nov</span><div><strong>Festive shine</strong><small>Interior reset and polish before the holidays.</small></div></div></div><a class="button button-gold" href="#booking">Ask about current offers <span>↗</span></a></div></div></section>
+<section class="alt section-pad" id="nz-referral"><div class="section-kicker reveal"><span>REFERRALS</span></div><div class="section-heading-row reveal"><div><p class="eyebrow">SHARE THE SHINE</p><h2>Bring a friend,<br><em>both save.</em></h2></div><p class="section-side-copy">Enter your name to get a code you can share.</p></div><div class="nz-ref reveal"><input id="refName" placeholder="Your name"><button class="button button-gold" type="button" id="refGo">Get my code <span>↗</span></button><div class="nz-code" id="refCode" hidden></div></div><small class="form-note">Reward amounts are set by the studio and confirmed at booking.</small></section>
+<section class="plain section-pad" id="nz-resale"><div class="section-kicker reveal"><span>RESALE VALUE</span></div><div class="section-heading-row reveal"><div><p class="eyebrow">WHY IT PAYS</p><h2>Care that shows up<br><em>at resale.</em></h2></div><p class="section-side-copy">Illustration only: well-kept paint can help a car sell faster and for more.</p></div><div class="calc reveal"><label for="rsVal">Car value: <b id="rsOut">₹8,00,000</b></label><input id="rsVal" type="range" min="200000" max="4000000" step="50000" value="800000"><div class="nx-emi-out"><div><span>Possible uplift (2% to 5%)</span><strong id="rsUp"></strong></div><div><span>Signature coating, hatchback</span><strong>₹24,999</strong></div></div><small>Not a valuation. Results depend on the market and the car.</small></div></section>
+<section class="alt section-pad" id="nz-next"><div class="section-kicker reveal"><span>SERVICE PLANNER</span></div><div class="section-heading-row reveal"><div><p class="eyebrow">WHEN IS IT DUE?</p><h2>Never miss<br><em>a check-up.</em></h2></div><p class="section-side-copy">Pick your last treatment and date.</p></div><div class="calc reveal"><div class="nx-row"><div><label for="nxLast">Last treatment</label><select id="nxLast"><option value="12">Ceramic coating (yearly check)</option><option value="6">Paint correction sealant</option><option value="6">Interior atelier</option><option value="1">Maintenance wash</option></select></div><div><label for="nxDate">Date done</label><input id="nxDate" type="date"></div></div><div class="nx-emi-out"><div><span>Next due</span><strong id="nxDue">Pick a date</strong></div></div></div></section>
+<section class="booking section-pad" id="booking">
+      <div class="booking-panel reveal">
+        <div class="booking-left">
+          <p class="eyebrow"><span class="eyebrow-line"></span> YOUR VEHICLE, REIMAGINED</p>
+          <h2>Give it the<br><em>NOIR treatment.</em></h2>
+          <p>Tell us a little about your vehicle. Our studio team will help you find the right treatment and appointment.</p>
+          <div class="booking-detail"><span>✳</span><div><strong>Personalized recommendations</strong><small>Every car. Every finish. A considered plan.</small></div></div>
+          <div class="booking-detail"><span>◷</span><div><strong>By appointment only</strong><small>Mon – Sat · 9:00 AM – 7:00 PM</small></div></div>
+        </div>
+        <form class="booking-form" id="bookingForm">
+          <div class="form-heading"><span>START YOUR BOOKING</span><span>01 — 03</span></div>
+          <label for="customerName">Your name</label>
+          <input id="customerName" name="name" placeholder="Full name" required>
+          <div class="form-two">
+            <div><label for="customerEmail">Email address</label><input id="customerEmail" name="email" type="email" placeholder="you@example.com" required></div>
+            <div><label for="customerPhone">Phone</label><input id="customerPhone" name="phone" type="tel" placeholder="+91 98765 43210" required></div>
+          </div>
+          <div class="form-two">
+            <div><label for="carModel">Vehicle</label><input id="carModel" name="vehicle" placeholder="e.g. BMW 3 Series" required></div>
+            <div><label for="serviceSelect">Treatment</label><select id="serviceSelect" name="service" required><option value="">Choose a service</option><option>Ceramic coating</option><option>Paint correction</option><option>Interior atelier</option><option>Full detail package</option><option>Not sure — advise me</option></select></div>
+          </div>
+          <div class="form-two">
+            <div><label for="bookingDate">Preferred date</label><input id="bookingDate" name="date" type="date" required></div>
+            <div><label for="bookingTime">Preferred time</label><select id="bookingTime" name="time" required><option value="">Choose a time</option><option>09:00 AM</option><option>11:00 AM</option><option>01:00 PM</option><option>03:00 PM</option><option>05:00 PM</option></select></div>
+          </div>
+          <button class="button button-gold button-full" type="submit">Request appointment <span>↗</span></button>
+          <small class="form-note">Demo experience: your request is saved in this browser only.</small>
+          <div class="form-success" role="status" hidden></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-cta">
+      <div class="footer-cta-copy"><h2>Let your car <em>shine.</em></h2></div>
+      <a class="button button-gold" href="#booking">Reserve your session <span>↗</span></a>
+    </div>
+    <div class="footer-top">
+      <div class="footer-brand-col">
+        <a class="brand brand-footer" href="index.html"><span class="brand-mark"><svg viewBox="0 0 48 48" role="img" aria-label="NOIR Auto Atelier emblem"><defs><linearGradient id="nlg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--gold-light)"/><stop offset="1" stop-color="var(--secondary)"/></linearGradient></defs><path d="M24 2.5 43 9.5v14c0 11-7.5 18.5-19 22-11.5-3.5-19-11-19-22v-14z" fill="none" stroke="url(#nlg2)" stroke-width="1.8"/><path d="M15 28V13h3.6L30 24.5V13h3v15h-3.6L18 16.5V28z" fill="url(#nlg2)"/><path d="M9.5 35.5c2-3.2 4.6-4.5 8-4.5h13c3.4 0 6 1.3 8 4.5" fill="none" stroke="url(#nlg2)" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="36" r="2.1" fill="url(#nlg2)"/><circle cx="32" cy="36" r="2.1" fill="url(#nlg2)"/><path d="M12 21 21 11" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".5"/></svg></span><span class="brand-copy"><strong>NOIR</strong><small>AUTO ATELIER</small></span></a>
+        <p class="footer-about">Precision detailing, paint correction and ceramic protection for people who notice every reflection. By appointment, in Chennai.</p>
+        <form class="newsletter" id="newsletterForm"><label class="newsletter-label" for="newsletterEmail">Get studio notes</label><div class="newsletter-row"><input id="newsletterEmail" type="email" placeholder="you@example.com" required><button class="button button-gold" type="submit" aria-label="Subscribe">↗</button></div></form>
+        <div class="social-links" aria-label="Social media">
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></a>
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 21v-8h3l.5-4H14V7c0-1.2.4-2 2-2h2V1.4C17.3 1.2 16.2 1 15 1c-3.2 0-5 1.9-5 5.4V9H7v4h3v8z"/></svg></a>
+          <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7s-.2-1.7-.9-2.4S20.6 3.7 19.8 3.6C17 3.4 12 3.4 12 3.4s-5 0-7.8.2c-.8.1-1.6.3-2.3 1S1 7 1 7s-.2 2-.2 4v2c0 2 .2 4 .2 4s.2 1.7.9 2.4.9.8 1.5.9c1.1.1 8.6.2 8.6.2s5 0 7.8-.2c.8-.1 1.6-.3 2.3-1s.9-2.4.9-2.4.2-2 .2-4v-2c0-2-.2-4-.2-4z"/><path d="m9.5 8 6 3.5-6 3.5z" fill="#0b0c0b" stroke="none"/></svg></a>
+          <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.6 6.2a6.7 6.7 0 0 1-4.1-4.1V1h-4.1v14.3a2.8 2.8 0 1 1-2.8-2.8c.4 0 .8.1 1.1.2V8.5a7 7 0 1 0 5.8 6.8V8a10.8 10.8 0 0 0 5.1 1.3V5.2c-.4 0-.7 0-1-.1z"/></svg></a>
+          <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3A2.2 2.2 0 1 1 .8 3a2.2 2.2 0 0 1 4.4 0ZM1.2 7.3h4v15h-4zM8 7.3h3.8v2.1h.1a4.2 4.2 0 0 1 3.8-2.5c4.1 0 4.9 2.7 4.9 6.2v9.2h-4v-8.2c0-2-.1-3.6-2.2-3.6s-2.5 1.7-2.5 3.5v8.3H8z"/></svg></a>
+          <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 2 17.7L.5 23.5l6-1.6A11.8 11.8 0 0 0 20.5 3.5ZM12 21a9.1 9.1 0 0 1-4.6-1.2l-.3-.2-3.5.9.9-3.4-.2-.4A9.2 9.2 0 1 1 12 21Zm5-6.9c-.3-.2-1.7-.9-2-.9s-.5-.2-.7.2-.8.9-1 1.1-.4.2-.7.1a7.5 7.5 0 0 1-2.2-1.4 8.2 8.2 0 0 1-1.5-1.9c-.2-.3 0-.5.1-.6l.5-.6c.2-.2.2-.4.3-.5s0-.4 0-.5l-.9-2.1c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.4 1 2.7 1.2 2.9a11.2 11.2 0 0 0 4.3 3.8c.6.3 1.1.5 1.5.6.6.2 1.2.2 1.6.1.5-.1 1.7-.7 1.9-1.3s.2-1.2.2-1.3-.2-.2-.5-.4z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-column"><h4>EXPLORE</h4><a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html">Price estimator</a><a href="gallery.html#transform">Results</a><a href="gallery.html">Gallery</a></div>
+      <div class="footer-column"><h4>CLIENT CARE</h4><a href="#booking">Book a session</a><a href="login.html">Client portal</a><a href="services.html#explorer">Treatment guide</a><a href="about.html#faq">FAQs</a></div>
+      <div class="footer-column footer-contact" id="contact">
+        <h4>FIND THE STUDIO</h4>
+        <div class="studio-live" id="footStatus"><i></i><span>Checking hours…</span></div>
+        <p class="contact-line"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><span><strong>Visit us</strong>Chennai, Tamil Nadu, India</span></p>
+        <a class="contact-line" href="mailto:studio@noiratelier.example"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><span><strong>Email</strong>studio@noiratelier.example</span></a>
+        <a class="contact-line" href="tel:+919876543210"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span><span><strong>Call</strong>+91 98765 43210</span></a>
+        <p class="contact-line open-hours"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><strong>Hours</strong>Mon – Sat · 9 AM – 7 PM</span></p>
+      </div>
+    </div>
+    <div class="footer-badges">
+      <span>✦ 9H ceramic hardness</span>
+      <span>✦ Up to 5-year protection</span>
+      <span>✦ 1,200+ vehicles refined</span>
+      <span>✦ By appointment · Mon–Sat</span>
+    </div>
+    <div class="footer-bottom"><span>© 2026 NOIR AUTO ATELIER</span><div><a href="#privacy" data-legal="privacy">PRIVACY POLICY</a><a href="#terms" data-legal="terms">TERMS &amp; CONDITIONS</a></div></div>
+  </footer>
+
+  <div class="image-lightbox" id="imageLightbox" hidden role="dialog" aria-modal="true" aria-label="Gallery image preview"><button class="lightbox-close" type="button" aria-label="Close image preview">×</button><img id="lightboxImage" src="" alt=""><p id="lightboxCaption"></p></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <div class="legal-popover" id="legalPopover" hidden role="dialog" aria-modal="true" aria-labelledby="legalTitle"><button type="button" class="legal-close" aria-label="Close">×</button><p class="eyebrow">NOIR AUTO ATELIER</p><h2 id="legalTitle">Studio policies</h2><p id="legalText">Please contact the studio for current policies.</p></div>
+</body>
+
+</html>

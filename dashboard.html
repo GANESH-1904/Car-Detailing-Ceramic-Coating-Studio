@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0d14">
+  <meta name="description" content="Book detailing slots, track your service and collect loyalty points at NOIR Auto Atelier.">
+  <title>Dashboard — NOIR Auto Atelier</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23eef1f7'/%3E%3Cstop offset='1' stop-color='%237d93c9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='15' fill='%230a0d14'/%3E%3Crect x='3' y='3' width='58' height='58' rx='12' fill='none' stroke='url(%23g)' stroke-opacity='.45' stroke-width='1.5'/%3E%3Cpath d='M18 40V16h5.5L40 34V16h6v24h-5.5L24 22v18z' fill='url(%23g)'/%3E%3Cpath d='M9 50c3-5 7-7 12-7h22c5 0 9 2 12 7' fill='none' stroke='%237d93c9' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='21' cy='50' r='3' fill='%23d5dbe8'/%3E%3Ccircle cx='43' cy='50' r='3' fill='%23d5dbe8'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Syne:wght@500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ===== Dashboard shell ===== */
+    body.dash-app { font-size: 16px; line-height: 1.6; }
+    .ic { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto; }
+    .dx-shell { display: grid; grid-template-columns: 272px minmax(0, 1fr); min-height: 100vh; }
+
+    /* Sidebar */
+    .dx-side { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; background: var(--bg-soft); border-inline-end: 1px solid var(--line); z-index: 70; transition: background-color .45s; }
+    .dx-side .brand { padding: 22px 24px; border-bottom: 1px solid var(--line); }
+    .dx-nav { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; padding: 18px 14px; }
+    .dx-nav button { display: flex; align-items: center; gap: 14px; width: 100%; padding: 13px 16px; border: 0; border-radius: 12px; background: transparent; color: var(--muted); font-weight: 600; font-size: 16px; text-align: start; cursor: pointer; transition: background .25s, color .25s; }
+    .dx-nav button:hover { color: var(--text); background: var(--panel); }
+    .dx-nav button.active { color: var(--text); background: color-mix(in srgb, var(--gold) 14%, transparent); box-shadow: inset 3px 0 0 var(--secondary); }
+    html[dir="rtl"] .dx-nav button.active { box-shadow: inset -3px 0 0 var(--secondary); }
+    .dx-nav button.active .ic { color: var(--gold); }
+    .dx-side-foot { padding: 14px; border-top: 1px solid var(--line); display: grid; gap: 10px; }
+    .dx-mini { display: block; width: 100%; padding: 14px 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); text-align: start; cursor: pointer; transition: border-color .25s; }
+    .dx-mini:hover { border-color: var(--gold); }
+    .dx-mini small { display: block; color: var(--muted); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+    .dx-mini strong { font: 700 24px "Syne", sans-serif; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .dx-mini span { font-size: 13px; color: var(--muted); margin-inline-start: 6px; }
+    .dx-signout { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border: 0; background: transparent; color: var(--muted); font-weight: 600; font-size: 15px; border-radius: 12px; cursor: pointer; }
+    .dx-signout:hover { color: var(--text); background: var(--panel); }
+
+    /* Top bar */
+    .dx-main { min-width: 0; }
+    .dx-top { position: sticky; top: 0; z-index: 40; height: 84px; display: flex; align-items: center; gap: 16px; padding: 0 clamp(20px, 3vw, 44px); background: var(--header); backdrop-filter: blur(18px); border-bottom: 1px solid var(--line); }
+    .dx-top h1 { flex: 1; margin: 0; font-size: clamp(22px, 2.4vw, 28px); line-height: 1.2; letter-spacing: -.01em; font-weight: 700; }
+    .dx-top .icon-btn { width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg-soft); color: var(--text); transition: border-color .25s, color .25s; }
+    .dx-top .icon-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .dx-top .rtl-toggle { width: auto; padding: 0 14px; font-size: 12px; font-weight: 800; }
+    .dx-menu { display: none !important; }
+    .dx-user { display: flex; align-items: center; gap: 12px; padding: 4px 6px 4px 4px; border: 0; background: transparent; cursor: pointer; text-align: start; color: var(--text); }
+    .dx-avatar { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--grad); color: #0a0d14; font: 700 16px "Syne", sans-serif; }
+    body.light-theme .dx-avatar { color: #fff; }
+    .dx-user b { display: block; font-size: 15px; line-height: 1.2; }
+    .dx-user small { color: var(--muted); font-size: 13px; }
+
+    .dx-content { padding: clamp(22px, 3vw, 44px); max-width: 1400px; }
+    .dx-scrim { display: none; }
+
+    /* Typography inside content */
+    .dx-hello h2 { font-size: clamp(28px, 3.2vw, 40px); margin: 0 0 6px; letter-spacing: -.02em; line-height: 1.15; font-weight: 700; }
+    .dx-hello p { margin: 0 0 26px; color: var(--muted); font-size: 17px; max-width: 720px; }
+    .dx-card { border: 1px solid var(--line); border-radius: 20px; background: var(--panel); padding: 26px; transition: background-color .45s, border-color .3s; }
+    .dx-card h3 { font-size: 20px; margin: 0 0 4px; letter-spacing: -.01em; }
+    .dx-sub { color: var(--muted); font-size: 15px; margin: 0 0 16px; }
+    .dx-meta { color: var(--muted); font-size: 15px; margin: 4px 0 0; }
+    .dx-id { margin: 0 0 4px; font-size: 12px; letter-spacing: .14em; color: var(--secondary); font-weight: 700; }
+    .dx-stack { display: grid; gap: 22px; }
+
+    /* Stats */
+    .dx-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 22px; }
+    .dx-stat { padding: 24px; border: 1px solid var(--line); border-radius: 20px; background: var(--panel); display: flex; flex-direction: column; gap: 8px; min-height: 150px; transition: transform .3s var(--ease), border-color .3s; }
+    .dx-stat:hover { transform: translateY(-4px); border-color: var(--gold); }
+    .dx-stat.hl { border-color: var(--gold); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--gold) 40%, transparent); }
+    .dx-stat span { color: var(--muted); font-size: 15px; }
+    .dx-stat strong { margin-top: auto; font: 700 clamp(28px, 2.6vw, 38px) "Syne", sans-serif; line-height: 1.1; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .dx-stat small { color: var(--muted); font-size: 14px; }
+
+    .dx-grid2 { display: grid; grid-template-columns: 1.7fr 1fr; gap: 22px; margin-bottom: 22px; align-items: start; }
+    .dx-grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+
+    /* Badges */
+    .dx-badge { display: inline-block; padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); font-size: 13px; font-weight: 700; white-space: nowrap; }
+    .dx-badge.ok { background: color-mix(in srgb, #2fbf7a 18%, transparent); border-color: #2fbf7a; color: #2fbf7a; }
+    .dx-badge.warn { background: color-mix(in srgb, #e0a93b 16%, transparent); border-color: #e0a93b; color: #e0a93b; }
+    .dx-badge.bad { background: color-mix(in srgb, #e66a6a 16%, transparent); border-color: #e66a6a; color: #e66a6a; }
+    .dx-badge.info { border-color: var(--secondary); color: var(--secondary); }
+    body.light-theme .dx-badge.ok { color: #12794a; }
+    body.light-theme .dx-badge.warn { color: #8a5f00; }
+    body.light-theme .dx-badge.bad { color: #b02a2a; }
+
+    /* Tracker */
+    .dx-track { list-style: none; padding: 0; margin: 26px 0 8px; display: grid; grid-template-columns: repeat(7, 1fr); }
+    .dx-track li { position: relative; text-align: center; padding-top: 38px; font-size: 13px; line-height: 1.3; color: var(--muted); }
+    .dx-track li i { position: absolute; top: 4px; left: 50%; width: 22px; height: 22px; margin-left: -11px; border-radius: 50%; border: 2px solid var(--line); background: var(--bg-soft); z-index: 1; display: grid; place-items: center; font-style: normal; font-size: 12px; font-weight: 700; color: #0a0d14; }
+    .dx-track li:after { content: ""; position: absolute; top: 14px; left: -50%; width: 100%; height: 2px; background: var(--line); }
+    .dx-track li:first-child:after { display: none; }
+    .dx-track li.done i { background: var(--grad); border-color: transparent; }
+    body.light-theme .dx-track li.done i { color: #fff; }
+    .dx-track li.done:after, .dx-track li.now:after { background: var(--gold); }
+    .dx-track li.now { color: var(--text); font-weight: 700; }
+    .dx-track li.now i { border-color: var(--gold); box-shadow: 0 0 0 5px color-mix(in srgb, var(--gold) 26%, transparent); }
+    html[dir="rtl"] .dx-track li:after { left: auto; right: -50%; }
+    .dx-note { margin: 14px 0 0; padding: 14px 16px; border-radius: 12px; background: var(--bg-soft); color: var(--text); font-size: 15px; }
+    .dx-pbar { height: 8px; border-radius: 99px; background: var(--line); overflow: hidden; margin: 14px 0 0; }
+    .dx-pbar span { display: block; height: 100%; background: var(--grad); border-radius: 99px; transition: width .6s var(--ease); }
+
+    /* Lists */
+    .dx-list { list-style: none; margin: 0; padding: 0; }
+    .dx-list li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 0; border-bottom: 1px dashed var(--line); font-size: 15px; }
+    .dx-list li:last-child { border: 0; padding-bottom: 0; }
+    .dx-list small { display: block; color: var(--muted); font-size: 13px; }
+    .dx-list .due-bad { color: #e66a6a; } .dx-list .due-warn { color: #e0a93b; } .dx-list .due-ok { color: #2fbf7a; }
+    .dx-empty { text-align: center; padding: 36px 20px; }
+    .dx-empty p { color: var(--muted); max-width: 460px; margin: 0 auto 20px; }
+    .dx-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .dx-actions .button { gap: 10px; }
+    .dx-danger { color: #e66a6a !important; }
+    .dx-danger:hover { border-color: #e66a6a !important; }
+
+    /* Booking cards */
+    .dx-bk { margin-bottom: 22px; }
+    .dx-bk-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; flex-wrap: wrap; }
+    .dx-foot-row { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 18px; padding-top: 14px; border-top: 1px dashed var(--line); font-size: 15px; color: var(--muted); }
+    .dx-foot-row span:last-child { color: var(--gold); font-weight: 600; }
+    .dx-hist { margin-top: 12px; font-size: 15px; }
+    .dx-hist summary { cursor: pointer; color: var(--muted); font-weight: 600; }
+    .dx-hist ul { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 8px; }
+    .dx-hist li { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); }
+    .dx-hist li b { color: var(--text); font-weight: 600; }
+
+    /* Forms inside dashboard */
+    .dx-main input:not([type=checkbox]):not([type=radio]), .dx-main select, .dx-main textarea, .dx-modal-box input:not([type=checkbox]), .dx-modal-box select { width: 100%; margin: 0; min-height: 46px; padding: 10px 14px; border-radius: 12px; font-size: 15px; background: var(--bg-soft); border: 1px solid var(--line); color: var(--text); outline: none; }
+    .dx-main textarea { min-height: 90px; resize: vertical; font: inherit; }
+    .dx-main input:focus, .dx-main select:focus, .dx-main textarea:focus { border-color: var(--gold); }
+    .dx-main input[type=checkbox], .dx-main input[type=radio] { width: auto; min-height: 0; margin: 0; accent-color: var(--gold); }
+    .dx-lab { display: block; margin: 0 0 6px; font-size: 14px; font-weight: 600; color: var(--text); }
+    .dx-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .dx-fields .full { grid-column: 1 / -1; }
+
+    /* Booking flow */
+    .dx-book { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(300px, 1fr); gap: 24px; align-items: start; }
+    .dx-book-main { display: grid; gap: 22px; }
+    .dx-step { display: inline-grid; place-items: center; width: 28px; height: 28px; margin-inline-end: 10px; border-radius: 50%; background: var(--grad); color: #0a0d14; font: 700 14px "Syne", sans-serif; }
+    body.light-theme .dx-step { color: #fff; }
+    .dx-card > h3 { margin-bottom: 16px; display: flex; align-items: center; }
+    .dx-vehicles, .dx-svc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+    .dx-choice { position: relative; display: block; margin: 0; cursor: pointer; }
+    .dx-choice input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .dx-cbody { display: flex; justify-content: space-between; align-items: center; gap: 12px; height: 100%; padding: 16px 18px; border: 1px solid var(--line); border-radius: 14px; background: var(--bg-soft); transition: all .25s; }
+    .dx-choice:hover .dx-cbody { border-color: var(--gold); }
+    .dx-choice input:checked + .dx-cbody { border-color: var(--gold); box-shadow: inset 0 0 0 1px var(--gold); background: color-mix(in srgb, var(--gold) 10%, var(--bg-soft)); }
+    .dx-choice input:focus-visible + .dx-cbody { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .dx-cbody b { display: block; font-size: 16px; color: var(--text); }
+    .dx-cbody small { display: block; color: var(--muted); font-size: 13px; font-weight: 400; margin-top: 2px; }
+    .dx-price { color: var(--gold); font-weight: 700; white-space: nowrap; }
+    .dx-newveh { margin-top: 16px; }
+    .dx-newveh[hidden] { display: none; }
+
+    .dx-dates { display: flex; gap: 10px; overflow-x: auto; padding: 2px 2px 10px; }
+    .dx-date { flex: 0 0 76px; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 12px 6px; border: 1px solid var(--line); border-radius: 14px; background: var(--bg-soft); color: var(--text); cursor: pointer; transition: all .25s; }
+    .dx-date b { font: 700 22px "Syne", sans-serif; }
+    .dx-date small { font-size: 12px; color: var(--muted); }
+    .dx-date:hover:not(:disabled) { border-color: var(--gold); transform: translateY(-2px); }
+    .dx-date.sel { background: var(--grad); border-color: transparent; color: #0a0d14; }
+    .dx-date.sel small { color: inherit; opacity: .8; }
+    body.light-theme .dx-date.sel { color: #fff; }
+    .dx-date:disabled { opacity: .4; cursor: not-allowed; }
+    .dx-hint { color: var(--muted); font-size: 15px; margin: 6px 0 12px; }
+    .dx-slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+    .dx-slot { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 14px 10px; border: 1px solid var(--line); border-radius: 14px; background: var(--bg-soft); color: var(--text); font-weight: 600; font-size: 15px; cursor: pointer; transition: all .25s; }
+    .dx-slot small { font-weight: 400; font-size: 12px; color: var(--muted); }
+    .dx-slot:hover:not(:disabled) { border-color: var(--gold); transform: translateY(-2px); }
+    .dx-slot.sel { background: var(--grad); color: #0a0d14; border-color: transparent; }
+    .dx-slot.sel small { color: inherit; opacity: .8; }
+    body.light-theme .dx-slot.sel { color: #fff; }
+    .dx-slot:disabled { opacity: .45; cursor: not-allowed; }
+    .dx-check { display: flex; align-items: center; gap: 12px; margin: 18px 0 0; font-size: 15px; color: var(--text); cursor: pointer; }
+
+    .dx-summary { position: sticky; top: 104px; }
+    .dx-summary h3 { margin-bottom: 14px; }
+    .dx-lines { list-style: none; margin: 0 0 14px; padding: 0; display: grid; gap: 10px; }
+    .dx-lines li { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 10px; border-bottom: 1px dashed var(--line); font-size: 15px; }
+    .dx-lines li.empty { color: var(--muted); border: 0; }
+    .dx-row { display: flex; justify-content: space-between; gap: 12px; margin: 0 0 10px; color: var(--muted); font-size: 15px; }
+    .dx-total { display: flex; justify-content: space-between; align-items: baseline; margin: 16px 0 6px; }
+    .dx-total strong { font: 700 clamp(30px, 3vw, 40px) "Syne", sans-serif; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .dx-earn { color: var(--gold); font-size: 15px; margin: 0 0 14px; }
+    .dx-slotline { font-weight: 600; margin: 12px 0 4px; }
+    .dx-summary small { display: block; margin-top: 12px; color: var(--muted); font-size: 13px; }
+    .dx-summary .button-full { justify-content: space-between; }
+
+    /* Loyalty */
+    .dx-points { font: 700 clamp(46px, 6vw, 72px)/1 "Syne", sans-serif; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; margin: 8px 0 6px; }
+    .dx-points small { font-size: .3em; letter-spacing: .1em; }
+    .dx-meter { height: 10px; border-radius: 99px; background: var(--line); overflow: hidden; margin: 18px 0 10px; }
+    .dx-meter span { display: block; height: 100%; background: var(--grad); border-radius: 99px; transition: width .6s var(--ease); }
+    .dx-tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 22px 0; }
+    .dx-tier.current { border-color: var(--gold); box-shadow: inset 0 0 0 1px var(--gold); }
+    .dx-tier ul { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; font-size: 15px; }
+    .dx-tier li:before { content: "✓ "; color: var(--secondary); font-weight: 700; }
+    .dx-rewards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin-top: 16px; }
+    .dx-reward { display: flex; flex-direction: column; gap: 8px; padding: 20px; border: 1px solid var(--line); border-radius: 16px; background: var(--bg-soft); }
+    .dx-reward p { margin: 0; color: var(--muted); font-size: 14px; flex: 1; }
+    .dx-reward b { font: 700 22px "Syne", sans-serif; color: var(--gold); }
+    .dx-voucher { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 14px 16px; border: 1px dashed var(--gold); border-radius: 14px; margin-top: 12px; }
+    .dx-voucher code { font: 700 16px "Syne", sans-serif; letter-spacing: .08em; color: var(--gold); }
+    .dx-voucher.used { opacity: .5; border-color: var(--line); }
+    .dx-ledger { list-style: none; margin: 12px 0 0; padding: 0; }
+    .dx-ledger li { display: flex; justify-content: space-between; gap: 16px; padding: 13px 0; border-bottom: 1px dashed var(--line); }
+    .dx-ledger li:last-child { border: 0; }
+    .dx-ledger small { display: block; color: var(--muted); font-size: 13px; }
+    .dx-ledger b { font-size: 18px; white-space: nowrap; }
+    .dx-ledger .pos { color: #2fbf7a; } .dx-ledger .neg { color: #e66a6a; }
+    .dx-ref { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 12px; }
+    .dx-ref code { padding: 12px 16px; border: 1px dashed var(--gold); border-radius: 12px; font: 700 18px "Syne", sans-serif; letter-spacing: .1em; color: var(--gold); }
+
+    /* Garage / history / settings */
+    .dx-cars { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; margin-bottom: 22px; }
+    .dx-car h3 { display: flex; justify-content: space-between; gap: 10px; align-items: center; }
+    .dx-car dl { margin: 12px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; font-size: 15px; }
+    .dx-car dt { color: var(--muted); } .dx-car dd { margin: 0; text-align: end; }
+    .dx-tablewrap { overflow-x: auto; }
+    .dx-table { width: 100%; border-collapse: collapse; min-width: 720px; font-size: 15px; }
+    .dx-table th, .dx-table td { padding: 15px 14px; text-align: start; border-bottom: 1px solid var(--line); }
+    .dx-table th { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    .dx-table tr:last-child td { border-bottom: 0; }
+    .dx-toggle { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px dashed var(--line); cursor: pointer; margin: 0; color: var(--text); font-size: 16px; }
+    .dx-toggle:last-of-type { border: 0; }
+    .dx-toggle small { display: block; color: var(--muted); font-size: 13px; }
+    .dx-switch { appearance: none; -webkit-appearance: none; width: 46px !important; height: 26px; min-height: 0 !important; border-radius: 99px; background: var(--line); position: relative; cursor: pointer; flex: 0 0 46px; transition: background .25s; }
+    .dx-switch:after { content: ""; position: absolute; top: 3px; inset-inline-start: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; transition: transform .25s; }
+    .dx-switch:checked { background: var(--gold); }
+    .dx-switch:checked:after { transform: translateX(20px); }
+    html[dir="rtl"] .dx-switch:checked:after { transform: translateX(-20px); }
+
+    /* Modal */
+    .dx-modal { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 20px; background: rgba(5, 6, 10, .72); backdrop-filter: blur(8px); overflow-y: auto; }
+    .dx-modal[hidden] { display: none; }
+    .dx-modal-box { position: relative; width: min(100%, 640px); max-height: calc(100vh - 40px); overflow-y: auto; padding: 32px; border: 1px solid var(--line); border-radius: 22px; background: var(--panel); color: var(--text); box-shadow: 0 30px 100px rgba(0, 0, 0, .5); }
+    .dx-modal-box h3 { font-size: 24px; margin: 0 0 6px; }
+    .dx-x { position: absolute; top: 12px; inset-inline-end: 16px; border: 0; background: none; font-size: 30px; color: var(--muted); cursor: pointer; }
+    .dx-inv-lines { list-style: none; margin: 18px 0; padding: 0; display: grid; gap: 10px; }
+    .dx-inv-lines li { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 10px; border-bottom: 1px dashed var(--line); }
+
+    /* Responsive */
+    @media (max-width: 1200px) { .dx-stats { grid-template-columns: 1fr 1fr; } .dx-grid3 { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 1000px) {
+      .dx-grid2, .dx-book { grid-template-columns: 1fr; }
+      .dx-summary { position: static; }
+      .dx-tiers { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 960px) {
+      .dx-shell { grid-template-columns: 1fr; }
+      .dx-side { position: fixed; inset-block: 0; inset-inline-start: 0; width: 290px; transform: translateX(-100%); transition: transform .35s var(--ease); box-shadow: 0 0 60px rgba(0, 0, 0, .5); }
+      html[dir="rtl"] .dx-side { transform: translateX(100%); }
+      body.nav-open .dx-side { transform: none; }
+      body.nav-open .dx-scrim { display: block; position: fixed; inset: 0; z-index: 60; background: rgba(5, 6, 10, .6); }
+      .dx-menu { display: inline-grid !important; }
+    }
+    @media (max-width: 700px) {
+      .dx-top { height: 72px; gap: 10px; }
+      .dx-user div { display: none; }
+      .dx-top .rtl-toggle { display: none; }
+      .dx-grid3 { grid-template-columns: 1fr; }
+      .dx-fields { grid-template-columns: 1fr; }
+      .dx-track { grid-template-columns: 1fr; gap: 14px; margin-top: 18px; }
+      .dx-track li { text-align: start; padding: 0 0 0 40px; font-size: 14px; }
+      .dx-track li i { left: 0; top: 0; margin: 0; }
+      .dx-track li:after { left: 10px; top: -16px; width: 2px; height: 14px; }
+      html[dir="rtl"] .dx-track li { padding: 0 40px 0 0; }
+      html[dir="rtl"] .dx-track li i { left: auto; right: 0; }
+      html[dir="rtl"] .dx-track li:after { left: auto; right: 10px; }
+      .dx-card { padding: 20px; }
+    }
+    @media (max-width: 520px) { .dx-stats { grid-template-columns: 1fr; } .dx-stat { min-height: 0; } }
+
+    @media print {
+      body.dash-app > *:not(#modal) { display: none !important; }
+      #modal { position: static; background: none; padding: 0; backdrop-filter: none; }
+      .dx-modal-box { box-shadow: none; border: 0; max-height: none; color: #000; background: #fff; }
+      .dx-x, .no-print { display: none !important; }
+    }
+  </style>
+  <script defer src="script.js"></script>
+</head>
+
+<body class="dash-app">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
+    <symbol id="i-car" viewBox="0 0 24 24"><path d="M4 15v-3l2-5h12l2 5v3"/><path d="M3 15h18v3H3z"/><circle cx="7.5" cy="18" r="1"/><circle cx="16.5" cy="18" r="1"/></symbol>
+    <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></symbol>
+    <symbol id="i-out" viewBox="0 0 24 24"><path d="M9 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h4M16 8l4 4-4 4M20 12H9"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  </svg>
+
+  <div class="dx-shell">
+    <aside class="dx-side" id="side">
+      <a class="brand" href="index.html" aria-label="NOIR Auto Atelier home">
+        <span class="brand-mark"><svg viewBox="0 0 48 48" role="img" aria-label="NOIR Auto Atelier emblem"><defs><linearGradient id="nlg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--gold-light)"/><stop offset="1" stop-color="var(--secondary)"/></linearGradient></defs><path d="M24 2.5 43 9.5v14c0 11-7.5 18.5-19 22-11.5-3.5-19-11-19-22v-14z" fill="none" stroke="url(#nlg)" stroke-width="1.8"/><path d="M15 28V13h3.6L30 24.5V13h3v15h-3.6L18 16.5V28z" fill="url(#nlg)"/><path d="M9.5 35.5c2-3.2 4.6-4.5 8-4.5h13c3.4 0 6 1.3 8 4.5" fill="none" stroke="url(#nlg)" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="36" r="2.1" fill="url(#nlg)"/><circle cx="32" cy="36" r="2.1" fill="url(#nlg)"/><path d="M12 21 21 11" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".5"/></svg></span>
+        <span class="brand-copy"><strong>NOIR</strong><small>AUTO ATELIER</small></span>
+      </a>
+      <nav class="dx-nav" aria-label="Dashboard">
+        <button type="button" data-view="overview"><svg class="ic"><use href="#i-grid"/></svg>Overview</button>
+        <button type="button" data-view="book"><svg class="ic"><use href="#i-cal"/></svg>Book a slot</button>
+        <button type="button" data-view="services"><svg class="ic"><use href="#i-pulse"/></svg>Service tracker</button>
+        <button type="button" data-view="loyalty"><svg class="ic"><use href="#i-star"/></svg>Loyalty &amp; rewards</button>
+        <button type="button" data-view="garage"><svg class="ic"><use href="#i-car"/></svg>My garage</button>
+        <button type="button" data-view="history"><svg class="ic"><use href="#i-receipt"/></svg>History &amp; invoices</button>
+        <button type="button" data-view="settings"><svg class="ic"><use href="#i-gear"/></svg>Settings</button>
+      </nav>
+      <div class="dx-side-foot">
+        <button type="button" class="dx-mini" data-view="loyalty"><small>Loyalty points</small><strong id="miniPts">0</strong><span id="miniTier"></span></button>
+        <button type="button" class="dx-signout" data-act="signout"><svg class="ic"><use href="#i-out"/></svg>Sign out</button>
+      </div>
+    </aside>
+    <div class="dx-scrim" id="scrim"></div>
+
+    <div class="dx-main">
+      <header class="dx-top">
+        <button class="icon-btn dx-menu" type="button" data-act="menu" aria-label="Open menu"><svg class="ic"><use href="#i-menu"/></svg></button>
+        <h1 id="viewTitle">Overview</h1>
+        <button class="icon-btn theme-toggle" type="button" aria-label="Switch to light mode" title="Switch to light mode"><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button class="icon-btn rtl-toggle" type="button" aria-label="Switch to right-to-left layout" title="Toggle text direction">RTL</button>
+        <button class="dx-user" type="button" data-view="settings" aria-label="Open settings"><span class="dx-avatar" id="uAvatar">N</span><div><b id="uName">Guest</b><small id="uTier">Silver member</small></div></button>
+      </header>
+      <main class="dx-content" id="view"></main>
+    </div>
+  </div>
+
+  <div class="dx-modal" id="modal" hidden><div class="dx-modal-box" role="dialog" aria-modal="true"><button class="dx-x" type="button" data-act="close" aria-label="Close">×</button><div id="modalBody"></div></div></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+  (function () {
+    "use strict";
+    var $ = function (s, r) { return (r || document).querySelector(s); };
+    var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+    /* ---------- helpers ---------- */
+    var KEY = "noir-dash-v1";
+    var store = {
+      get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+      set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+      del: function (k) { try { localStorage.removeItem(k); } catch (e) {} }
+    };
+    function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+    function money(n) { return "₹" + Math.round(n).toLocaleString("en-IN"); }
+    function num(n) { return Math.round(n).toLocaleString("en-IN"); }
+    function uid(p) { return p + Math.random().toString(36).slice(2, 7).toUpperCase(); }
+    function toast(msg) {
+      var t = $("#toast"); if (!t) return;
+      t.textContent = msg; t.classList.add("show");
+      clearTimeout(toast._t); toast._t = setTimeout(function () { t.classList.remove("show"); }, 3000);
+    }
+
+    var pad = function (n) { return String(n).padStart(2, "0"); };
+    var iso = function (d) { return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); };
+    var parse = function (s) { return new Date(s + "T00:00:00"); };
+    var todayISO = function () { return iso(new Date()); };
+    var addDays = function (s, n) { var d = parse(s); d.setDate(d.getDate() + n); return iso(d); };
+    var diffDays = function (a, b) { return Math.round((parse(a) - parse(b)) / 864e5); };
+    var fmtDate = function (s) { return parse(s).toLocaleDateString("en-IN", { weekday: "short", day: "numeric", month: "short" }); };
+    var fmtLong = function (s) { return parse(s).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }); };
+    var fmtTs = function (t) { return new Date(t).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" }); };
+    var isSunday = function (s) { return parse(s).getDay() === 0; };
+    function slotHour(t) { var m = t.match(/(\d+):(\d+) (AM|PM)/); var h = (+m[1]) % 12; if (m[3] === "PM") h += 12; return h; }
+    function ago(t) {
+      var m = Math.round((Date.now() - t) / 6e4);
+      if (m < 1) return "just now"; if (m < 60) return m + " min ago";
+      var h = Math.round(m / 60); if (h < 24) return h + " h ago";
+      return Math.round(h / 24) + " d ago";
+    }
+    function nextOpenDate(from) { var d = from; while (isSunday(d)) d = addDays(d, 1); return d; }
+
+    /* ---------- catalogue ---------- */
+    var SERVICES = [
+      { id: "ceramic", name: "Ceramic coating", price: 24999, days: 3, note: "Up to 5-year protection" },
+      { id: "correction", name: "Paint correction", price: 8499, days: 2, note: "Removes swirls and haze" },
+      { id: "interior", name: "Interior atelier", price: 5999, days: 1, note: "Deep clean and condition" },
+      { id: "full", name: "Full detail package", price: 32999, days: 5, note: "Correction + coating + interior" },
+      { id: "ppf", name: "Paint protection film", price: 39999, days: 3, note: "Self-healing, up to 8 years" },
+      { id: "tint", name: "Ceramic window tint", price: 12999, days: 1, note: "Up to 70% heat rejection" },
+      { id: "wheel", name: "Wheel & glass protection", price: 3499, days: 1, note: "Repels water and brake dust" },
+      { id: "engine", name: "Engine bay detail", price: 2499, days: 1, note: "Safe clean and dress" },
+      { id: "wash", name: "Maintenance wash", price: 1499, days: 1, note: "Foam wash, dry and dressing" }
+    ];
+    var SIZES = { "Hatchback": 1, "Sedan": 1.15, "SUV": 1.3, "Luxury / sports": 1.5 };
+    var STAGES = ["Requested", "Confirmed", "Vehicle received", "In treatment", "Quality check", "Ready for pickup", "Completed"];
+    var NOTES = [
+      "Request received. The studio will confirm your slot shortly.",
+      "Slot confirmed. Bring your car on the day, or we will collect it if you chose pickup.",
+      "Your vehicle has arrived and has been inspected.",
+      "Treatment is underway in our climate-controlled bay.",
+      "Final inspection under swirl-finder lighting.",
+      "All done. Your car is ready for pickup.",
+      "Completed. Thank you, your points have been added."
+    ];
+    var SLOTS = ["09:00 AM", "11:00 AM", "01:00 PM", "03:00 PM", "05:00 PM"];
+    var PICKUP_FEE = 799;
+    var TIERS = [
+      { name: "Silver", min: 0, mult: 1, perks: ["5 points per ₹100 spent", "Free first maintenance wash with a full package", "Progress updates at every stage"] },
+      { name: "Gold", min: 2500, mult: 1.25, perks: ["1.25× points on every booking", "Priority slot scheduling", "Complimentary tyre dressing"] },
+      { name: "Platinum", min: 6000, mult: 1.5, perks: ["1.5× points on every booking", "Free doorstep pickup and drop", "Annual coating inspection included"] }
+    ];
+    var REWARDS = [
+      { id: "r1", name: "Tyre dressing & fragrance", cost: 300, desc: "Added to any visit." },
+      { id: "r2", name: "Free maintenance wash", cost: 600, desc: "Foam wash, dry and dressing." },
+      { id: "r3", name: "₹1,000 service credit", cost: 1000, desc: "Applied to your next invoice at the studio." },
+      { id: "r4", name: "Wheel & glass protection", cost: 1800, desc: "Full wheel and glass coating, on us." }
+    ];
+
+    /* ---------- user + state ---------- */
+    function readUser() {
+      var raw = store.get("noir-user"); if (!raw) return { name: "Guest", email: "guest@noiratelier.example" };
+      var u; try { u = JSON.parse(raw); } catch (e) { u = null; }
+      if (!u || typeof u !== "object") u = { email: String(raw) };
+      if (!u.email) u.email = "guest@noiratelier.example";
+      if (!u.name) {
+        var l = u.email.split("@")[0].replace(/[._-]+/g, " ").trim();
+        u.name = l.replace(/\b\w/g, function (c) { return c.toUpperCase(); }) || "Guest";
+      }
+      return u;
+    }
+
+    var S;
+    function save() { store.set(KEY, JSON.stringify(S)); }
+    function balance() { return S.ledger.reduce(function (a, l) { return a + l.pts; }, 0); }
+    function lifetime() { return S.ledger.reduce(function (a, l) { return a + ((l.type === "earn" || l.type === "bonus") ? l.pts : 0); }, 0); }
+    function tier() { var t = TIERS[0]; TIERS.forEach(function (x) { if (lifetime() >= x.min) t = x; }); return t; }
+    function nextTier() { var t = tier(); return TIERS[TIERS.indexOf(t) + 1] || null; }
+    function names(b) { return b.items.map(function (i) { return i.name; }).join(", "); }
+
+    function quote(ids, size, pickup, usePts) {
+      var mult = SIZES[size] || 1;
+      var items = ids.map(function (id) { return SERVICES.filter(function (s) { return s.id === id; })[0]; }).filter(Boolean)
+        .map(function (s) { return { id: s.id, name: s.name, price: Math.round(s.price * mult), days: s.days }; });
+      var subtotal = items.reduce(function (a, i) { return a + i.price; }, 0);
+      var rate = items.length >= 3 ? 0.1 : items.length === 2 ? 0.05 : 0;
+      var discount = Math.round(subtotal * rate);
+      var t = tier();
+      var pickupFee = (pickup && t.name !== "Platinum") ? PICKUP_FEE : 0;
+      var total = subtotal - discount + pickupFee;
+      var maxRedeem = Math.max(0, Math.min(balance(), Math.floor((subtotal - discount) * 0.3)));
+      var redeem = usePts ? maxRedeem : 0;
+      total -= redeem;
+      return { items: items, subtotal: subtotal, rate: rate, discount: discount, pickupFee: pickupFee, maxRedeem: maxRedeem, redeem: redeem, total: total, earn: Math.floor(total * 0.05 * t.mult), days: items.reduce(function (a, i) { return a + i.days; }, 0) };
+    }
+
+    function makeBooking(v, q, date, time, o) {
+      o = o || {};
+      var created = o.created || Date.now();
+      return { id: uid("NA-"), vehicleId: v.id, vehicle: v.name, size: v.size, items: q.items, subtotal: q.subtotal, discount: q.discount, pickupFee: q.pickupFee, redeemed: q.redeem, total: q.total, earn: q.earn, pickup: !!o.pickup, date: date, time: time, notes: o.notes || "", stage: 0, cancelled: false, awarded: false, created: created, history: [{ stage: 0, t: created }] };
+    }
+
+    function seed(u) {
+      var now = Date.now(), day = 864e5, today = todayISO();
+      S = { user: { name: u.name, email: u.email, phone: u.phone || "" }, vehicles: [], bookings: [], ledger: [], vouchers: [], prefs: { sms: true, email: true, whatsapp: false, promos: false } };
+      var v1 = { id: "V-CRETA", name: "Hyundai Creta", plate: "TN 22 AB 4821", size: "SUV", def: true };
+      var v2 = { id: "V-BMW3", name: "BMW 3 Series", plate: "TN 09 CK 1107", size: "Sedan", def: false };
+      S.vehicles.push(v1, v2);
+      S.ledger.push({ id: uid("L"), t: now - 70 * day, label: "Welcome bonus", pts: 250, type: "bonus" });
+
+      var d1 = nextOpenDate(addDays(today, -60));
+      var b1 = makeBooking(v1, quote(["ceramic", "interior"], v1.size, false, false), d1, "11:00 AM", { created: now - 66 * day });
+      b1.stage = 6; b1.awarded = true;
+      b1.history = [0, 1, 2, 3, 4, 5, 6].map(function (s, i) { return { stage: s, t: now - (66 - i) * day }; });
+      S.bookings.push(b1);
+      S.ledger.push({ id: uid("L"), t: now - 60 * day, label: "Completed · " + names(b1), pts: b1.earn, type: "earn" });
+
+      var b2 = makeBooking(v2, quote(["wheel", "engine"], v2.size, false, false), today, "09:00 AM", { created: now - 2 * day });
+      b2.stage = 3;
+      b2.history = [{ stage: 0, t: now - 2 * day }, { stage: 1, t: now - 1.6 * day }, { stage: 2, t: now - 6 * 36e5 }, { stage: 3, t: now - 2 * 36e5 }];
+      S.bookings.push(b2);
+
+      var b3 = makeBooking(v1, quote(["wash"], v1.size, false, false), nextOpenDate(addDays(today, 6)), "11:00 AM", { created: now - 3 * 36e5 });
+      b3.stage = 1; b3.history = [{ stage: 0, t: now - 3 * 36e5 }, { stage: 1, t: now - 36e5 }];
+      S.bookings.push(b3);
+      save();
+    }
+
+    function load(u) {
+      var raw = store.get(KEY), d = null;
+      try { d = raw ? JSON.parse(raw) : null; } catch (e) { d = null; }
+      if (d && d.user && d.user.email === u.email && Array.isArray(d.bookings)) {
+        S = d;
+        if (u.name && u.name !== d.user.name && !d.user.name) d.user.name = u.name;
+      } else seed(u);
+    }
+
+    /* ---------- derived ---------- */
+    function activeB() { return S.bookings.filter(function (b) { return !b.cancelled && b.stage < 6; }); }
+    function upcomingB() {
+      return S.bookings.filter(function (b) { return !b.cancelled && b.stage <= 1 && b.date >= todayISO(); })
+        .sort(function (a, b) { return a.date.localeCompare(b.date) || slotHour(a.time) - slotHour(b.time); });
+    }
+    function currentB() {
+      return activeB().sort(function (a, b) { return b.stage - a.stage || a.date.localeCompare(b.date); })[0] || null;
+    }
+    function doneB() { return S.bookings.filter(function (b) { return !b.cancelled && b.stage === 6; }); }
+    function spend() { return doneB().reduce(function (a, b) { return a + b.total; }, 0); }
+
+    /* ---------- slots ---------- */
+    function hash(s) { var h = 0; for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h; }
+    function slotStatus(d, t, ignore) {
+      if (isSunday(d)) return "closed";
+      if (S.bookings.some(function (b) { return !b.cancelled && b.id !== ignore && b.date === d && b.time === t; })) return "yours";
+      if (d === todayISO() && slotHour(t) <= new Date().getHours()) return "past";
+      if (hash(d + t) % 4 === 0) return "full";
+      return "open";
+    }
+    var SLOT_LABEL = { open: "Available", full: "Fully booked", past: "Passed", yours: "Your booking", closed: "Closed" };
+
+    function pickerShell(name) { return '<div class="dx-picker" data-picker="' + name + '"><div class="dx-dates"></div><p class="dx-hint"></p><div class="dx-slots"></div></div>'; }
+    function pickerRender(ctx, root) {
+      var dates = $(".dx-dates", root), slots = $(".dx-slots", root), hint = $(".dx-hint", root);
+      var t = todayISO(), h = "";
+      for (var i = 0; i < 21; i++) {
+        var d = addDays(t, i), dd = parse(d), closed = isSunday(d);
+        h += '<button type="button" class="dx-date' + (ctx.date === d ? " sel" : "") + '" data-date="' + d + '"' + (closed ? " disabled" : "") + '><small>' + dd.toLocaleDateString("en-IN", { weekday: "short" }) + '</small><b>' + dd.getDate() + '</b><small>' + (closed ? "Closed" : dd.toLocaleDateString("en-IN", { month: "short" })) + '</small></button>';
+      }
+      dates.innerHTML = h;
+      if (!ctx.date) { slots.innerHTML = ""; hint.textContent = "Pick a date to see available slots."; return; }
+      hint.textContent = "Slots for " + fmtDate(ctx.date) + " · studio hours 9 AM – 7 PM";
+      slots.innerHTML = SLOTS.map(function (tm) {
+        var st = slotStatus(ctx.date, tm, ctx.ignore);
+        return '<button type="button" class="dx-slot' + (ctx.time === tm ? " sel" : "") + '" data-time="' + tm + '"' + (st === "open" ? "" : " disabled") + '>' + tm + '<small>' + SLOT_LABEL[st] + '</small></button>';
+      }).join("");
+    }
+
+    /* ---------- booking draft ---------- */
+    var D, R;
+    function newDraft() {
+      var dv = S.vehicles.filter(function (v) { return v.def; })[0] || S.vehicles[0];
+      return { vehicleId: dv ? dv.id : "new", nvName: "", nvPlate: "", nvSize: "Sedan", services: [], date: "", time: "", pickup: false, notes: "", usePts: false };
+    }
+    function draftSize() {
+      if (D.vehicleId === "new") return D.nvSize;
+      var v = S.vehicles.filter(function (x) { return x.id === D.vehicleId; })[0];
+      return v ? v.size : "Sedan";
+    }
+    function draftVehName() {
+      if (D.vehicleId === "new") return D.nvName.trim() || "New vehicle";
+      var v = S.vehicles.filter(function (x) { return x.id === D.vehicleId; })[0];
+      return v ? v.name : "";
+    }
+
+    function svcGridHTML() {
+      var m = SIZES[draftSize()] || 1;
+      return SERVICES.map(function (s) {
+        return '<label class="dx-choice"><input type="checkbox" data-svc="' + s.id + '"' + (D.services.indexOf(s.id) > -1 ? " checked" : "") + '><span class="dx-cbody"><span><b>' + esc(s.name) + '</b><small>' + esc(s.note) + ' · ' + s.days + (s.days > 1 ? " days" : " day") + '</small></span><span class="dx-price">' + money(s.price * m) + '</span></span></label>';
+      }).join("");
+    }
+
+    function updateSummary() {
+      var box = $("#sumBox"); if (!box) return;
+      var q = quote(D.services, draftSize(), D.pickup, D.usePts);
+      var lines = q.items.length ? q.items.map(function (i) { return "<li><span>" + esc(i.name) + "</span><b>" + money(i.price) + "</b></li>"; }).join("") : '<li class="empty">Select at least one treatment</li>';
+      var slot = D.date && D.time ? fmtDate(D.date) + " · " + D.time : "Choose a date and time";
+      box.innerHTML = '<h3>Booking summary</h3><p class="dx-meta" style="margin:0 0 14px">' + esc(draftVehName()) + ' · ' + esc(draftSize()) + '</p><ul class="dx-lines">' + lines + '</ul>' +
+        '<div class="dx-row"><span>Bundle discount</span><b>' + (q.rate ? "− " + money(q.discount) + " (" + q.rate * 100 + "%)" : "—") + '</b></div>' +
+        '<div class="dx-row"><span>Doorstep pickup</span><b>' + (D.pickup ? (q.pickupFee ? money(q.pickupFee) : "Free") : "—") + '</b></div>' +
+        '<label class="dx-check" style="margin:6px 0 10px"><input type="checkbox" data-usepts' + (D.usePts ? " checked" : "") + (q.maxRedeem || D.usePts ? "" : " disabled") + '><span>' + (q.maxRedeem || D.usePts ? "Use " + num(q.maxRedeem) + " points (− " + money(q.maxRedeem) + ")" : "No points to redeem yet") + '</span></label>' +
+        '<div class="dx-total"><span>Estimated total</span><strong>' + money(q.total) + '</strong></div>' +
+        (q.items.length ? '<p class="dx-meta" style="margin:0">Estimated time: up to ' + q.days + (q.days > 1 ? " days" : " day") + '</p>' : "") +
+        '<p class="dx-slotline">' + esc(slot) + '</p><p class="dx-earn">You will earn about ' + num(q.earn) + ' points</p>' +
+        '<button class="button button-gold button-full" type="button" data-act="confirm-book">Confirm booking <span>↗</span></button><small>Final price is confirmed after inspection. The studio confirms your slot shortly.</small>';
+    }
+
+    function confirmBook() {
+      var v;
+      if (D.vehicleId === "new") {
+        if (!D.nvName.trim()) return toast("Enter your vehicle make and model");
+        v = { id: uid("V-"), name: D.nvName.trim(), plate: D.nvPlate.trim().toUpperCase(), size: D.nvSize, def: S.vehicles.length === 0 };
+      } else v = S.vehicles.filter(function (x) { return x.id === D.vehicleId; })[0];
+      if (!v) return toast("Choose a vehicle");
+      if (!D.services.length) return toast("Select at least one treatment");
+      if (!D.date) return toast("Pick a date");
+      if (!D.time) return toast("Pick a time slot");
+      if (slotStatus(D.date, D.time) !== "open") { toast("That slot was just taken. Please pick another."); return; }
+      var q = quote(D.services, v.size, D.pickup, D.usePts);
+      if (D.vehicleId === "new") S.vehicles.push(v);
+      var b = makeBooking(v, q, D.date, D.time, { pickup: D.pickup, notes: D.notes });
+      S.bookings.push(b);
+      if (q.redeem > 0) S.ledger.push({ id: uid("L"), t: Date.now(), label: "Redeemed on booking " + b.id, pts: -q.redeem, type: "redeem" });
+      save(); D = newDraft();
+      toast("Booking requested · " + b.id);
+      go("services");
+    }
+
+    /* ---------- stage actions ---------- */
+    function advance(id) {
+      var b = S.bookings.filter(function (x) { return x.id === id; })[0];
+      if (!b || b.cancelled || b.stage >= 6) return;
+      var before = tier().name;
+      b.stage++; b.history.push({ stage: b.stage, t: Date.now() });
+      if (b.stage === 6 && !b.awarded) {
+        b.awarded = true;
+        if (b.earn > 0) S.ledger.push({ id: uid("L"), t: Date.now(), label: "Completed · " + names(b), pts: b.earn, type: "earn" });
+        var after = tier().name;
+        toast("Service completed · +" + num(b.earn) + " points" + (after !== before ? " · You reached " + after + "!" : ""));
+      } else toast("Status updated: " + STAGES[b.stage]);
+      save(); render();
+    }
+    function cancelBooking(id) {
+      var b = S.bookings.filter(function (x) { return x.id === id; })[0];
+      if (!b || b.stage > 1) return;
+      b.cancelled = true; b.history.push({ stage: -1, t: Date.now() });
+      if (b.redeemed > 0) S.ledger.push({ id: uid("L"), t: Date.now(), label: "Refund · cancelled " + b.id, pts: b.redeemed, type: "refund" });
+      save(); closeModal(); toast("Booking cancelled"); render();
+    }
+
+    /* ---------- view helpers ---------- */
+    function badge(b) {
+      if (b.cancelled) return '<span class="dx-badge bad">Cancelled</span>';
+      if (b.stage === 6) return '<span class="dx-badge ok">Completed</span>';
+      if (b.stage === 5) return '<span class="dx-badge ok">Ready for pickup</span>';
+      if (b.stage >= 2) return '<span class="dx-badge warn">' + STAGES[b.stage] + '</span>';
+      return '<span class="dx-badge info">' + STAGES[b.stage] + '</span>';
+    }
+    function tracker(stage) {
+      return '<ol class="dx-track">' + STAGES.map(function (s, i) {
+        var done = i < stage || stage === 6, now = i === stage && stage !== 6;
+        return '<li class="' + (done ? "done" : now ? "now" : "") + '"><i>' + (done ? "✓" : "") + '</i><span>' + s + '</span></li>';
+      }).join("") + '</ol>';
+    }
+    function bookingCard(b) {
+      var early = b.stage <= 1;
+      return '<article class="dx-card dx-bk"><div class="dx-bk-head"><div><p class="dx-id">' + esc(b.id) + '</p><h3>' + esc(names(b)) + '</h3><p class="dx-meta">' + esc(b.vehicle) + ' · ' + esc(b.size) + ' · ' + fmtDate(b.date) + ', ' + esc(b.time) + (b.pickup ? " · Doorstep pickup" : "") + '</p></div>' + badge(b) + '</div>' +
+        tracker(b.stage) + '<p class="dx-note">' + esc(NOTES[b.stage]) + '</p>' +
+        '<details class="dx-hist"><summary>Status history</summary><ul>' + b.history.slice().reverse().map(function (h) { return '<li><b>' + (h.stage < 0 ? "Cancelled" : esc(STAGES[h.stage])) + '</b><span>' + fmtTs(h.t) + '</span></li>'; }).join("") + '</ul></details>' +
+        '<div class="dx-actions">' + (early ? '<button class="button button-outline button-small" type="button" data-act="resched" data-id="' + b.id + '">Reschedule</button><button class="button button-outline button-small dx-danger" type="button" data-act="cancel" data-id="' + b.id + '">Cancel booking</button>' : "") +
+        '<button class="button button-gold button-small" type="button" data-act="advance" data-id="' + b.id + '" title="Demo: moves the booking to its next stage, as the studio would">Simulate studio update <span>↗</span></button></div>' +
+        '<div class="dx-foot-row"><span>Total ' + money(b.total) + '</span><span>You will earn ' + num(b.earn) + ' pts</span></div></article>';
+    }
+
+    function reminders() {
+      var out = [], today = todayISO(), done = doneB();
+      function last(ids) {
+        var l = done.filter(function (b) { return b.items.some(function (i) { return ids.indexOf(i.id) > -1; }); }).sort(function (a, b) { return b.date.localeCompare(a.date); })[0];
+        return l ? l.date : null;
+      }
+      function pending(id) { return activeB().some(function (b) { return b.items.some(function (i) { return i.id === id; }); }); }
+      var c = last(["ceramic", "full"]);
+      if (c && !pending("wash")) out.push({ title: "Coating maintenance wash", due: addDays(c, 30), svc: "wash" });
+      var i = last(["interior", "full"]);
+      if (i && !pending("interior")) out.push({ title: "Interior refresh", due: addDays(i, 180), svc: "interior" });
+      if (c) out.push({ title: "Annual coating inspection", due: addDays(c, 365), svc: "wash" });
+      return out.map(function (r) {
+        var d = diffDays(r.due, today);
+        r.label = d < 0 ? "Overdue by " + (-d) + (d === -1 ? " day" : " days") : d === 0 ? "Due today" : "Due in " + d + (d === 1 ? " day" : " days");
+        r.cls = d < 0 ? "due-bad" : d <= 30 ? "due-warn" : "due-ok";
+        return r;
+      }).sort(function (a, b) { return a.due.localeCompare(b.due); });
+    }
+
+    function activity() {
+      var ev = [];
+      S.bookings.forEach(function (b) {
+        b.history.forEach(function (h) { ev.push({ t: h.t, text: (h.stage < 0 ? "Cancelled" : STAGES[h.stage]) + " · " + b.vehicle }); });
+      });
+      S.ledger.forEach(function (l) { ev.push({ t: l.t, text: l.label + " (" + (l.pts > 0 ? "+" : "") + num(l.pts) + " pts)" }); });
+      return ev.sort(function (a, b) { return b.t - a.t; }).slice(0, 6);
+    }
+
+    /* ---------- views ---------- */
+    var TITLES = { overview: "Overview", book: "Book a slot", services: "Service tracker", loyalty: "Loyalty & rewards", garage: "My garage", history: "History & invoices", settings: "Settings" };
+    var VIEWS = {};
+
+    VIEWS.overview = function () {
+      var first = S.user.name.split(" ")[0] || "there";
+      var h = new Date().getHours(), greet = h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : "Good evening";
+      var act = activeB(), cur = currentB(), nxt = upcomingB()[0], t = tier(), nt = nextTier();
+      var sub;
+      if (cur && cur.stage >= 2) sub = "Your " + esc(cur.vehicle) + " is at the \"" + STAGES[cur.stage] + "\" stage for " + esc(names(cur)) + ".";
+      else if (nxt) sub = "Your next visit is " + fmtDate(nxt.date) + " at " + esc(nxt.time) + " for your " + esc(nxt.vehicle) + ".";
+      else sub = "No services booked yet. Reserve a slot to get started.";
+
+      var stats = '<div class="dx-stats">' +
+        '<div class="dx-stat"><span>Active services</span><strong>' + act.length + '</strong><small>' + act.filter(function (b) { return b.stage >= 2; }).length + ' in progress</small></div>' +
+        '<div class="dx-stat hl"><span>Next appointment</span><strong>' + (nxt ? fmtDate(nxt.date) : "—") + '</strong><small>' + (nxt ? esc(nxt.time) + " · " + esc(nxt.vehicle) : "Nothing scheduled") + '</small></div>' +
+        '<div class="dx-stat"><span>Loyalty points</span><strong>' + num(balance()) + '</strong><small>' + t.name + ' tier · worth ' + money(balance()) + '</small></div>' +
+        '<div class="dx-stat"><span>Lifetime spend</span><strong>' + money(spend()) + '</strong><small>' + doneB().length + ' completed ' + (doneB().length === 1 ? "service" : "services") + '</small></div></div>';
+
+      var curCard;
+      if (cur) {
+        curCard = '<section class="dx-card"><div class="dx-bk-head"><div><h3>Current service</h3><p class="dx-meta">' + esc(names(cur)) + ' · ' + esc(cur.vehicle) + '</p></div>' + badge(cur) + '</div>' + tracker(cur.stage) +
+          '<div class="dx-pbar"><span style="width:' + Math.round(cur.stage / 6 * 100) + '%"></span></div><p class="dx-note">' + esc(NOTES[cur.stage]) + '</p>' +
+          '<div class="dx-actions"><button class="button button-outline button-small" type="button" data-view="services">All services</button><button class="button button-gold button-small" type="button" data-act="advance" data-id="' + cur.id + '">Simulate studio update <span>↗</span></button></div></section>';
+      } else {
+        curCard = '<section class="dx-card dx-empty"><h3>No active service</h3><p>Book a detailing slot and follow every stage here, from request to ready for pickup.</p><button class="button button-gold" type="button" data-view="book">Book a slot <span>↗</span></button></section>';
+      }
+
+      var pct = nt ? Math.min(100, Math.round((lifetime() - t.min) / (nt.min - t.min) * 100)) : 100;
+      var loy = '<section class="dx-card"><h3>Loyalty</h3><p class="dx-sub">' + t.name + ' member</p><div class="dx-points">' + num(balance()) + '<small> PTS</small></div><div class="dx-meter"><span style="width:' + pct + '%"></span></div>' +
+        '<p class="dx-meta">' + (nt ? num(nt.min - lifetime()) + " more points to reach " + nt.name : "You have reached the top tier.") + '</p><div class="dx-actions"><button class="button button-gold button-small" type="button" data-view="book">Book and earn <span>↗</span></button><button class="button button-outline button-small" type="button" data-view="loyalty">Rewards</button></div></section>';
+
+      var up = upcomingB().slice(0, 3);
+      var upCard = '<section class="dx-card"><h3>Upcoming</h3><p class="dx-sub">Your next appointments</p>' + (up.length ? '<ul class="dx-list">' + up.map(function (b) { return '<li><div><b>' + esc(names(b)) + '</b><small>' + fmtDate(b.date) + ' · ' + esc(b.time) + ' · ' + esc(b.vehicle) + '</small></div>' + badge(b) + '</li>'; }).join("") + '</ul>' : '<p class="dx-meta">No upcoming appointments.</p>') + '</section>';
+
+      var rem = reminders().slice(0, 3);
+      var remCard = '<section class="dx-card"><h3>Care reminders</h3><p class="dx-sub">Keep your finish perfect</p>' + (rem.length ? '<ul class="dx-list">' + rem.map(function (r) { return '<li><div><b>' + esc(r.title) + '</b><small class="' + r.cls + '">' + r.label + '</small></div><button class="button button-outline button-small" type="button" data-act="add-svc" data-svc="' + r.svc + '">Book</button></li>'; }).join("") + '</ul>' : '<p class="dx-meta">Complete your first treatment and we will remind you when maintenance is due. Tip: wash with a pH-neutral shampoo and the two-bucket method.</p>') + '</section>';
+
+      var act6 = activity();
+      var actCard = '<section class="dx-card"><h3>Recent activity</h3><p class="dx-sub">Updates and points</p><ul class="dx-list">' + act6.map(function (e) { return '<li><span>' + esc(e.text) + '</span><small>' + ago(e.t) + '</small></li>'; }).join("") + '</ul></section>';
+
+      return '<div class="dx-hello"><h2>' + greet + ', ' + esc(first) + '</h2><p>' + sub + '</p></div>' + stats + '<div class="dx-grid2">' + curCard + loy + '</div><div class="dx-grid3">' + upCard + remCard + actCard + '</div>';
+    };
+
+    VIEWS.book = function () {
+      var vehs = S.vehicles.map(function (v) {
+        return '<label class="dx-choice"><input type="radio" name="veh" value="' + v.id + '"' + (D.vehicleId === v.id ? " checked" : "") + '><span class="dx-cbody"><span><b>' + esc(v.name) + '</b><small>' + esc(v.size) + (v.plate ? " · " + esc(v.plate) : "") + '</small></span></span></label>';
+      }).join("") + '<label class="dx-choice"><input type="radio" name="veh" value="new"' + (D.vehicleId === "new" ? " checked" : "") + '><span class="dx-cbody"><span><b>+ Add a new vehicle</b><small>Enter its details below</small></span></span></label>';
+      var sizeOpts = Object.keys(SIZES).map(function (s) { return '<option' + (D.nvSize === s ? " selected" : "") + '>' + s + '</option>'; }).join("");
+      return '<div class="dx-book"><div class="dx-book-main">' +
+        '<section class="dx-card"><h3><span class="dx-step">1</span>Your vehicle</h3><div class="dx-vehicles">' + vehs + '</div>' +
+        '<div class="dx-newveh dx-fields" id="nvBox"' + (D.vehicleId === "new" ? "" : " hidden") + '><div><label class="dx-lab" for="nvName">Make and model</label><input id="nvName" placeholder="e.g. Toyota Fortuner" value="' + esc(D.nvName) + '"></div><div><label class="dx-lab" for="nvPlate">Number plate (optional)</label><input id="nvPlate" placeholder="TN 00 AB 0000" value="' + esc(D.nvPlate) + '"></div><div class="full"><label class="dx-lab" for="nvSize">Size</label><select id="nvSize">' + sizeOpts + '</select></div></div></section>' +
+        '<section class="dx-card"><h3><span class="dx-step">2</span>Treatments</h3><p class="dx-sub">Prices adjust to your vehicle size. Combine two for 5% off, three or more for 10% off.</p><div class="dx-svc-grid" id="svcGrid">' + svcGridHTML() + '</div></section>' +
+        '<section class="dx-card"><h3><span class="dx-step">3</span>Date and time</h3>' + pickerShell("book") +
+        '<label class="dx-check"><input type="checkbox" data-pickup' + (D.pickup ? " checked" : "") + '><span>Doorstep pickup and drop (' + money(PICKUP_FEE) + ', free for Platinum members)</span></label></section>' +
+        '<section class="dx-card"><h3><span class="dx-step">4</span>Notes <span class="dx-meta" style="margin-left:8px">(optional)</span></h3><textarea id="notes" rows="3" placeholder="Anything we should know about your vehicle?">' + esc(D.notes) + '</textarea></section></div>' +
+        '<aside class="dx-card dx-summary" id="sumBox"></aside></div>';
+    };
+
+    VIEWS.services = function () {
+      var act = activeB().sort(function (a, b) { return a.date.localeCompare(b.date); });
+      if (!act.length) return '<section class="dx-card dx-empty"><h3>No active services</h3><p>When you book a slot, you can follow every stage here. Completed and cancelled bookings are in History.</p><button class="button button-gold" type="button" data-view="book">Book a slot <span>↗</span></button></section>';
+      return '<div class="dx-hello"><h2>Track your service</h2><p>Follow your vehicle from request to ready for pickup.</p></div>' + act.map(bookingCard).join("");
+    };
+
+    VIEWS.loyalty = function () {
+      var t = tier(), nt = nextTier();
+      var pct = nt ? Math.min(100, Math.round((lifetime() - t.min) / (nt.min - t.min) * 100)) : 100;
+      var tiers = TIERS.map(function (x) {
+        return '<div class="dx-card dx-tier' + (x.name === t.name ? " current" : "") + '"><h3>' + x.name + (x.name === t.name ? ' <span class="dx-badge info" style="margin-inline-start:6px">Current</span>' : "") + '</h3><p class="dx-meta">' + (x.min ? num(x.min) + "+ lifetime points" : "Starting tier") + '</p><ul>' + x.perks.map(function (p) { return "<li>" + p + "</li>"; }).join("") + '</ul></div>';
+      }).join("");
+      var rewards = REWARDS.map(function (r) {
+        var ok = balance() >= r.cost;
+        return '<div class="dx-reward"><b>' + num(r.cost) + ' pts</b><strong>' + esc(r.name) + '</strong><p>' + esc(r.desc) + '</p><button class="button ' + (ok ? "button-gold" : "button-outline") + ' button-small" type="button" data-act="redeem" data-id="' + r.id + '"' + (ok ? "" : " disabled") + '>' + (ok ? "Redeem" : "Need " + num(r.cost - balance()) + " more") + '</button></div>';
+      }).join("");
+      var vouchers = S.vouchers.length ? S.vouchers.map(function (v) {
+        return '<div class="dx-voucher' + (v.used ? " used" : "") + '"><div><b>' + esc(v.name) + '</b><br><code>' + esc(v.code) + '</code></div>' + (v.used ? '<span class="dx-badge">Used</span>' : '<button class="button button-outline button-small" type="button" data-act="voucher-used" data-id="' + v.id + '">Mark as used</button>') + '</div>';
+      }).join("") : '<p class="dx-meta">Redeemed rewards appear here. Show the code at the studio.</p>';
+      var ledger = S.ledger.slice().sort(function (a, b) { return b.t - a.t; }).slice(0, 12).map(function (l) {
+        return '<li><div><b>' + esc(l.label) + '</b><small>' + fmtTs(l.t) + '</small></div><b class="' + (l.pts >= 0 ? "pos" : "neg") + '">' + (l.pts >= 0 ? "+" : "") + num(l.pts) + '</b></li>';
+      }).join("");
+      var ref = (S.user.name.split(" ")[0] || "NOIR").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 6) + "-300";
+
+      return '<div class="dx-grid2"><section class="dx-card"><p class="dx-id">YOUR BALANCE</p><div class="dx-points">' + num(balance()) + '<small> POINTS</small></div><p class="dx-meta">Worth ' + money(balance()) + ' at checkout · ' + t.name + ' member (' + t.mult + '× earning)</p><div class="dx-meter"><span style="width:' + pct + '%"></span></div><p class="dx-meta">' + (nt ? num(nt.min - lifetime()) + " more points to reach " + nt.name : "You have reached the top tier.") + '</p></section>' +
+        '<section class="dx-card"><h3>How points work</h3><ul class="dx-list"><li><span>Earn on every completed service</span><b>5 pts / ₹100</b></li><li><span>Redeem at checkout</span><b>1 pt = ₹1</b></li><li><span>Maximum per booking</span><b>30% of bill</b></li><li><span>Welcome bonus</span><b>250 pts</b></li></ul></section></div>' +
+        '<div class="dx-tiers">' + tiers + '</div>' +
+        '<section class="dx-card" style="margin-bottom:22px"><h3>Rewards</h3><p class="dx-sub">Spend points on extras. You can also use points directly when booking a slot.</p><div class="dx-rewards">' + rewards + '</div><h3 style="margin-top:26px">Your vouchers</h3>' + vouchers + '</section>' +
+        '<div class="dx-grid2" style="margin-bottom:0"><section class="dx-card"><h3>Points history</h3><ul class="dx-ledger">' + ledger + '</ul></section><section class="dx-card"><h3>Refer a friend</h3><p class="dx-sub">You both get 300 points after their first completed service.</p><div class="dx-ref"><code>' + esc(ref) + '</code><button class="button button-outline button-small" type="button" data-act="copy-ref" data-code="' + esc(ref) + '">Copy code</button></div></section></div>';
+    };
+
+    VIEWS.garage = function () {
+      var cars = S.vehicles.map(function (v) {
+        var mine = S.bookings.filter(function (b) { return b.vehicleId === v.id && !b.cancelled && b.stage === 6; }).sort(function (a, b) { return b.date.localeCompare(a.date); });
+        var busy = S.bookings.some(function (b) { return b.vehicleId === v.id && !b.cancelled && b.stage < 6; });
+        return '<article class="dx-card dx-car"><h3>' + esc(v.name) + (v.def ? ' <span class="dx-badge info">Default</span>' : "") + '</h3><dl><dt>Size</dt><dd>' + esc(v.size) + '</dd><dt>Plate</dt><dd>' + (esc(v.plate) || "—") + '</dd><dt>Services done</dt><dd>' + mine.length + '</dd><dt>Last service</dt><dd>' + (mine[0] ? fmtLong(mine[0].date) : "—") + '</dd></dl>' +
+          '<div class="dx-actions"><button class="button button-gold button-small" type="button" data-act="book-for" data-id="' + v.id + '">Book for this car</button>' + (v.def ? "" : '<button class="button button-outline button-small" type="button" data-act="veh-default" data-id="' + v.id + '">Make default</button>') +
+          '<button class="button button-outline button-small dx-danger" type="button" data-act="veh-del" data-id="' + v.id + '"' + (busy ? ' disabled title="Has an active booking"' : "") + '>Remove</button></div></article>';
+      }).join("");
+      var sizeOpts = Object.keys(SIZES).map(function (s) { return "<option>" + s + "</option>"; }).join("");
+      return '<div class="dx-cars">' + (cars || '<section class="dx-card dx-empty"><p>Your garage is empty. Add a vehicle below.</p></section>') + '</div>' +
+        '<section class="dx-card"><h3>Add a vehicle</h3><p class="dx-sub">Save your cars to book faster next time.</p><div class="dx-fields"><div><label class="dx-lab" for="gvName">Make and model</label><input id="gvName" placeholder="e.g. Audi Q5"></div><div><label class="dx-lab" for="gvPlate">Number plate (optional)</label><input id="gvPlate" placeholder="TN 00 AB 0000"></div><div><label class="dx-lab" for="gvSize">Size</label><select id="gvSize">' + sizeOpts + '</select></div></div><div class="dx-actions"><button class="button button-gold" type="button" data-act="veh-add">Add vehicle <span>↗</span></button></div></section>';
+    };
+
+    VIEWS.history = function () {
+      var rows = S.bookings.filter(function (b) { return b.cancelled || b.stage === 6; }).sort(function (a, b) { return b.date.localeCompare(a.date); });
+      if (!rows.length) return '<section class="dx-card dx-empty"><h3>No history yet</h3><p>Completed and cancelled bookings, with their invoices, will appear here.</p><button class="button button-gold" type="button" data-view="book">Book a slot <span>↗</span></button></section>';
+      return '<section class="dx-card"><div class="dx-tablewrap"><table class="dx-table"><thead><tr><th>Date</th><th>Reference</th><th>Vehicle</th><th>Services</th><th>Total</th><th>Points</th><th>Status</th><th></th></tr></thead><tbody>' + rows.map(function (b) {
+        return '<tr><td>' + fmtLong(b.date) + '</td><td>' + esc(b.id) + '</td><td>' + esc(b.vehicle) + '</td><td>' + esc(names(b)) + '</td><td>' + money(b.total) + '</td><td>' + (b.cancelled ? "—" : "+" + num(b.earn)) + '</td><td>' + badge(b) + '</td><td>' + (b.cancelled ? "" : '<button class="button button-outline button-small" type="button" data-act="invoice" data-id="' + b.id + '">Invoice</button>') + '</td></tr>';
+      }).join("") + '</tbody></table></div></section>';
+    };
+
+    VIEWS.settings = function () {
+      var p = S.prefs;
+      function tog(k, title, desc) { return '<label class="dx-toggle"><span>' + title + '<small>' + desc + '</small></span><input type="checkbox" class="dx-switch" data-pref="' + k + '"' + (p[k] ? " checked" : "") + '></label>'; }
+      return '<div class="dx-grid2" style="margin-bottom:0"><section class="dx-card"><h3>Profile</h3><p class="dx-sub">Used for booking confirmations and invoices.</p><div class="dx-fields"><div><label class="dx-lab" for="pfName">Full name</label><input id="pfName" value="' + esc(S.user.name) + '" autocomplete="name"></div><div><label class="dx-lab" for="pfPhone">Phone</label><input id="pfPhone" type="tel" placeholder="+91 98765 43210" value="' + esc(S.user.phone) + '" autocomplete="tel"></div><div class="full"><label class="dx-lab" for="pfEmail">Email address</label><input id="pfEmail" type="email" value="' + esc(S.user.email) + '" autocomplete="email"></div></div><div class="dx-actions"><button class="button button-gold" type="button" data-act="save-profile">Save changes <span>↗</span></button></div></section>' +
+        '<section class="dx-card"><h3>Notifications</h3><p class="dx-sub">Choose how the studio reaches you.</p>' + tog("sms", "SMS updates", "Status changes and pickup alerts") + tog("email", "Email updates", "Confirmations and invoices") + tog("whatsapp", "WhatsApp photos", "Progress photos at each stage") + tog("promos", "Offers and studio notes", "Seasonal offers, no spam") + '</section></div>' +
+        '<section class="dx-card" style="margin-top:22px"><h3>Account</h3><p class="dx-sub">This is a demo: your data lives in this browser only.</p><div class="dx-actions"><button class="button button-outline" type="button" data-act="signout">Sign out</button><button class="button button-outline dx-danger" type="button" data-act="reset">Reset demo data</button></div></section>';
+    };
+
+    /* ---------- render + routing ---------- */
+    var view = "overview";
+    function currentViewFromHash() { var h = location.hash.replace("#", ""); return VIEWS[h] ? h : "overview"; }
+    function chrome() {
+      var t = tier();
+      $("#miniPts").textContent = num(balance());
+      $("#miniTier").textContent = t.name + " tier";
+      $("#uName").textContent = S.user.name;
+      $("#uTier").textContent = t.name + " member";
+      $("#uAvatar").textContent = S.user.name.split(" ").map(function (w) { return w[0]; }).join("").slice(0, 2).toUpperCase() || "N";
+      $("#viewTitle").textContent = TITLES[view];
+      document.title = TITLES[view] + " — NOIR Auto Atelier";
+      $$(".dx-nav button").forEach(function (b) { b.classList.toggle("active", b.dataset.view === view); });
+    }
+    function render(top) {
+      view = currentViewFromHash();
+      $("#view").innerHTML = VIEWS[view]();
+      chrome();
+      if (view === "book") { pickerRender(D, $('[data-picker="book"]')); updateSummary(); }
+      if (top) window.scrollTo(0, 0);
+    }
+    function go(v) {
+      document.body.classList.remove("nav-open");
+      if (location.hash === "#" + v) render(true); else location.hash = v;
+    }
+    window.addEventListener("hashchange", function () { render(true); });
+
+    /* ---------- modal ---------- */
+    function openModal(html) { $("#modalBody").innerHTML = html; $("#modal").hidden = false; }
+    function closeModal() { $("#modal").hidden = true; $("#modalBody").innerHTML = ""; }
+
+    function invoiceHTML(b) {
+      var gst = b.total - b.total / 1.18;
+      return '<p class="dx-id">INVOICE</p><h3>INV-' + esc(b.id) + '</h3><p class="dx-meta">NOIR Auto Atelier · Chennai, Tamil Nadu</p>' +
+        '<ul class="dx-list" style="margin-top:16px"><li><span>Billed to</span><b>' + esc(S.user.name) + '</b></li><li><span>Vehicle</span><b>' + esc(b.vehicle) + ' (' + esc(b.size) + ')</b></li><li><span>Service date</span><b>' + fmtLong(b.date) + '</b></li></ul>' +
+        '<ul class="dx-inv-lines">' + b.items.map(function (i) { return '<li><span>' + esc(i.name) + '</span><b>' + money(i.price) + '</b></li>'; }).join("") +
+        (b.discount ? '<li><span>Bundle discount</span><b>− ' + money(b.discount) + '</b></li>' : "") + (b.pickupFee ? '<li><span>Doorstep pickup</span><b>' + money(b.pickupFee) + '</b></li>' : "") +
+        (b.redeemed ? '<li><span>Points applied</span><b>− ' + money(b.redeemed) + '</b></li>' : "") + '</ul>' +
+        '<div class="dx-total"><span>Total paid</span><strong>' + money(b.total) + '</strong></div><p class="dx-meta">Includes GST (18%): ' + money(gst) + ' · Points earned: ' + num(b.earn) + '</p>' +
+        '<div class="dx-actions no-print"><button class="button button-gold" type="button" data-act="print">Print invoice <span>↗</span></button></div>';
+    }
+
+    /* ---------- events ---------- */
+    document.addEventListener("click", function (e) {
+      var pick = e.target.closest("[data-date],[data-time]");
+      if (pick) {
+        var root = pick.closest(".dx-picker");
+        if (root) {
+          var name = root.dataset.picker, ctx = name === "book" ? D : R;
+          if (pick.dataset.date) { if (ctx.date !== pick.dataset.date) ctx.time = ""; ctx.date = pick.dataset.date; }
+          if (pick.dataset.time) ctx.time = pick.dataset.time;
+          pickerRender(ctx, root);
+          if (name === "book") updateSummary();
+          return;
+        }
+      }
+      var v = e.target.closest("[data-view]");
+      if (v) { go(v.dataset.view); return; }
+      var a = e.target.closest("[data-act]");
+      if (!a) { if (e.target === $("#modal")) closeModal(); return; }
+      var act = a.dataset.act, id = a.dataset.id;
+      if (act === "menu") document.body.classList.toggle("nav-open");
+      else if (act === "close") closeModal();
+      else if (act === "advance") advance(id);
+      else if (act === "confirm-book") confirmBook();
+      else if (act === "add-svc") { D = newDraft(); D.services = [a.dataset.svc]; go("book"); }
+      else if (act === "book-for") { D = newDraft(); D.vehicleId = id; go("book"); }
+      else if (act === "cancel") {
+        openModal('<h3>Cancel this booking?</h3><p class="dx-sub">' + esc(id) + ' will be cancelled' + (S.bookings.filter(function (b) { return b.id === id; })[0].redeemed ? ", and your redeemed points will be refunded" : "") + '.</p><div class="dx-actions"><button class="button button-outline dx-danger" type="button" data-act="cancel-yes" data-id="' + id + '">Yes, cancel booking</button><button class="button button-outline" type="button" data-act="close">Keep booking</button></div>');
+      }
+      else if (act === "cancel-yes") cancelBooking(id);
+      else if (act === "resched") {
+        var b = S.bookings.filter(function (x) { return x.id === id; })[0];
+        R = { id: id, date: "", time: "", ignore: id };
+        openModal('<h3>Reschedule</h3><p class="dx-sub">' + esc(names(b)) + ' · currently ' + fmtDate(b.date) + ', ' + esc(b.time) + '</p>' + pickerShell("resched") + '<div class="dx-actions"><button class="button button-gold" type="button" data-act="resched-save" data-id="' + id + '">Save new slot <span>↗</span></button><button class="button button-outline" type="button" data-act="close">Cancel</button></div>');
+        pickerRender(R, $('[data-picker="resched"]'));
+      }
+      else if (act === "resched-save") {
+        if (!R.date || !R.time) return toast("Pick a new date and time");
+        var bb = S.bookings.filter(function (x) { return x.id === id; })[0];
+        if (slotStatus(R.date, R.time, id) !== "open") return toast("That slot is not available");
+        bb.date = R.date; bb.time = R.time; save(); closeModal(); toast("Rescheduled to " + fmtDate(R.date) + ", " + R.time); render();
+      }
+      else if (act === "invoice") { openModal(invoiceHTML(S.bookings.filter(function (x) { return x.id === id; })[0])); }
+      else if (act === "print") window.print();
+      else if (act === "redeem") {
+        var r = REWARDS.filter(function (x) { return x.id === id; })[0];
+        if (!r || balance() < r.cost) return toast("Not enough points yet");
+        S.ledger.push({ id: uid("L"), t: Date.now(), label: "Redeemed · " + r.name, pts: -r.cost, type: "redeem" });
+        S.vouchers.unshift({ id: uid("V"), code: "NOIR-" + Math.random().toString(36).slice(2, 6).toUpperCase() + "-" + Math.random().toString(36).slice(2, 6).toUpperCase(), name: r.name, t: Date.now(), used: false });
+        save(); toast("Reward redeemed: " + r.name); render();
+      }
+      else if (act === "voucher-used") { S.vouchers.forEach(function (x) { if (x.id === id) x.used = true; }); save(); render(); }
+      else if (act === "copy-ref") {
+        var code = a.dataset.code;
+        (navigator.clipboard ? navigator.clipboard.writeText(code) : Promise.reject()).then(function () { toast("Referral code copied"); }, function () { toast(code); });
+      }
+      else if (act === "veh-default") { S.vehicles.forEach(function (x) { x.def = x.id === id; }); save(); render(); toast("Default vehicle updated"); }
+      else if (act === "veh-del") {
+        S.vehicles = S.vehicles.filter(function (x) { return x.id !== id; });
+        if (S.vehicles.length && !S.vehicles.some(function (x) { return x.def; })) S.vehicles[0].def = true;
+        save(); render(); toast("Vehicle removed");
+      }
+      else if (act === "veh-add") {
+        var nm = $("#gvName").value.trim(); if (!nm) return toast("Enter the vehicle make and model");
+        S.vehicles.push({ id: uid("V-"), name: nm, plate: $("#gvPlate").value.trim().toUpperCase(), size: $("#gvSize").value, def: S.vehicles.length === 0 });
+        save(); render(); toast("Vehicle added");
+      }
+      else if (act === "save-profile") {
+        var n = $("#pfName").value.trim(), em = $("#pfEmail").value.trim();
+        if (!n) return toast("Please enter your name");
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) return toast("Please enter a valid email");
+        S.user.name = n; S.user.email = em; S.user.phone = $("#pfPhone").value.trim();
+        save(); store.set("noir-user", JSON.stringify({ name: n, email: em, phone: S.user.phone })); chrome(); toast("Profile saved");
+      }
+      else if (act === "reset") { store.del(KEY); location.reload(); }
+      else if (act === "signout") { store.del("noir-user"); location.href = "index.html"; }
+    });
+
+    document.addEventListener("change", function (e) {
+      var t = e.target;
+      if (t.name === "veh") { D.vehicleId = t.value; $("#nvBox").hidden = t.value !== "new"; $("#svcGrid").innerHTML = svcGridHTML(); updateSummary(); }
+      else if (t.dataset && t.dataset.svc) {
+        var id = t.dataset.svc, i = D.services.indexOf(id);
+        if (t.checked && i < 0) D.services.push(id); else if (!t.checked && i > -1) D.services.splice(i, 1);
+        if (t.checked) {
+          var parts = ["ceramic", "correction", "interior"];
+          if (id === "full") D.services = D.services.filter(function (x) { return parts.indexOf(x) < 0; });
+          else if (parts.indexOf(id) > -1) D.services = D.services.filter(function (x) { return x !== "full"; });
+          $("#svcGrid").innerHTML = svcGridHTML();
+        }
+        updateSummary();
+      }
+      else if (t.hasAttribute && t.hasAttribute("data-pickup")) { D.pickup = t.checked; updateSummary(); }
+      else if (t.hasAttribute && t.hasAttribute("data-usepts")) { D.usePts = t.checked; updateSummary(); }
+      else if (t.id === "nvSize") { D.nvSize = t.value; $("#svcGrid").innerHTML = svcGridHTML(); updateSummary(); }
+      else if (t.dataset && t.dataset.pref) { S.prefs[t.dataset.pref] = t.checked; save(); toast("Preference saved"); }
+    });
+    document.addEventListener("input", function (e) {
+      var t = e.target;
+      if (t.id === "nvName") { D.nvName = t.value; updateSummary(); }
+      else if (t.id === "nvPlate") D.nvPlate = t.value;
+      else if (t.id === "notes") D.notes = t.value;
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") { closeModal(); document.body.classList.remove("nav-open"); }
+    });
+    $("#scrim").addEventListener("click", function () { document.body.classList.remove("nav-open"); });
+
+    /* ---------- boot ---------- */
+    var user = readUser();
+    /* Dashboard is a separate page: it opens directly, no login redirect. */
+    load(user);
+    D = newDraft();
+    render(false);
+  })();
+  </script>
+</body>
+
+</html>

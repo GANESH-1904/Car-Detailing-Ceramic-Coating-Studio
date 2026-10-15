@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0d14">
+  <meta name="description" content="NOIR Auto Atelier — precision detailing, paint correction and ceramic coating for exceptional vehicles.">
+  <title>NOIR Auto Atelier — Crafted to Reflect</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23eef1f7'/%3E%3Cstop offset='1' stop-color='%237d93c9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='15' fill='%230a0d14'/%3E%3Crect x='3' y='3' width='58' height='58' rx='12' fill='none' stroke='url(%23g)' stroke-opacity='.45' stroke-width='1.5'/%3E%3Cpath d='M18 40V16h5.5L40 34V16h6v24h-5.5L24 22v18z' fill='url(%23g)'/%3E%3Cpath d='M9 50c3-5 7-7 12-7h22c5 0 9 2 12 7' fill='none' stroke='%237d93c9' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='21' cy='50' r='3' fill='%23d5dbe8'/%3E%3Ccircle cx='43' cy='50' r='3' fill='%23d5dbe8'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Syne:wght@500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  <header class="site-header" id="top">
+    <a class="brand" href="index.html" aria-label="NOIR Auto Atelier home">
+      <span class="brand-mark"><svg viewBox="0 0 48 48" role="img" aria-label="NOIR Auto Atelier emblem"><defs><linearGradient id="nlg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--gold-light)"/><stop offset="1" stop-color="var(--secondary)"/></linearGradient></defs><path d="M24 2.5 43 9.5v14c0 11-7.5 18.5-19 22-11.5-3.5-19-11-19-22v-14z" fill="none" stroke="url(#nlg)" stroke-width="1.8"/><path d="M15 28V13h3.6L30 24.5V13h3v15h-3.6L18 16.5V28z" fill="url(#nlg)"/><path d="M9.5 35.5c2-3.2 4.6-4.5 8-4.5h13c3.4 0 6 1.3 8 4.5" fill="none" stroke="url(#nlg)" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="36" r="2.1" fill="url(#nlg)"/><circle cx="32" cy="36" r="2.1" fill="url(#nlg)"/><path d="M12 21 21 11" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".5"/></svg></span>
+      <span class="brand-copy"><strong>NOIR</strong><small>AUTO ATELIER</small></span>
+    </a>
+    <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
+    <nav class="main-nav" aria-label="Main navigation">
+      <div class="nav-dropdown">
+        <button class="nav-link nav-home-toggle active" type="button" aria-expanded="false">Home <span aria-hidden="true">⌄</span></button>
+        <div class="nav-dropdown-menu">
+          <a href="index.html" class="nav-dropdown-link active">Home</a>
+          <a href="home2.html" class="nav-dropdown-link">Home 2</a>
+        </div>
+      </div>
+      <a class="nav-link" href="about.html">About</a>
+      <a class="nav-link" href="services.html">Services</a>
+      <a class="nav-link" href="estimator.html">Estimator</a>
+      <a class="nav-link" href="gallery.html">Gallery</a>
+      <a class="nav-link nav-dashboard" href="dashboard.html">Dashboard ↗</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn theme-toggle" type="button" aria-label="Switch to light mode" title="Switch to light mode"><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn rtl-toggle" type="button" aria-label="Switch to right-to-left layout" title="Toggle text direction">RTL</button>
+      <a class="button button-gold button-small header-login" href="login.html">Client login <span>↗</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-image"></div><div class="hero-orb orb-a" aria-hidden="true"></div><div class="hero-orb orb-b" aria-hidden="true"></div><div class="hero-glare" aria-hidden="true"></div><div class="hero-vignette"></div>
+      <div class="hero-banner">
+        <b>NEW</b>
+        <span>Full detail package now includes a free first maintenance wash</span>
+        <a href="#booking">Book now <span>↗</span></a>
+      </div>
+      <div class="hero-content reveal">
+        <p class="eyebrow"><span class="eyebrow-line"></span> THE ART OF AUTOMOTIVE CARE</p>
+        <h1>Crafted to<br><em>reflect.</em></h1>
+        <p class="hero-lede">More than a finish. A feeling. Precision detailing and advanced surface protection for those who notice every detail.</p>
+        <div class="hero-actions"><a class="button button-gold" href="#booking">Reserve your session <span>↗</span></a><a class="play-link" href="estimator.html"><span class="play-icon">↘</span> Get an instant estimate</a></div>
+        <div class="hero-proof"><div class="proof-avatars"><span>NA</span><span>✦</span><span>+</span></div><div><strong>1,200+</strong><small>vehicles refined with care</small></div><div class="proof-divider"></div><div><strong>5.0 <span class="stars">★★★★★</span></strong><small>client experience rating</small></div></div>
+      </div>
+      <div class="hero-chips"><div class="chip"><strong>9H</strong><span>Ceramic hardness</span></div><div class="chip"><strong>5 yr</strong><span>Coating protection</span></div><div class="chip chip-status" id="studioStatus"><i class="dot"></i><span id="studioStatusText">Checking studio hours…</span></div></div>
+    </section>
+
+    <section class="home2-section section-pad" id="home2">
+      <div class="section-kicker reveal"><span>THE ATELIER EXPERIENCE</span></div>
+      <div class="home2-grid">
+        <div class="home2-image reveal" role="img" aria-label="Luxury car detailing under studio lights"></div>
+        <div class="home2-copy reveal"><p class="eyebrow">A DIFFERENT STANDARD</p><h2>Beyond clean.<br><em>Considered.</em></h2><p>From the first inspection to the final light check, every step is designed around your vehicle's finish, materials and the way you drive.</p><a class="button button-gold" href="#booking">Plan your treatment <span>↗</span></a></div>
+      </div>
+    </section>
+
+    <section class="ticker" aria-label="Our approach"><div class="ticker-track"><span>PAINT PERFECTION</span><b>✳</b><span>UNCOMPROMISING DETAIL</span><b>✳</b><span>LASTING PROTECTION</span><b>✳</b><span>PAINT PERFECTION</span><b>✳</b><span>UNCOMPROMISING DETAIL</span><b>✳</b><span>LASTING PROTECTION</span><b>✳</b></div></section>
+
+    <section class="intro section-pad" id="about">
+      <span id="studio" class="anchor-alias" aria-hidden="true"></span>
+      <div class="section-kicker reveal"><span>OUR PHILOSOPHY</span></div>
+      <div class="intro-grid">
+        <div class="intro-heading reveal"><h2>Every surface<br>has a <em>story.</em></h2></div>
+        <div class="intro-copy reveal"><p class="large-copy">We bring a considered, craft-first approach to automotive care. Every contour is inspected. Every surface is treated with intention. Every finish leaves with a deeper kind of brilliance.</p><p class="muted-copy">From a meticulous interior reset to multi-stage paint correction and ceramic protection, our studio pairs proven techniques with an almost unreasonable attention to detail.</p><a class="underlined-link" href="services.html">Discover our approach <span>↗</span></a></div>
+      </div>
+      <div class="stats-row reveal">
+        <div><strong data-count="1200" data-suffix="+">0</strong><span>VEHICLES REFINED</span></div>
+        <div><strong data-count="98" data-suffix="%">0</strong><span>CLIENT RETURN RATE</span></div>
+        <div><strong data-count="7" data-suffix="+">0</strong><span>YEARS OF CRAFT</span></div>
+        <div><strong>1:1</strong><span>PERSONALIZED CARE</span></div>
+      </div>
+    </section>
+
+    <section class="services section-pad" id="services">
+      <div class="section-kicker reveal"><span>OUR SERVICES</span></div>
+      <div class="section-heading-row reveal"><div><p class="eyebrow">THE NOIR MENU</p><h2>Care, without<br><em>compromise.</em></h2></div><p class="section-side-copy">Purpose-built treatments. Thoughtful processes. Results that look as good as they feel.</p></div>
+      <div class="service-grid">
+        <article class="service-card service-featured reveal"><div class="service-image image-ceramic"></div><div class="service-number">01 / SIGNATURE</div><div class="service-card-content"><div><h3>Ceramic coating</h3><p>A glass-like, hydrophobic shield with remarkable depth and gloss.</p></div><a href="#booking" class="circle-arrow" aria-label="Book ceramic coating">↗</a></div><div class="service-meta"><span>UP TO 5-YEAR PROTECTION</span><span>FROM ₹24,999</span></div></article>
+        <article class="service-card reveal"><div class="service-image image-paint"></div><div class="service-number">02 / CORRECTION</div><div class="service-card-content"><div><h3>Paint correction</h3><p>Refining swirls and imperfections to reveal a cleaner, deeper finish.</p></div><a href="#booking" class="circle-arrow" aria-label="Book paint correction">↗</a></div><div class="service-meta"><span>MULTI-STAGE POLISH</span><span>FROM ₹8,499</span></div></article>
+        <article class="service-card reveal"><div class="service-image image-interior"></div><div class="service-number">03 / INTERIOR</div><div class="service-card-content"><div><h3>Interior atelier</h3><p>A meticulous cabin refresh for leather, textiles, trim and touchpoints.</p></div><a href="#booking" class="circle-arrow" aria-label="Book interior detailing">↗</a></div><div class="service-meta"><span>DEEP CLEAN + CONDITION</span><span>FROM ₹5,999</span></div></article>
+      </div>
+      <div class="service-bottom reveal"><span>Not sure what your vehicle needs?</span><a class="underlined-link" href="estimator.html">Get an instant estimate <span>↗</span></a></div>
+    </section>
+
+    <section class="explorer section-pad" id="explorer">
+      <div class="section-kicker reveal"><span>TREATMENT EXPLORER</span></div>
+      <div class="section-heading-row reveal"><div><p class="eyebrow">KNOW WHAT YOU ARE BUYING</p><h2>Pick a treatment.<br><em>See inside.</em></h2></div></div>
+      <div class="tabs reveal" role="tablist" aria-label="Treatments">
+        <button class="tab active" type="button" role="tab" aria-selected="true" data-tab="ceramic">Ceramic coating</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-tab="correction">Paint correction</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-tab="interior">Interior atelier</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-tab="full">Full package</button>
+      </div>
+      <div class="tab-panels reveal">
+        <article class="tab-panel active" id="panel-ceramic" role="tabpanel"><div class="panel-main"><h3>Ceramic coating</h3><p>A nano-ceramic layer bonds to your clear coat, creating a hard, glossy, water-repelling shield that makes washing easier.</p><ul class="check-list"><li>Full wash, clay and iron decontamination</li><li>Machine polish before coating</li><li>Two-layer nano-ceramic application</li><li>Wheels, glass and trim sealed</li></ul></div><div class="panel-facts"><div class="fact"><span>Duration</span><strong>2–3 days</strong></div><div class="fact"><span>Protection</span><strong>Up to 5 years</strong></div><div class="fact"><span>Ideal for</span><strong>New or well-kept cars</strong></div><div class="fact"><span>From</span><strong>₹24,999</strong></div><a class="button button-gold" href="#booking" data-service="Ceramic coating">Book this treatment <span>↗</span></a></div></article>
+        <article class="tab-panel" id="panel-correction" role="tabpanel"><div class="panel-main"><h3>Paint correction</h3><p>Multi-stage machine polishing removes swirls, haze and light scratches so the paint reflects like new.</p><ul class="check-list"><li>Paint-depth measurement before we start</li><li>Compound and polish matched to your paint</li><li>Inspection under swirl-finder lights</li><li>Optional sealant for six months of protection</li></ul></div><div class="panel-facts"><div class="fact"><span>Duration</span><strong>1–2 days</strong></div><div class="fact"><span>Result</span><strong>Mirror-deep gloss</strong></div><div class="fact"><span>Ideal for</span><strong>Swirled or dull paint</strong></div><div class="fact"><span>From</span><strong>₹8,499</strong></div><a class="button button-gold" href="#booking" data-service="Paint correction">Book this treatment <span>↗</span></a></div></article>
+        <article class="tab-panel" id="panel-interior" role="tabpanel"><div class="panel-main"><h3>Interior atelier</h3><p>A deep clean and condition for every surface you touch, from seats and carpets to vents and screens.</p><ul class="check-list"><li>Vacuum, steam and extraction of seats and carpets</li><li>Leather cleaned and conditioned</li><li>Dashboard, trim and vents detailed</li><li>Odour and allergen treatment</li></ul></div><div class="panel-facts"><div class="fact"><span>Duration</span><strong>Half a day</strong></div><div class="fact"><span>Refresh</span><strong>Every 6–12 months</strong></div><div class="fact"><span>Ideal for</span><strong>Family and daily cars</strong></div><div class="fact"><span>From</span><strong>₹5,999</strong></div><a class="button button-gold" href="#booking" data-service="Interior atelier">Book this treatment <span>↗</span></a></div></article>
+        <article class="tab-panel" id="panel-full" role="tabpanel"><div class="panel-main"><h3>Full detail package</h3><p>Interior atelier, paint correction and ceramic coating in a single booking, with one inspection and one hand-over.</p><ul class="check-list"><li>Everything in the three treatments</li><li>Priority scheduling</li><li>Free first maintenance wash</li><li>One written inspection report</li></ul></div><div class="panel-facts"><div class="fact"><span>Duration</span><strong>4–5 days</strong></div><div class="fact"><span>Protection</span><strong>Up to 5 years</strong></div><div class="fact"><span>Ideal for</span><strong>Showroom-level results</strong></div><div class="fact"><span>From</span><strong>₹32,999</strong></div><a class="button button-gold" href="#booking" data-service="Full detail package">Book this package <span>↗</span></a></div></article>
+      </div>
+    </section>
+
+    <section class="estimator section-pad" id="estimator">
+      <div class="section-kicker reveal"><span>PRICE ESTIMATOR</span></div>
+      <div class="section-heading-row reveal"><div><p class="eyebrow">BUILD YOUR PLAN</p><h2>Know the price<br><em>before you book.</em></h2></div><p class="section-side-copy">Choose your vehicle size and treatments. Combine two for 5% off, or three or more for 10% off.</p></div>
+      <div class="est-grid reveal">
+        <div class="est-controls">
+          <fieldset><legend>1. Vehicle size</legend><div class="size-options">
+            <label class="pill"><input type="radio" name="size" value="1" data-label="Hatchback" checked><span>Hatchback</span></label>
+            <label class="pill"><input type="radio" name="size" value="1.15" data-label="Sedan"><span>Sedan</span></label>
+            <label class="pill"><input type="radio" name="size" value="1.3" data-label="SUV"><span>SUV</span></label>
+            <label class="pill"><input type="radio" name="size" value="1.5" data-label="Luxury or sports car"><span>Luxury / sports</span></label>
+          </div></fieldset>
+          <fieldset><legend>2. Treatments</legend><div class="est-treatments">
+            <label class="opt"><input type="checkbox" data-name="Ceramic coating" data-price="24999" data-days="3" checked><span class="opt-body"><span class="opt-name">Ceramic coating<small>Up to 5-year protection</small></span><span class="opt-price">₹24,999</span></span></label>
+            <label class="opt"><input type="checkbox" data-name="Paint correction" data-price="8499" data-days="2"><span class="opt-body"><span class="opt-name">Paint correction<small>Removes swirls and haze</small></span><span class="opt-price">₹8,499</span></span></label>
+            <label class="opt"><input type="checkbox" data-name="Interior atelier" data-price="5999" data-days="1"><span class="opt-body"><span class="opt-name">Interior atelier<small>Deep clean and condition</small></span><span class="opt-price">₹5,999</span></span></label>
+            <label class="opt"><input type="checkbox" data-name="Wheel &amp; glass protection" data-price="3499" data-days="1"><span class="opt-body"><span class="opt-name">Wheel &amp; glass protection<small>Repels water and brake dust</small></span><span class="opt-price">₹3,499</span></span></label>
+            <label class="opt"><input type="checkbox" data-name="Engine bay detail" data-price="2499" data-days="1"><span class="opt-body"><span class="opt-name">Engine bay detail<small>Safe clean and dress</small></span><span class="opt-price">₹2,499</span></span></label>
+          </div></fieldset>
+        </div>
+        <aside class="est-summary"><h3>Your plan</h3><ul id="estLines"></ul><div class="est-row"><span>Bundle discount</span><b id="estDiscount">—</b></div><div class="est-total"><span>Estimated total</span><strong id="estTotal">₹0</strong></div><p id="estTime"></p><button class="button button-gold button-full" type="button" id="estBook">Book with this plan <span>↗</span></button><small>Estimates only. Final price is confirmed after inspection.</small></aside>
+      </div>
+    </section>
+
+    <section class="craft section-pad">
+      <div class="craft-visual reveal"><div class="craft-photo"></div><div class="craft-stamp"><span>NOIR</span><small>DETAIL<br>WITH INTENT</small><b>✳</b></div></div>
+      <div class="craft-copy reveal">
+        <div class="section-kicker"><span>THE PROCESS</span></div>
+        <h2>Measured.<br>Methodical.<br><em>Mastered.</em></h2>
+        <p>Great results are never accidental. Our process is built around the paint, the material, and the vehicle in front of us — never a one-size-fits-all checklist.</p>
+        <div class="process-list">
+          <div><span>01</span><div><strong>Inspect &amp; understand</strong><small>We assess paint, finish and your priorities.</small></div><span class="process-plus">+</span></div>
+          <div><span>02</span><div><strong>Prepare with precision</strong><small>Every surface is carefully decontaminated.</small></div><span class="process-plus">+</span></div>
+          <div><span>03</span><div><strong>Refine &amp; protect</strong><small>Crafted correction, followed by lasting care.</small></div><span class="process-plus">+</span></div>
+        </div>
+        <a class="button button-outline" href="#booking">Experience the difference <span>↗</span></a>
+      </div>
+    </section>
+
+    <section class="transform section-pad" id="transform">
+      <div class="section-kicker reveal"><span>PAINT CORRECTION</span></div>
+      <div class="section-heading-row reveal"><div><p class="eyebrow">BEFORE &amp; AFTER</p><h2>Swirls out.<br><em>Depth in.</em></h2></div><p class="section-side-copy">Move your cursor (or drag on touch) to compare a hazy, swirled finish with a corrected, mirror-deep one.</p></div>
+      <div class="compare reveal" id="compare" aria-label="Before and after paint correction comparison">
+        <div class="compare-layer compare-after"></div>
+        <div class="compare-layer compare-before"></div>
+        <span class="compare-tag tag-before">BEFORE</span><span class="compare-tag tag-after">AFTER</span>
+        <div class="compare-handle" role="slider" tabindex="0" aria-label="Comparison position" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"><span>⇄</span></div>
+      </div>
+    </section>
+
+    <section class="gallery section-pad" id="gallery">
+      <div class="section-kicker reveal"><span>SELECTED WORK</span></div>
+      <div class="section-heading-row reveal"><div><p class="eyebrow">THE AFTERGLOW</p><h2>Proof is in<br>the <em>reflection.</em></h2></div><a class="underlined-link" href="#booking">Make yours next <span>↗</span></a></div>
+      <div class="gallery-grid">
+        <button class="gallery-item gallery-large reveal" type="button" data-gallery-title="Obsidian / Ceramic finish"><img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1400&q=85" alt="Glossy luxury sports car in dramatic light" loading="lazy" data-image-fallback="car"><span class="gallery-overlay"><span>CERAMIC FINISH</span><strong>Obsidian</strong><b>↗</b></span></button>
+        <button class="gallery-item reveal" type="button" data-gallery-title="Sculpted / Paint correction"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1000&q=85" alt="Sculpted sports car exterior" loading="lazy" data-image-fallback="car"><span class="gallery-overlay"><span>PAINT CORRECTION</span><strong>Sculpted</strong><b>↗</b></span></button>
+        <button class="gallery-item reveal" type="button" data-gallery-title="The quiet / Interior detailing"><img src="https://images.unsplash.com/photo-1507136566006-cfc505b114fc?auto=format&fit=crop&w=1000&q=85" alt="Premium vehicle interior" loading="lazy" data-image-fallback="car"><span class="gallery-overlay"><span>INTERIOR ATELIER</span><strong>The quiet</strong><b>↗</b></span></button>
+      </div>
+    </section>
+
+    <!-- ========== NEW SECTIONS ========== -->
+
+    <section class="advisor section-pad" id="advisor">
+      <div class="section-kicker reveal"><span>CAR CARE ADVISOR</span></div>
+      <div class="section-heading-row reveal"><div><p class="eyebrow">THREE QUESTIONS</p><h2>Find your<br><em>perfect treatment.</em></h2></div><p class="section-side-copy">Answer honestly. We match your car's condition, goals and routine to the right service.</p></div>
+      <div class="adv-card reveal" id="advCard">
+        <div class="adv-top"><span id="advStep">Question 1 of 3</span><div class="adv-bar"><i id="advBar"></i></div></div>
+        <h3 id="advQ"></h3>
+        <div class="adv-options" id="advOpts"></div>
+        <div class="adv-result" id="advResult" hidden>
+          <p class="eyebrow">YOUR MATCH</p><h3 id="advName"></h3><p id="advWhy"></p>
+          <div class="adv-actions"><button class="button button-gold" type="button" id="advBook">Book this treatment <span>↗</span></button><button class="button button-outline" type="button" id="advRestart">Retake</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="lab section-pad" id="lab">
+      <div class="section-kicker reveal"><span>PROTECTION LAB</span></div>
+      <div class="section-heading-row reveal"><div><p class="eyebrow">BEYOND CERAMIC</p><h2>Armour for<br><em>every surface.</em></h2></div><p class="section-side-copy">Specialist films and coatings that guard against stone chips, glare and heat.</p></div>
+      <div class="lab-grid">
+        <article class="lab-card reveal"><div class="lab-ico"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.2 7.8 8 9 4.8-1.2 8-4.5 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>Paint protection film</h3><p>Self-healing urethane that absorbs stone chips and light scratches on bonnet, bumpers and mirrors.</p><ul><li>Up to 8-year warranty</li><li>Self-healing top coat</li><li>Invisible gloss finish</li></ul><b>FROM ₹39,999</b></article>
+        <article class="lab-card reveal"><div class="lab-ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 15 21 9M3 11l18-6"/></svg></div><h3>Ceramic window tint</h3><p>Rejects infrared heat and 99% of UV so the cabin stays cooler under Chennai sun.</p><ul><li>Up to 70% heat rejection</li><li>Non-metallic, signal safe</li><li>Lifetime fade warranty</li></ul><b>FROM ₹12,999</b></article>
+        <article class="lab-card reveal"><div class="lab-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v6m0 6v6M3 12h6m6 0h6"/></svg></div><h3>Wheel &amp; caliper coating</h3><p>A heat-resistant ceramic layer that repels brake dust and makes alloys easy to rinse clean.</p><ul><li>Resists 600°C brake heat</li><li>Safe for all alloy finishes</li><li>2-year protection</li></ul><b>FROM ₹3,499</b></article>
+        <article class="lab-card reveal"><div class="lab-ico"><svg viewBox="0 0 24 24"><path d="M12 3c3 4 6 6.5 6 10a6 6 0 0 1-12 0c0-3.5 3-6 6-10z"/></svg></div><h3>Hydrophobic glass coat</h3><p>Water beads and slides off at speed, improving night and monsoon visibility.</p><ul><li>Cuts wiper use</li><li>Easier bug and tar removal</li><li>12-month durability</li></ul><b>FROM ₹1,999</b></article>
+      </div>
+    </section>
+
+    <section class="roads section-pad" id="roads">
+      <div class="roads-grid">
+        <div class="roads-copy reveal">
+          <div class="section-kicker"><span>BUILT FOR INDIAN ROADS</span></div>
+          <h2>Chennai heat.<br>Monsoon rain.<br><em>Road dust.</em></h2>
+          <p>Showroom care guides are written for cooler, cleaner climates. Our protection plans are chosen around what your paint actually faces here.</p>
+          <div class="threats">
+            <button class="threat active" type="button" data-threat="0"><b>☀</b> UV &amp; heat</button>
+            <button class="threat" type="button" data-threat="1"><b>☔</b> Monsoon</button>
+            <button class="threat" type="button" data-threat="2"><b>≋</b> Dust &amp; salt</button>
+          </div>
+          <div class="threat-panel" id="threatPanel" aria-live="polite"></div>
+        </div>
+        <div class="roads-photo reveal"><img src="https://unsplash.com/photos/8k_T1EwTySs/download?force=true&w=1200" alt="Detailer protecting a car with gloves and microfibre" loading="lazy"><div class="roads-badge"><strong>45°C</strong><span>surface paint temperature in peak summer</span></div></div>
+      </div>
+    </section>
+
+    <section class="tour section-pad" id="tour">
+      <div class="section-kicker reveal"><span>INSIDE THE STUDIO</span></div>
+      <div class="section-heading-row reveal"><div><p class="eyebrow">WHERE THE WORK HAPPENS</p><h2>A workshop,<br><em>engineered for light.</em></h2></div></div>
+      <div class="tour-grid">
+        <div class="tour-photo reveal"><img src="https://unsplash.com/photos/M5lsL2E4ot0/download?force=true&w=1400" alt="Professional auto detailing and polishing in progress" loading="lazy"></div>
+        <div class="tour-list reveal">
+          <div class="tour-item"><span>01</span><div><strong>Climate-controlled bays</strong><small>Constant 24°C and low humidity so coatings cure evenly.</small></div></div>
+          <div class="tour-item"><span>02</span><div><strong>Swirl-finder LED lighting</strong><small>Colour-matched panels reveal defects sunlight would hide.</small></div></div>
+          <div class="tour-item"><span>03</span><div><strong>Paint depth gauge</strong><small>We measure microns before touching your clear coat.</small></div></div>
+          <div class="tour-item"><span>04</span><div><strong>Filtered wash &amp; dust control</strong><small>Soft-water rinse and positive-pressure air keep dust off wet paint.</small></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="plans section-pad" id="plans">
+      <div class="section-kicker reveal"><span>CARE PLANS</span></div>
+      <div class="section-heading-row reveal"><div><p class="eyebrow">KEEP IT PERFECT</p><h2>Maintenance,<br><em>on autopilot.</em></h2></div>
+        <div class="billing" role="group" aria-label="Billing period"><button type="button" class="bill active" data-period="visit">Per visit</button><button type="button" class="bill" data-period="year">Yearly (save 15%)</button></div></div>
+      <div class="plan-grid">
+        <article class="plan reveal"><h3>Essential</h3><p class="plan-price"><strong data-visit="1499" data-year="5099">₹1,499</strong><small class="per">/ visit</small></p><ul><li>Foam wash &amp; dry</li><li>Tyre and trim dressing</li><li>Interior vacuum</li></ul><a class="button button-outline button-full" href="#booking">Choose plan <span>↗</span></a></article>
+        <article class="plan plan-pop reveal"><span class="plan-tag">MOST POPULAR</span><h3>Signature</h3><p class="plan-price"><strong data-visit="3999" data-year="13599">₹3,999</strong><small class="per">/ visit</small></p><ul><li>Everything in Essential</li><li>Coating top-up spray</li><li>Iron decontamination</li><li>Priority booking</li></ul><a class="button button-gold button-full" href="#booking">Choose plan <span>↗</span></a></article>
+        <article class="plan reveal"><h3>Concierge</h3><p class="plan-price"><strong data-visit="9999" data-year="33999">₹9,999</strong><small class="per">/ visit</small></p><ul><li>Everything in Signature</li><li>Doorstep pickup and drop</li><li>Light paint enhancement</li><li>Annual coating inspection</li></ul><a class="button button-outline button-full" href="#booking">Choose plan <span>↗</span></a></article>
+      </div>
+    </section>
+
+    <section class="team section-pad" id="team">
+      <div class="section-kicker reveal"><span>THE CRAFTSMEN</span></div>
+      <div class="section-heading-row reveal"><div><p class="eyebrow">HANDS BEHIND THE FINISH</p><h2>Certified.<br><em>Obsessive.</em></h2></div><p class="section-side-copy">A small team, each owning a discipline end to end.</p></div>
+      <div class="team-grid">
+        <article class="member reveal"><div class="avatar">VR</div><h3>Vikram R.</h3><small>HEAD OF PAINT CORRECTION</small><p>12 years polishing. Trained on multi-stage correction for soft Japanese and hard German clear coats.</p></article>
+        <article class="member reveal"><div class="avatar">DN</div><h3>Divya N.</h3><small>COATING SPECIALIST</small><p>Certified ceramic and PPF installer. Handles every coating cure and 12-month inspection.</p></article>
+        <article class="member reveal"><div class="avatar">SA</div><h3>Syed A.</h3><small>INTERIOR &amp; LEATHER</small><p>Steam, extraction and leather restoration for family cars and classics alike.</p></article>
+        <article class="member reveal"><div class="avatar">PK</div><h3>Priya K.</h3><small>CLIENT CONCIERGE</small><p>Your single point of contact, sending progress photos at every stage of your booking.</p></article>
+      </div>
+    </section>
+
+    <section class="aftercare section-pad" id="aftercare">
+      <div class="section-kicker reveal"><span>AFTERCARE TIMELINE</span></div>
+      <div class="section-heading-row reveal"><div><p class="eyebrow">AFTER HAND-OVER</p><h2>What to do,<br><em>and when.</em></h2></div></div>
+      <div class="after reveal">
+        <div class="after-steps" role="tablist" aria-label="Aftercare stages">
+          <button class="astep active" type="button" role="tab" data-i="0"><b>24h</b><span>First day</span></button>
+          <button class="astep" type="button" role="tab" data-i="1"><b>7d</b><span>First week</span></button>
+          <button class="astep" type="button" role="tab" data-i="2"><b>30d</b><span>First month</span></button>
+          <button class="astep" type="button" role="tab" data-i="3"><b>12m</b><span>Yearly</span></button>
+        </div>
+        <div class="after-body" id="afterBody" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- ========== END NEW SECTIONS ========== -->
+
+    <!-- ========== NOIR v9 NEW SECTIONS ========== -->
+
+<section class="nx-fit section-pad" id="nx-fit">
+  <div class="section-kicker reveal"><span>FIND YOUR VEHICLE</span></div>
+  <div class="section-heading-row reveal"><div><p class="eyebrow">WHAT FITS YOUR CAR</p><h2>Every body shape<br><em>needs its own plan.</em></h2></div><p class="section-side-copy">Pick your vehicle type to see the package we recommend, the time it takes and the starting price.</p></div>
+  <div class="gt-nav nx-tabs reveal" id="nxTabs" role="tablist" aria-label="Vehicle type"></div>
+  <div class="nx-fit-card reveal" id="nxFitCard" aria-live="polite"></div>
+</section>
+
+<section class="nx-newcar alt section-pad" id="nx-newcar">
+  <div class="nx-split">
+    <div class="nx-photo reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1485291571150-772bcfc10da5?auto=format&fit=crop&w=1400&q=80" alt="New car parked in a clean garage" onerror="this.style.display='none'"><span class="nx-photo-tag">Delivery-day ready</span></div>
+    <div class="nx-copy reveal">
+      <div class="section-kicker"><span>NEW CAR PROTECTION</span></div>
+      <h2>Protect it before<br><em>the first wash.</em></h2>
+      <p>Showroom paint already carries transit marks, dealer polish residue and thin factory clear coat. We fix and seal it in the first week, before swirls form.</p>
+      <ul class="check-list"><li>Pre-delivery inspection with panel photos</li><li>Removal of transit fallout and dealer wax</li><li>Light polish and 9H ceramic coating</li><li>Glass, wheel and plastic trim protection</li><li>Free first maintenance wash</li></ul>
+      <div class="nx-stats"><div><strong>Day 1–3</strong><small>Best time to coat</small></div><div><strong>3 days</strong><small>Studio time</small></div><div><strong>₹24,999</strong><small>Hatchback, from</small></div></div>
+      <a class="button button-gold" href="#booking" data-service="Ceramic coating">Book new-car protection <span>↗</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="nx-fleet plain section-pad" id="nx-fleet">
+  <div class="nx-split rev">
+    <div class="nx-copy reveal">
+      <div class="section-kicker"><span>FLEET &amp; BUSINESS</span></div>
+      <h2>One partner for<br><em>every vehicle you run.</em></h2>
+      <p>Taxi operators, rental firms, dealerships and companies with staff cars get a fixed monthly rate, scheduled visits and one invoice.</p>
+      <ul class="check-list"><li>Monthly plans for 5 to 500 vehicles</li><li>On-site or studio cleaning on a fixed schedule</li><li>GST invoices and a single account manager</li><li>Photo report for every vehicle serviced</li></ul>
+      <form class="nx-lead" id="nxLead">
+        <div class="nx-row"><div><label for="nxLName">Your name</label><input id="nxLName" required placeholder="Full name"></div><div><label for="nxLPhone">Phone</label><input id="nxLPhone" type="tel" required placeholder="+91 98765 43210"></div></div>
+        <div class="nx-row"><div><label for="nxLCo">Company</label><input id="nxLCo" required placeholder="Company name"></div><div><label for="nxLSize">Fleet size</label><select id="nxLSize"><option>5 to 20 vehicles</option><option>21 to 100 vehicles</option><option>100+ vehicles</option></select></div></div>
+        <button class="button button-gold" type="submit">Request a fleet quote <span>↗</span></button>
+      </form>
+    </div>
+    <div class="nx-photo reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1400&q=80" alt="Row of cars ready for a fleet service" onerror="this.style.display='none'"><span class="nx-photo-tag">Fixed monthly rate</span></div>
+  </div>
+</section>
+
+<section class="nx-assure alt section-pad" id="nx-assure">
+  <div class="section-kicker reveal"><span>TRUST &amp; SAFETY</span></div>
+  <div class="section-heading-row reveal"><div><p class="eyebrow">WHAT PROTECTS YOU</p><h2>Your car is safe<br><em>while it is here.</em></h2></div><p class="section-side-copy">The practical things every owner asks before handing over keys.</p></div>
+  <div class="lab-grid cols3">
+    <article class="lab-card reveal"><div class="lab-ico"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.2 7.8 8 9 4.8-1.2 8-4.5 8-9V6z"/></svg></div><h3>Insured premises</h3><p>Every vehicle in our care is covered against fire, theft and damage while on site.</p></article>
+    <article class="lab-card reveal"><div class="lab-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/></svg></div><h3>CCTV in every bay</h3><p>Bays are recorded and the footage is kept for 30 days in case you have a question.</p></article>
+    <article class="lab-card reveal"><div class="lab-ico"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3>Key custody log</h3><p>Your keys are tagged, locked away and signed out only to the technician on your job.</p></article>
+    <article class="lab-card reveal"><div class="lab-ico"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></div><h3>GST invoice</h3><p>A itemised tax invoice for every booking, ready for company reimbursement.</p></article>
+    <article class="lab-card reveal"><div class="lab-ico"><svg viewBox="0 0 24 24"><path d="M3 7h4l2-3h6l2 3h4v12H3z"/><circle cx="12" cy="13" r="3.5"/></svg></div><h3>Check-in photo set</h3><p>Existing dents and scratches are photographed with you at drop-off, so nothing is disputed later.</p></article>
+    <article class="lab-card reveal"><div class="lab-ico"><svg viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></svg></div><h3>Written warranty</h3><p>Coatings and films ship with a signed warranty card and a yearly check-up schedule.</p></article>
+  </div>
+</section>
+
+<section class="nx-track plain section-pad" id="nx-track">
+  <div class="section-kicker reveal"><span>TRACK YOUR CAR</span></div>
+  <div class="section-heading-row reveal"><div><p class="eyebrow">LIVE JOB STATUS</p><h2>Know where your<br><em>car is right now.</em></h2></div><p class="section-side-copy">Enter the reference from your booking confirmation. Try NA-DEMO1 to see a sample.</p></div>
+  <form class="nx-track-form reveal" id="nxTrackForm"><label class="sr-only" for="nxRef">Booking reference</label><input id="nxRef" placeholder="e.g. NA-7K2QX" autocomplete="off" required><button class="button button-gold" type="submit">Check status <span>↗</span></button></form>
+  <div class="nx-track-out reveal" id="nxTrackOut" hidden></div>
+</section>
+
+<section class="nx-gift alt section-pad" id="nx-gift">
+  <div class="section-kicker reveal"><span>GIFT CARDS</span></div>
+  <div class="section-heading-row reveal"><div><p class="eyebrow">GIVE A BETTER FINISH</p><h2>A gift for people<br><em>who love their car.</em></h2></div><p class="section-side-copy">Choose an amount, add a note and preview the card. Valid for 12 months on any treatment.</p></div>
+  <div class="nx-gift-grid reveal">
+    <div class="nx-gift-form">
+      <fieldset><legend>Amount</legend><div class="size-options" id="nxAmts"><label class="pill"><input type="radio" name="gamt" value="5000" checked><span>₹5,000</span></label><label class="pill"><input type="radio" name="gamt" value="10000"><span>₹10,000</span></label><label class="pill"><input type="radio" name="gamt" value="25000"><span>₹25,000</span></label><label class="pill"><input type="radio" name="gamt" value="50000"><span>₹50,000</span></label></div></fieldset>
+      <label for="gTo">For</label><input id="gTo" maxlength="28" placeholder="Recipient name">
+      <label for="gFrom">From</label><input id="gFrom" maxlength="28" placeholder="Your name">
+      <label for="gMsg">Message</label><textarea id="gMsg" rows="3" maxlength="90" placeholder="Happy birthday. Time to make it shine."></textarea>
+      <button class="button button-gold" type="button" id="gBuy">Request this gift card <span>↗</span></button>
+    </div>
+    <div class="nx-giftcard" aria-label="Gift card preview"><small>NOIR AUTO ATELIER</small><strong id="gcAmt">₹5,000</strong><p id="gcMsg">A gift of a perfect finish.</p><div><span>For <b id="gcTo">you</b></span><span>From <b id="gcFrom">a friend</b></span></div></div>
+  </div>
+</section>
+
+<section class="nx-pay plain section-pad" id="nx-pay">
+  <div class="section-kicker reveal"><span>PAYMENTS &amp; EMI</span></div>
+  <div class="section-heading-row reveal"><div><p class="eyebrow">PAY YOUR WAY</p><h2>Plan the cost,<br><em>split the payment.</em></h2></div><p class="section-side-copy">Payment is taken after inspection. Use the calculator to see a monthly figure for larger treatments.</p></div>
+  <div class="nx-chips reveal"><span>UPI</span><span>Credit &amp; debit cards</span><span>Net banking</span><span>Cash</span><span>EMI on cards</span><span>Company invoice</span></div>
+  <div class="calc nx-emi reveal">
+    <label for="emiAmt">Treatment amount: <b id="emiAmtOut">₹40,000</b></label><input id="emiAmt" type="range" min="5000" max="150000" step="1000" value="40000">
+    <div class="size-options" id="emiMonths"><label class="pill"><input type="radio" name="emi" value="3"><span>3 months</span></label><label class="pill"><input type="radio" name="emi" value="6" checked><span>6 months</span></label><label class="pill"><input type="radio" name="emi" value="9"><span>9 months</span></label><label class="pill"><input type="radio" name="emi" value="12"><span>12 months</span></label></div>
+    <div class="nx-emi-out"><div><span>Monthly payment</span><strong id="emiMo">₹0</strong></div><div><span>Total payable</span><strong id="emiTot">₹0</strong></div></div>
+    <small>Illustration at 14% a year. Your bank sets the real rate and fees.</small>
+  </div>
+</section>
+
+<section class="nx-locate alt section-pad" id="nx-locate">
+  <div class="nx-split">
+    <div class="nx-photo reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1400&q=80" alt="Studio entrance with a car ready for collection" onerror="this.style.display='none'"><span class="nx-photo-tag">Chennai, Tamil Nadu</span></div>
+    <div class="nx-copy reveal">
+      <div class="section-kicker"><span>VISIT THE STUDIO</span></div>
+      <h2>Come in, or<br><em>we come to you.</em></h2>
+      <table class="nx-hours" id="nxHours"><tbody><tr data-d="1"><td>Monday</td><td>9 AM – 7 PM</td></tr><tr data-d="2"><td>Tuesday</td><td>9 AM – 7 PM</td></tr><tr data-d="3"><td>Wednesday</td><td>9 AM – 7 PM</td></tr><tr data-d="4"><td>Thursday</td><td>9 AM – 7 PM</td></tr><tr data-d="5"><td>Friday</td><td>9 AM – 7 PM</td></tr><tr data-d="6"><td>Saturday</td><td>9 AM – 7 PM</td></tr><tr data-d="0"><td>Sunday</td><td>Closed</td></tr></tbody></table>
+      <div class="nx-actions"><a class="button button-gold" href="https://www.google.com/maps/search/?api=1&query=Chennai+Tamil+Nadu" target="_blank" rel="noopener noreferrer">Get directions <span>↗</span></a><a class="button button-outline" href="tel:+919876543210">Call the studio <span>↗</span></a><a class="button button-outline" href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer">WhatsApp <span>↗</span></a></div>
+    </div>
+  </div>
+</section>
+<!-- ========== END NOIR v9 ========== -->
+
+    <section class="testimonial section-pad" id="reviews">
+      <div class="quote-mark">“</div>
+      <div class="quote-slides" aria-live="polite">
+        <figure class="quote-slide active"><p class="quote-text">It looks better than the day I drove it out of the showroom. The whole experience felt as considered as the finish.</p><figcaption class="quote-byline"><span class="quote-avatar">AK</span><div><strong>Arjun K.</strong><small>PORSCHE 911 CARRERA · CERAMIC COATING</small></div><span class="quote-stars">★★★★★</span></figcaption></figure>
+        <figure class="quote-slide"><p class="quote-text">Years of swirl marks were gone in two days. In sunlight the paint is the deepest colour it has ever been.</p><figcaption class="quote-byline"><span class="quote-avatar">MS</span><div><strong>Meera S.</strong><small>HYUNDAI CRETA · PAINT CORRECTION</small></div><span class="quote-stars">★★★★★</span></figcaption></figure>
+        <figure class="quote-slide"><p class="quote-text">They explained every step, sent photos along the way, and the interior smells and feels brand new.</p><figcaption class="quote-byline"><span class="quote-avatar">KR</span><div><strong>Karthik R.</strong><small>BMW 3 SERIES · FULL DETAIL PACKAGE</small></div><span class="quote-stars">★★★★★</span></figcaption></figure>
+      </div>
+      <div class="quote-controls"><button class="q-btn" type="button" data-dir="-1" aria-label="Previous review">←</button><div class="q-dots"></div><button class="q-btn" type="button" data-dir="1" aria-label="Next review">→</button></div>
+    </section>
+
+    <section class="faq section-pad" id="faq">
+      <div class="section-kicker reveal"><span>GOOD TO KNOW</span></div>
+      <div class="section-heading-row reveal"><div><p class="eyebrow">FAQS &amp; SUPPORT</p><h2>Before you<br><em>book.</em></h2></div></div>
+      <div class="faq-list reveal">
+        <details class="faq-item" open><summary>How long does a treatment take?</summary><p>An interior atelier session usually takes half a day, paint correction one to two days, and a full ceramic coating two to three days including curing time. We confirm the exact timeline after inspecting your vehicle.</p></details>
+        <details class="faq-item"><summary>Do I need to book in advance?</summary><p>Yes. The studio works by appointment only, Monday to Saturday, 9:00 AM – 7:00 PM. Use the booking form below and the team will confirm a slot.</p></details>
+        <details class="faq-item"><summary>What does paint correction involve?</summary><p>Paint is washed and decontaminated, then machine-polished in stages to remove swirls and light scratches, and finally refined for depth and gloss.</p></details>
+        <details class="faq-item"><summary>How do I look after a ceramic coating?</summary><p>Wash with a pH-neutral shampoo using the two-bucket method, avoid automatic brush washes, and book a yearly maintenance check to keep the hydrophobic effect strong.</p></details>
+      </div>
+    </section>
+
+    <section class="booking section-pad" id="booking">
+      <div class="booking-panel reveal">
+        <div class="booking-left">
+          <p class="eyebrow"><span class="eyebrow-line"></span> YOUR VEHICLE, REIMAGINED</p>
+          <h2>Give it the<br><em>NOIR treatment.</em></h2>
+          <p>Tell us a little about your vehicle. Our studio team will help you find the right treatment and appointment.</p>
+          <div class="booking-detail"><span>✳</span><div><strong>Personalized recommendations</strong><small>Every car. Every finish. A considered plan.</small></div></div>
+          <div class="booking-detail"><span>◷</span><div><strong>By appointment only</strong><small>Mon – Sat · 9:00 AM – 7:00 PM</small></div></div>
+        </div>
+        <form class="booking-form" id="bookingForm">
+          <div class="form-heading"><span>START YOUR BOOKING</span><span>01 — 03</span></div>
+          <label for="customerName">Your name</label>
+          <input id="customerName" name="name" placeholder="Full name" required>
+          <div class="form-two">
+            <div><label for="customerEmail">Email address</label><input id="customerEmail" name="email" type="email" placeholder="you@example.com" required></div>
+            <div><label for="customerPhone">Phone</label><input id="customerPhone" name="phone" type="tel" placeholder="+91 98765 43210" required></div>
+          </div>
+          <div class="form-two">
+            <div><label for="carModel">Vehicle</label><input id="carModel" name="vehicle" placeholder="e.g. BMW 3 Series" required></div>
+            <div><label for="serviceSelect">Treatment</label><select id="serviceSelect" name="service" required><option value="">Choose a service</option><option>Ceramic coating</option><option>Paint correction</option><option>Interior atelier</option><option>Full detail package</option><option>Not sure — advise me</option></select></div>
+          </div>
+          <div class="form-two">
+            <div><label for="bookingDate">Preferred date</label><input id="bookingDate" name="date" type="date" required></div>
+            <div><label for="bookingTime">Preferred time</label><select id="bookingTime" name="time" required><option value="">Choose a time</option><option>09:00 AM</option><option>11:00 AM</option><option>01:00 PM</option><option>03:00 PM</option><option>05:00 PM</option></select></div>
+          </div>
+          <button class="button button-gold button-full" type="submit">Request appointment <span>↗</span></button>
+          <small class="form-note">Demo experience: your request is saved in this browser only.</small>
+          <div class="form-success" role="status" hidden></div>
+        </form>
+      </div>
+    </section>
+
+    </main>
+
+  <footer class="site-footer">
+    <div class="footer-cta">
+      <div class="footer-cta-copy"><h2>Let your car <em>shine.</em></h2></div>
+      <a class="button button-gold" href="#booking">Reserve your session <span>↗</span></a>
+    </div>
+    <div class="footer-top">
+      <div class="footer-brand-col">
+        <a class="brand brand-footer" href="index.html"><span class="brand-mark"><svg viewBox="0 0 48 48" role="img" aria-label="NOIR Auto Atelier emblem"><defs><linearGradient id="nlg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--gold-light)"/><stop offset="1" stop-color="var(--secondary)"/></linearGradient></defs><path d="M24 2.5 43 9.5v14c0 11-7.5 18.5-19 22-11.5-3.5-19-11-19-22v-14z" fill="none" stroke="url(#nlg2)" stroke-width="1.8"/><path d="M15 28V13h3.6L30 24.5V13h3v15h-3.6L18 16.5V28z" fill="url(#nlg2)"/><path d="M9.5 35.5c2-3.2 4.6-4.5 8-4.5h13c3.4 0 6 1.3 8 4.5" fill="none" stroke="url(#nlg2)" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="36" r="2.1" fill="url(#nlg2)"/><circle cx="32" cy="36" r="2.1" fill="url(#nlg2)"/><path d="M12 21 21 11" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".5"/></svg></span><span class="brand-copy"><strong>NOIR</strong><small>AUTO ATELIER</small></span></a>
+        <p class="footer-about">Precision detailing, paint correction and ceramic protection for people who notice every reflection. By appointment, in Chennai.</p>
+        <form class="newsletter" id="newsletterForm"><label class="newsletter-label" for="newsletterEmail">Get studio notes</label><div class="newsletter-row"><input id="newsletterEmail" type="email" placeholder="you@example.com" required><button class="button button-gold" type="submit" aria-label="Subscribe">↗</button></div></form>
+        <div class="social-links" aria-label="Social media">
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></a>
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 21v-8h3l.5-4H14V7c0-1.2.4-2 2-2h2V1.4C17.3 1.2 16.2 1 15 1c-3.2 0-5 1.9-5 5.4V9H7v4h3v8z"/></svg></a>
+          <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7s-.2-1.7-.9-2.4S20.6 3.7 19.8 3.6C17 3.4 12 3.4 12 3.4s-5 0-7.8.2c-.8.1-1.6.3-2.3 1S1 7 1 7s-.2 2-.2 4v2c0 2 .2 4 .2 4s.2 1.7.9 2.4.9.8 1.5.9c1.1.1 8.6.2 8.6.2s5 0 7.8-.2c.8-.1 1.6-.3 2.3-1s.9-2.4.9-2.4.2-2 .2-4v-2c0-2-.2-4-.2-4z"/><path d="m9.5 8 6 3.5-6 3.5z" fill="#0b0c0b" stroke="none"/></svg></a>
+          <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.6 6.2a6.7 6.7 0 0 1-4.1-4.1V1h-4.1v14.3a2.8 2.8 0 1 1-2.8-2.8c.4 0 .8.1 1.1.2V8.5a7 7 0 1 0 5.8 6.8V8a10.8 10.8 0 0 0 5.1 1.3V5.2c-.4 0-.7 0-1-.1z"/></svg></a>
+          <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3A2.2 2.2 0 1 1 .8 3a2.2 2.2 0 0 1 4.4 0ZM1.2 7.3h4v15h-4zM8 7.3h3.8v2.1h.1a4.2 4.2 0 0 1 3.8-2.5c4.1 0 4.9 2.7 4.9 6.2v9.2h-4v-8.2c0-2-.1-3.6-2.2-3.6s-2.5 1.7-2.5 3.5v8.3H8z"/></svg></a>
+          <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 2 17.7L.5 23.5l6-1.6A11.8 11.8 0 0 0 20.5 3.5ZM12 21a9.1 9.1 0 0 1-4.6-1.2l-.3-.2-3.5.9.9-3.4-.2-.4A9.2 9.2 0 1 1 12 21Zm5-6.9c-.3-.2-1.7-.9-2-.9s-.5-.2-.7.2-.8.9-1 1.1-.4.2-.7.1a7.5 7.5 0 0 1-2.2-1.4 8.2 8.2 0 0 1-1.5-1.9c-.2-.3 0-.5.1-.6l.5-.6c.2-.2.2-.4.3-.5s0-.4 0-.5l-.9-2.1c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.4 1 2.7 1.2 2.9a11.2 11.2 0 0 0 4.3 3.8c.6.3 1.1.5 1.5.6.6.2 1.2.2 1.6.1.5-.1 1.7-.7 1.9-1.3s.2-1.2.2-1.3-.2-.2-.5-.4z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-column"><h4>EXPLORE</h4><a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html">Price estimator</a><a href="gallery.html#transform">Results</a><a href="gallery.html">Gallery</a></div>
+      <div class="footer-column"><h4>CLIENT CARE</h4><a href="#booking">Book a session</a><a href="login.html">Client portal</a><a href="services.html#explorer">Treatment guide</a><a href="about.html#faq">FAQs</a></div>
+      <div class="footer-column footer-contact" id="contact">
+        <h4>FIND THE STUDIO</h4>
+        <div class="studio-live" id="footStatus"><i></i><span>Checking hours…</span></div>
+        <p class="contact-line"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><span><strong>Visit us</strong>Chennai, Tamil Nadu, India</span></p>
+        <a class="contact-line" href="mailto:studio@noiratelier.example"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><span><strong>Email</strong>studio@noiratelier.example</span></a>
+        <a class="contact-line" href="tel:+919876543210"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span><span><strong>Call</strong>+91 98765 43210</span></a>
+        <p class="contact-line open-hours"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><strong>Hours</strong>Mon – Sat · 9 AM – 7 PM</span></p>
+      </div>
+    </div>
+    <div class="footer-badges">
+      <span>✦ 9H ceramic hardness</span>
+      <span>✦ Up to 5-year protection</span>
+      <span>✦ 1,200+ vehicles refined</span>
+      <span>✦ By appointment · Mon–Sat</span>
+    </div>
+    <div class="footer-bottom"><span>© 2026 NOIR AUTO ATELIER</span><div><a href="#privacy" data-legal="privacy">PRIVACY POLICY</a><a href="#terms" data-legal="terms">TERMS &amp; CONDITIONS</a></div></div>
+  </footer>
+
+  <div class="image-lightbox" id="imageLightbox" hidden role="dialog" aria-modal="true" aria-label="Gallery image preview"><button class="lightbox-close" type="button" aria-label="Close image preview">×</button><img id="lightboxImage" src="" alt=""><p id="lightboxCaption"></p></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <div class="legal-popover" id="legalPopover" hidden role="dialog" aria-modal="true" aria-labelledby="legalTitle"><button type="button" class="legal-close" aria-label="Close">×</button><p class="eyebrow">NOIR AUTO ATELIER</p><h2 id="legalTitle">Studio policies</h2><p id="legalText">Please contact the studio for current policies.</p></div>
+</body>
+
+</html>
