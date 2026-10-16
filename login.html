@@ -6,160 +6,697 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0a0d14">
   <meta name="description" content="Sign in to your NOIR Auto Atelier client account.">
+
   <title>Client login — NOIR Auto Atelier</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23eef1f7'/%3E%3Cstop offset='1' stop-color='%237d93c9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='15' fill='%230a0d14'/%3E%3Crect x='3' y='3' width='58' height='58' rx='12' fill='none' stroke='url(%23g)' stroke-opacity='.45' stroke-width='1.5'/%3E%3Cpath d='M18 40V16h5.5L40 34V16h6v24h-5.5L24 22v18z' fill='url(%23g)'/%3E%3Cpath d='M9 50c3-5 7-7 12-7h22c5 0 9 2 12 7' fill='none' stroke='%237d93c9' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='21' cy='50' r='3' fill='%23d5dbe8'/%3E%3Ccircle cx='43' cy='50' r='3' fill='%23d5dbe8'/%3E%3C/svg%3E">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Syne:wght@500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
+
   <style>
-    /* ===== Split-screen auth page: no page scroll ===== */
-    html, body.login-split { height: 100%; overflow: hidden; }
-    body.login-split { margin: 0; }
+    html,
+    body.login-split {
+      height: 100%;
+      overflow: hidden;
+    }
 
-    .stage { position: fixed; inset: 0; display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(440px, 1fr); }
+    body.login-split {
+      margin: 0;
+    }
 
-    /* Background images (one per mode, cross-fade) */
-    .bg-layer { position: absolute; inset: 0; background-size: cover; background-position: center; background-color: #0a0d14; opacity: 0; transform: scale(1.05); transition: opacity 1s var(--ease), transform 8s ease-out; }
-    .bg-layer.on { opacity: 1; transform: scale(1); }
-    .bg-signin { background-image: url("https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=2200&q=88"); background-position: center 60%; }
-    .bg-signup { background-image: url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2200&q=88"); background-position: center 55%; }
-    .bg-shade { position: absolute; inset: 0; background:
-      linear-gradient(90deg, rgba(8,10,16,.55) 0%, rgba(8,10,16,.25) 55%, rgba(8,10,16,.75) 100%),
-      linear-gradient(0deg, rgba(8,10,16,.92) 0%, rgba(8,10,16,.35) 45%, rgba(8,10,16,.55) 100%); }
+    .stage {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(440px, 1fr);
+    }
 
-    /* Left story */
-    .story-side { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(28px, 5vh, 56px) clamp(28px, 5vw, 80px); color: #f4f1ea; min-width: 0; }
-    .story-pill { align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; padding: 10px 18px; border: 1px solid rgba(255,255,255,.2); border-radius: 999px; background: rgba(255,255,255,.07); backdrop-filter: blur(14px); font-size: 13px; font-weight: 700; letter-spacing: .14em; margin-bottom: clamp(14px, 3vh, 28px); }
-    .story-pill i { width: 8px; height: 8px; border-radius: 50%; background: var(--secondary); box-shadow: 0 0 0 4px rgba(125,147,201,.25); }
-    .story-side h1 { margin: 0 0 clamp(10px, 2vh, 20px); font-size: clamp(44px, 6.4vw, 96px); line-height: .98; letter-spacing: -.035em; color: #fff; }
-    .story-side h1 em { display: inline; }
-    .story-lede { max-width: 540px; margin: 0 0 clamp(14px, 3vh, 28px); font-size: clamp(15px, 1.35vw, 19px); line-height: 1.7; color: #d5dbe8; }
-    .story-chips { display: flex; flex-wrap: wrap; gap: 10px; }
-    .story-chips span { padding: 9px 16px; border: 1px solid rgba(255,255,255,.18); border-radius: 999px; background: rgba(255,255,255,.07); backdrop-filter: blur(10px); font-size: 14px; }
-    .story-copy { transition: opacity .35s, transform .35s var(--ease); }
-    .story-copy.swap { opacity: 0; transform: translateY(10px); }
+    /* BACKGROUND IMAGE LAYERS */
+    .bg-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      background: #0a0d14;
+    }
 
-    /* Right form panel */
-    .form-side { position: relative; z-index: 2; background: var(--bg); border-left: 1px solid var(--line); display: flex; flex-direction: column; padding: clamp(14px, 2.4vh, 26px) clamp(22px, 3vw, 44px); overflow-y: auto; transition: background-color .45s; }
-    .form-top { display: flex; align-items: center; justify-content: space-between; flex: 0 0 auto; }
-    .back-link { font-size: 14px; font-weight: 600; color: var(--muted); transition: color .2s; }
-    .back-link:hover { color: var(--gold); }
-    .form-top .header-actions { gap: 10px; }
-    .form-top .icon-btn { width: 44px; height: 44px; min-width: 44px; padding: 0; border-radius: 50%; }
-    .form-top .rtl-toggle { width: auto; padding: 0 12px; border-radius: 22px; min-width: 52px; }
-    .form-body { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; width: 100%; max-width: 440px; margin: 0 auto; padding: 8px 0; }
-    .auth-brand { align-self: center; margin-bottom: clamp(8px, 1.6vh, 18px); }
-    .auth-head { text-align: center; margin-bottom: clamp(10px, 1.8vh, 18px); }
-    .auth-head h2 { margin: 0 0 6px; font-size: clamp(28px, 3.4vh, 38px) !important; letter-spacing: -.02em; line-height: 1.1; }
-    .auth-head p { margin: 0; font-size: 15px; color: var(--muted); }
+    .bg-layer {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #10141d;
+      opacity: 0;
+      transform: scale(1.04);
+      transition: opacity 0.8s ease, transform 5s ease-out;
+      will-change: opacity, transform;
+    }
 
-    /* Segmented tabs */
-    .login-split .auth-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; margin: 0 0 clamp(10px, 1.8vh, 18px); border: 1px solid var(--line); border-radius: 999px; background: var(--panel); }
-    .login-split .dtab { padding: 10px 12px; border: 0; text-align: center; }
+    .bg-layer.on {
+      opacity: 1;
+      transform: scale(1);
+    }
 
-    /* Fields */
-    .login-split label { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
-    .login-split input:not([type=checkbox]) { min-height: 46px; margin-bottom: clamp(8px, 1.5vh, 14px); border-radius: 12px; padding: 10px 14px; font-size: 15px; }
-    .login-split .name-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .login-split .name-row[hidden], .login-split [hidden] { display: none !important; }
-    .field-wrap { position: relative; }
-    .field-wrap input { padding-right: 48px !important; }
-    .eye { position: absolute; right: 6px; top: 1px; width: 44px; height: 44px; display: grid; place-items: center; border: 0; background: transparent; color: var(--muted); cursor: pointer; transition: color .2s; }
-    .eye:hover, .eye:focus-visible { color: var(--gold); outline: none; }
-    .eye svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-    .eye .off { display: none; }
-    .eye.shown .on { display: none; }
-    .eye.shown .off { display: block; }
+    /* BACKGROUND IMAGES - set by the loader script at the bottom of the page
+       (tries several Unsplash photos, then a built-in fallback) */
+    .bg-signin { background-position: center 60%; }
+    .bg-signup { background-position: center 55%; }
+    .bg-layer { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'><defs><radialGradient id='g' cx='50%25' cy='70%25' r='70%25'><stop offset='0' stop-color='%23232b45'/><stop offset='1' stop-color='%230a0d14'/></radialGradient></defs><rect width='1600' height='900' fill='url(%23g)'/><path d='M300 640c40-90 120-150 230-170l180-40c80-18 160-18 240 0l190 44c90 20 150 70 180 160v40H300z' fill='%2311151f' stroke='%23566090' stroke-opacity='.5' stroke-width='3'/><circle cx='520' cy='700' r='62' fill='%230a0d14' stroke='%23566090' stroke-width='4'/><circle cx='1080' cy='700' r='62' fill='%230a0d14' stroke='%23566090' stroke-width='4'/></svg>"); }
 
-    .row-opts { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 clamp(10px, 1.8vh, 16px); font-size: 14px; }
-    .check { display: inline-flex; align-items: flex-start; gap: 10px; margin: 0 !important; font-weight: 400 !important; color: var(--muted) !important; cursor: pointer; line-height: 1.4; }
-    .check input { width: 18px !important; height: 18px; min-height: 0 !important; margin: 2px 0 0 !important; padding: 0 !important; accent-color: var(--gold); flex: 0 0 auto; }
-    .link-btn { border: 0; background: none; padding: 0; color: var(--gold); font-weight: 700; font-size: 14px; cursor: pointer; }
-    .link-btn:hover { text-decoration: underline; }
-    #termsRow { margin: 0 0 clamp(10px, 1.8vh, 16px); }
-    #termsRow a { color: var(--gold); text-decoration: underline; }
+    .bg-shade {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(8, 10, 16, 0.42) 0%,
+          rgba(8, 10, 16, 0.25) 50%,
+          rgba(8, 10, 16, 0.70) 100%
+        ),
+        linear-gradient(
+          0deg,
+          rgba(8, 10, 16, 0.90) 0%,
+          rgba(8, 10, 16, 0.20) 65%,
+          rgba(8, 10, 16, 0.42) 100%
+        );
+    }
 
-    .login-split .button-full { padding: 15px 20px; border-radius: 12px; font-size: 15px; justify-content: center; gap: 12px; }
-    .or-line { display: flex; align-items: center; gap: 14px; margin: clamp(10px, 1.8vh, 16px) 0; font-size: 12px; font-weight: 700; letter-spacing: .14em; color: var(--muted); }
-    .or-line:before, .or-line:after { content: ""; flex: 1; height: 1px; background: var(--line); }
-    .social-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .soc { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 46px; padding: 0 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); color: var(--text); font-weight: 600; font-size: 15px; cursor: pointer; transition: border-color .25s, transform .25s; }
-    .soc:hover { border-color: var(--gold); transform: translateY(-2px); }
-    .soc svg { width: 20px; height: 20px; flex: 0 0 auto; }
-    .soc-apple { background: #000; color: #fff; border-color: #000; }
-    body.light-theme .soc-apple { background: #12161f; border-color: #12161f; }
-    .login-split .text-login.create-account { display: block; margin: clamp(8px, 1.4vh, 14px) auto 0; font-size: 14px; color: var(--gold); font-weight: 600; text-align: center; }
-    .login-split .text-login.create-account:hover { text-decoration: underline; }
-    .login-split .form-note { text-align: center; margin: 8px 0 0; font-size: 12px; }
+    /* LEFT STORY */
+    .story-side {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: clamp(28px, 5vh, 56px) clamp(28px, 5vw, 80px);
+      color: #f4f1ea;
+      min-width: 0;
+    }
 
-    /* Short screens: keep everything on one screen */
+    .story-pill {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(14px);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      margin-bottom: clamp(14px, 3vh, 28px);
+    }
+
+    .story-pill i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--secondary);
+      box-shadow: 0 0 0 4px rgba(125, 147, 201, 0.25);
+    }
+
+    .story-side h1 {
+      margin: 0 0 clamp(10px, 2vh, 20px);
+      font-size: clamp(44px, 6.4vw, 96px);
+      line-height: 0.98;
+      letter-spacing: -0.035em;
+      color: #fff;
+    }
+
+    .story-side h1 em {
+      display: inline;
+    }
+
+    .story-lede {
+      max-width: 540px;
+      margin: 0 0 clamp(14px, 3vh, 28px);
+      font-size: clamp(15px, 1.35vw, 19px);
+      line-height: 1.7;
+      color: #d5dbe8;
+    }
+
+    .story-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .story-chips span {
+      padding: 9px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(10px);
+      font-size: 14px;
+    }
+
+    .story-copy {
+      transition: opacity 0.35s, transform 0.35s ease;
+    }
+
+    .story-copy.swap {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    /* RIGHT FORM PANEL */
+    .form-side {
+      position: relative;
+      z-index: 2;
+      background: var(--bg);
+      border-left: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      padding: clamp(14px, 2.4vh, 26px) clamp(22px, 3vw, 44px);
+      overflow-y: auto;
+      transition: background-color 0.45s;
+    }
+
+    .form-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex: 0 0 auto;
+    }
+
+    .back-link {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .back-link:hover {
+      color: var(--gold);
+    }
+
+    .form-top .header-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .form-top .icon-btn {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      padding: 0;
+      border-radius: 50%;
+    }
+
+    .form-top .rtl-toggle {
+      width: auto;
+      padding: 0 12px;
+      border-radius: 22px;
+      min-width: 52px;
+    }
+
+    .form-body {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+      padding: 8px 0;
+    }
+
+    .auth-brand {
+      align-self: center;
+      margin-bottom: clamp(8px, 1.6vh, 18px);
+    }
+
+    .auth-head {
+      text-align: center;
+      margin-bottom: clamp(10px, 1.8vh, 18px);
+    }
+
+    .auth-head h2 {
+      margin: 0 0 6px;
+      font-size: clamp(28px, 3.4vh, 38px) !important;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .auth-head p {
+      margin: 0;
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    /* SIGN-IN / SIGN-UP TABS */
+    .login-split .auth-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      padding: 4px;
+      margin: 0 0 clamp(10px, 1.8vh, 18px);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--panel);
+    }
+
+    .login-split .dtab {
+      padding: 10px 12px;
+      border: 0;
+      text-align: center;
+    }
+
+    /* FORM FIELDS */
+    .login-split label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .login-split input:not([type="checkbox"]) {
+      width: 100%;
+      box-sizing: border-box;
+      min-height: 46px;
+      margin-bottom: clamp(8px, 1.5vh, 14px);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 15px;
+    }
+
+    .login-split .name-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .login-split .name-row[hidden],
+    .login-split [hidden] {
+      display: none !important;
+    }
+
+    .field-wrap {
+      position: relative;
+    }
+
+    .field-wrap input {
+      padding-right: 48px !important;
+    }
+
+    .eye {
+      position: absolute;
+      right: 6px;
+      top: 1px;
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .eye:hover,
+    .eye:focus-visible {
+      color: var(--gold);
+      outline: none;
+    }
+
+    .eye svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .eye .off {
+      display: none;
+    }
+
+    .eye.shown .on {
+      display: none;
+    }
+
+    .eye.shown .off {
+      display: block;
+    }
+
+    .row-opts {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 0 0 clamp(10px, 1.8vh, 16px);
+      font-size: 14px;
+    }
+
+    .check {
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 0 !important;
+      font-weight: 400 !important;
+      color: var(--muted) !important;
+      cursor: pointer;
+      line-height: 1.4;
+    }
+
+    .check input {
+      width: 18px !important;
+      height: 18px;
+      min-height: 0 !important;
+      margin: 2px 0 0 !important;
+      padding: 0 !important;
+      accent-color: var(--gold);
+      flex: 0 0 auto;
+    }
+
+    .link-btn {
+      border: 0;
+      background: none;
+      padding: 0;
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .link-btn:hover {
+      text-decoration: underline;
+    }
+
+    #termsRow {
+      margin: 0 0 clamp(10px, 1.8vh, 16px);
+    }
+
+    #termsRow a {
+      color: var(--gold);
+      text-decoration: underline;
+    }
+
+    .login-split .button-full {
+      padding: 15px 20px;
+      border-radius: 12px;
+      font-size: 15px;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .or-line {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: clamp(10px, 1.8vh, 16px) 0;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+
+    .or-line::before,
+    .or-line::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+
+    .social-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .soc {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 46px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+
+    .soc:hover {
+      border-color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    .soc svg {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 auto;
+    }
+
+    .soc-apple {
+      background: #000;
+      color: #fff;
+      border-color: #000;
+    }
+
+    body.light-theme .soc-apple {
+      background: #12161f;
+      border-color: #12161f;
+    }
+
+    .login-split .text-login.create-account {
+      display: block;
+      margin: clamp(8px, 1.4vh, 14px) auto 0;
+      font-size: 14px;
+      color: var(--gold);
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .login-split .text-login.create-account:hover {
+      text-decoration: underline;
+    }
+
+    .login-split .form-note {
+      text-align: center;
+      margin: 8px 0 0;
+      font-size: 12px;
+    }
+
+    /* SHORT SCREENS */
     @media (max-height: 820px) {
-      .auth-brand .brand-mark { width: 38px; height: 38px; }
-      .login-split input:not([type=checkbox]), .soc { min-height: 42px; }
-      .eye { height: 40px; width: 40px; }
-      .login-split .button-full { padding: 12px 18px; }
-      .auth-head p { font-size: 14px; }
-      .form-top .icon-btn { width: 38px; height: 38px; min-width: 38px; }
+      .auth-brand .brand-mark {
+        width: 38px;
+        height: 38px;
+      }
+
+      .login-split input:not([type="checkbox"]),
+      .soc {
+        min-height: 42px;
+      }
+
+      .eye {
+        height: 40px;
+        width: 40px;
+      }
+
+      .login-split .button-full {
+        padding: 12px 18px;
+      }
+
+      .auth-head p {
+        font-size: 14px;
+      }
+
+      .form-top .icon-btn {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+      }
     }
+
     @media (max-height: 700px) {
-      .auth-head p, .form-note, .back-link { display: none; }
-      .login-split .dtab { padding: 8px 12px; }
+      .auth-head p,
+      .form-note,
+      .back-link {
+        display: none;
+      }
+
+      .login-split .dtab {
+        padding: 8px 12px;
+      }
     }
 
-    /* Tablet / mobile: image becomes the backdrop behind the form */
+    /* TABLET AND MOBILE */
     @media (max-width: 900px) {
-      .stage { grid-template-columns: 1fr; }
-      .story-side { display: none; }
-      .form-side { background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(18px); border-left: 0; }
-      .stage > .bg-wrap { display: block; }
-    }
-    .bg-wrap { position: absolute; inset: 0; z-index: 0; }
+      .stage {
+        grid-template-columns: 1fr;
+      }
 
-    /* RTL */
-    html[dir="rtl"] .eye { right: auto; left: 6px; }
-    html[dir="rtl"] .field-wrap input { padding-right: 14px !important; padding-left: 48px !important; }
-    html[dir="rtl"] .story-side { text-align: right; }
-    html[dir="rtl"] .story-pill { align-self: flex-start; }
-    html[dir="rtl"] .form-side { border-left: 0; border-right: 1px solid var(--line); }
-    html[dir="rtl"] .stage { direction: rtl; }
-    html[dir="rtl"] .bg-wrap { direction: ltr; }
+      .story-side {
+        display: none;
+      }
+
+      .form-side {
+        background: color-mix(in srgb, var(--bg) 88%, transparent);
+        backdrop-filter: blur(18px);
+        border-left: 0;
+      }
+
+      .bg-wrap {
+        display: block;
+      }
+
+      .form-body {
+        max-width: 440px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .form-side {
+        padding: 14px 18px;
+      }
+
+      .login-split .name-row {
+        gap: 8px;
+      }
+
+      .social-row {
+        gap: 8px;
+      }
+
+      .soc {
+        font-size: 13px;
+      }
+    }
+
+    /* RIGHT-TO-LEFT SUPPORT */
+    html[dir="rtl"] .eye {
+      right: auto;
+      left: 6px;
+    }
+
+    html[dir="rtl"] .field-wrap input {
+      padding-right: 14px !important;
+      padding-left: 48px !important;
+    }
+
+    html[dir="rtl"] .story-side {
+      text-align: right;
+    }
+
+    html[dir="rtl"] .story-pill {
+      align-self: flex-start;
+    }
+
+    html[dir="rtl"] .form-side {
+      border-left: 0;
+      border-right: 1px solid var(--line);
+    }
+
+    html[dir="rtl"] .stage {
+      direction: rtl;
+    }
+
+    html[dir="rtl"] .bg-wrap {
+      direction: ltr;
+    }
   </style>
+
   <script defer src="script.js"></script>
 </head>
 
 <body class="login-split" data-page="login" data-mode="signin">
+
   <div class="stage">
+
     <div class="bg-wrap" aria-hidden="true">
       <div class="bg-layer bg-signin on"></div>
       <div class="bg-layer bg-signup"></div>
       <div class="bg-shade"></div>
     </div>
 
-    <!-- Left: story -->
     <section class="story-side">
-      <div class="story-pill"><i></i> NOIR AUTO ATELIER · CLIENT PORTAL</div>
+      <div class="story-pill">
+        <i></i> NOIR AUTO ATELIER · CLIENT PORTAL
+      </div>
+
       <div class="story-copy" id="storyCopy">
         <h1 id="storyTitle">Your car's<br><em>story</em> continues.</h1>
-        <p class="story-lede" id="storyLede">Reserve detailing sessions, get photo updates at every stage and keep your car looking its best.</p>
+        <p class="story-lede" id="storyLede">
+          Reserve detailing sessions, get photo updates at every stage and keep your car looking its best.
+        </p>
       </div>
-      <div class="story-chips"><span>✓ Priority booking</span><span>✓ Photo updates</span><span>✓ Member offers</span><span>✓ Aftercare reminders</span></div>
+
+      <div class="story-chips">
+        <span>✓ Priority booking</span>
+        <span>✓ Photo updates</span>
+        <span>✓ Member offers</span>
+        <span>✓ Aftercare reminders</span>
+      </div>
     </section>
 
-    <!-- Right: form -->
     <section class="form-side">
+
       <div class="form-top">
         <a class="back-link" href="index.html">← Back to home</a>
+
         <div class="header-actions">
-          <button class="icon-btn theme-toggle" type="button" aria-label="Switch to light mode" title="Switch to light mode"><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
-          <button class="icon-btn rtl-toggle" type="button" aria-label="Switch to right-to-left layout" title="Toggle text direction">RTL</button>
+          <button class="icon-btn theme-toggle" type="button"
+            aria-label="Switch to light mode" title="Switch to light mode">
+            <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/>
+            </svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+            </svg>
+          </button>
+
+          <button class="icon-btn rtl-toggle" type="button"
+            aria-label="Switch to right-to-left layout" title="Toggle text direction">
+            RTL
+          </button>
         </div>
       </div>
 
       <div class="form-body">
+
         <a class="brand auth-brand" href="index.html" aria-label="NOIR Auto Atelier home">
-          <span class="brand-mark"><svg viewBox="0 0 48 48" role="img" aria-label="NOIR Auto Atelier emblem"><defs><linearGradient id="nlg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--gold-light)"/><stop offset="1" stop-color="var(--secondary)"/></linearGradient></defs><path d="M24 2.5 43 9.5v14c0 11-7.5 18.5-19 22-11.5-3.5-19-11-19-22v-14z" fill="none" stroke="url(#nlg)" stroke-width="1.8"/><path d="M15 28V13h3.6L30 24.5V13h3v15h-3.6L18 16.5V28z" fill="url(#nlg)"/><path d="M9.5 35.5c2-3.2 4.6-4.5 8-4.5h13c3.4 0 6 1.3 8 4.5" fill="none" stroke="url(#nlg)" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="36" r="2.1" fill="url(#nlg)"/><circle cx="32" cy="36" r="2.1" fill="url(#nlg)"/><path d="M12 21 21 11" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".5"/></svg></span>
-          <span class="brand-copy"><strong>NOIR</strong><small>AUTO ATELIER</small></span>
+          <span class="brand-mark">
+            <svg viewBox="0 0 48 48" role="img" aria-label="NOIR Auto Atelier emblem">
+              <defs>
+                <linearGradient id="nlg" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="var(--gold-light)"/>
+                  <stop offset="1" stop-color="var(--secondary)"/>
+                </linearGradient>
+              </defs>
+              <path d="M24 2.5 43 9.5v14c0 11-7.5 18.5-19 22-11.5-3.5-19-11-19-22v-14z"
+                fill="none" stroke="url(#nlg)" stroke-width="1.8"/>
+              <path d="M15 28V13h3.6L30 24.5V13h3v15h-3.6L18 16.5V28z"
+                fill="url(#nlg)"/>
+              <path d="M9.5 35.5c2-3.2 4.6-4.5 8-4.5h13c3.4 0 6 1.3 8 4.5"
+                fill="none" stroke="url(#nlg)" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="16" cy="36" r="2.1" fill="url(#nlg)"/>
+              <circle cx="32" cy="36" r="2.1" fill="url(#nlg)"/>
+              <path d="M12 21 21 11" stroke="currentColor" stroke-width="1"
+                stroke-linecap="round" opacity=".5"/>
+            </svg>
+          </span>
+
+          <span class="brand-copy">
+            <strong>NOIR</strong>
+            <small>AUTO ATELIER</small>
+          </span>
         </a>
 
         <div class="auth-head">
@@ -168,6 +705,7 @@
         </div>
 
         <form id="authForm" novalidate>
+
           <div class="auth-tabs" role="tablist">
             <button type="button" class="dtab active" data-mode="signin">Sign in</button>
             <button type="button" class="dtab" data-mode="signup">Create account</button>
@@ -175,40 +713,84 @@
 
           <div id="nameField" hidden>
             <div class="name-row">
-              <div><label for="firstName">First name</label><input id="firstName" placeholder="e.g. Arjun" autocomplete="given-name"></div>
-              <div><label for="lastName">Last name</label><input id="lastName" placeholder="e.g. Kumar" autocomplete="family-name"></div>
+              <div>
+                <label for="firstName">First name</label>
+                <input id="firstName" placeholder="e.g. Arjun" autocomplete="given-name">
+              </div>
+              <div>
+                <label for="lastName">Last name</label>
+                <input id="lastName" placeholder="e.g. Kumar" autocomplete="family-name">
+              </div>
             </div>
-            
           </div>
 
           <label for="authEmail">Email address</label>
-          <input id="authEmail" type="email" placeholder="you@example.com" required autocomplete="email">
+          <input id="authEmail" type="email" placeholder="you@example.com"
+            required autocomplete="email">
 
           <label for="authPassword">Password</label>
           <div class="field-wrap">
-            <input id="authPassword" type="password" placeholder="Enter any password for demo" required autocomplete="current-password">
-            <button class="eye" type="button" id="togglePw" aria-label="Show password"><svg class="on" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><svg class="off" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18M10.6 5.1A10 10 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4M6.5 6.6A17 17 0 0 0 2 12s3.6 7 10 7a9.7 9.7 0 0 0 4.2-.9M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg></button>
+            <input id="authPassword" type="password"
+              placeholder="Enter any password for demo"
+              required autocomplete="current-password">
+
+            <button class="eye" type="button" id="togglePw" aria-label="Show password">
+              <svg class="on" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              <svg class="off" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 3l18 18M10.6 5.1A10 10 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4M6.5 6.6A17 17 0 0 0 2 12s3.6 7 10 7a9.7 9.7 0 0 0 4.2-.9M9.9 9.9a3 3 0 0 0 4.2 4.2"/>
+              </svg>
+            </button>
           </div>
 
           <div class="row-opts" id="signinOpts">
-            <label class="check"><input type="checkbox" id="keepSigned" checked> Keep me signed in</label>
+            <label class="check">
+              <input type="checkbox" id="keepSigned" checked>
+              Keep me signed in
+            </label>
             <button type="button" class="link-btn" id="forgotBtn">Forgot password?</button>
           </div>
 
           <div class="row-opts" id="termsRow" hidden>
-            <label class="check"><input type="checkbox" id="agreeTerms"> <span>I agree to the NOIR booking terms and privacy policy.</span></label>
+            <label class="check">
+              <input type="checkbox" id="agreeTerms">
+              <span>I agree to the NOIR booking terms and privacy policy.</span>
+            </label>
           </div>
 
-          <button class="button button-gold button-full" type="submit" id="authSubmit">Sign in <span>↗</span></button>
+          <button class="button button-gold button-full" type="submit" id="authSubmit">
+            Sign in <span>↗</span>
+          </button>
 
           <div class="or-line">OR CONTINUE WITH</div>
+
           <div class="social-row">
-            <button type="button" class="soc" id="socGoogle"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1A11 11 0 0 0 2.18 7.06l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z"/></svg> Google</button>
-            <button type="button" class="soc soc-apple" id="socApple"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg> Apple</button>
+            <button type="button" class="soc" id="socGoogle">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1A11 11 0 0 0 2.18 7.06l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z"/>
+              </svg>
+              Google
+            </button>
+
+            <button type="button" class="soc soc-apple" id="socApple">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+              </svg>
+              Apple
+            </button>
           </div>
 
-          <button class="text-login create-account" type="button" id="demoLogin">Continue as guest ↗</button>
+          <button class="text-login create-account" type="button" id="demoLogin">
+            Continue as guest ↗
+          </button>
+
           <small class="form-note">Demo form: nothing is sent to a server.</small>
+
         </form>
       </div>
     </section>
@@ -218,8 +800,13 @@
 
   <script>
     (function () {
-      var $ = function (s, r) { return (r || document).querySelector(s); };
-      var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+      var $ = function (s, r) {
+        return (r || document).querySelector(s);
+      };
+
+      var $$ = function (s, r) {
+        return Array.prototype.slice.call((r || document).querySelectorAll(s));
+      };
 
       var modes = {
         signin: {
@@ -248,25 +835,37 @@
       function toast(msg) {
         var t = $("#toast");
         if (!t) return;
+
         t.textContent = msg;
         t.classList.add("show");
+
         clearTimeout(toast._t);
-        toast._t = setTimeout(function () { t.classList.remove("show"); }, 2800);
+
+        toast._t = setTimeout(function () {
+          t.classList.remove("show");
+        }, 2800);
       }
 
       function setMode(mode) {
-        if (!modes[mode] || mode === current) { return; }
+        if (!modes[mode] || mode === current) return;
+
         current = mode;
+
         var m = modes[mode];
         var signup = mode === "signup";
 
         document.body.setAttribute("data-mode", mode);
-        $$(".dtab").forEach(function (b) { b.classList.toggle("active", b.dataset.mode === mode); });
+
+        $$(".dtab").forEach(function (b) {
+          b.classList.toggle("active", b.dataset.mode === mode);
+          b.setAttribute("aria-selected", b.dataset.mode === mode ? "true" : "false");
+        });
 
         $(".bg-signin").classList.toggle("on", !signup);
         $(".bg-signup").classList.toggle("on", signup);
 
         storyCopy.classList.add("swap");
+
         setTimeout(function () {
           $("#storyTitle").innerHTML = m.h1;
           $("#storyLede").textContent = m.lede;
@@ -278,55 +877,106 @@
         $("#authSubmit").innerHTML = m.button + " <span>↗</span>";
         $("#authPassword").placeholder = m.pw;
         $("#authPassword").setAttribute("autocomplete", m.auto);
+
         $("#nameField").hidden = !signup;
         $("#termsRow").hidden = !signup;
         $("#signinOpts").hidden = signup;
+
+        $("#firstName").required = signup;
+        $("#agreeTerms").required = signup;
+
         document.title = (signup ? "Create account" : "Client login") + " — NOIR Auto Atelier";
       }
 
       $$(".dtab").forEach(function (b) {
-        b.addEventListener("click", function () { setMode(b.dataset.mode); });
+        b.addEventListener("click", function () {
+          setMode(b.dataset.mode);
+        });
       });
 
-      // Show / hide password
       $("#togglePw").addEventListener("click", function () {
         var input = $("#authPassword");
         var show = input.type === "password";
+
         input.type = show ? "text" : "password";
+
         this.classList.toggle("shown", show);
         this.setAttribute("aria-label", show ? "Hide password" : "Show password");
       });
 
-      // After login / sign up, always go to the HOMEPAGE (not the dashboard).
-      // The dashboard opens only from the "Dashboard" link in the homepage nav.
       function finish(msg, user) {
         var btn = $("#authSubmit");
+
         btn.disabled = true;
         btn.innerHTML = "Welcome ✓";
+
         toast(msg);
-        try { localStorage.setItem("noir-user", JSON.stringify(user)); } catch (e) {}
-        setTimeout(function () { location.href = "index.html"; }, 1100);
-      }
-      function typedUser() {
-        var email = $("#authEmail").value.trim();
-        var name = (current === "signup") ? (($("#firstName").value + " " + $("#lastName").value).trim()) : "";
-        return { name: name, email: validEmail(email) ? email : "guest@noiratelier.example" };
+
+        try {
+          localStorage.setItem("noir-user", JSON.stringify(user));
+        } catch (e) {}
+
+        setTimeout(function () {
+          location.href = "index.html";
+        }, 1100);
       }
 
-      function validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+      function typedUser() {
+        var email = $("#authEmail").value.trim();
+
+        var name = current === "signup"
+          ? ($("#firstName").value + " " + $("#lastName").value).trim()
+          : "";
+
+        return {
+          name: name,
+          email: validEmail(email) ? email : "guest@noiratelier.example"
+        };
+      }
+
+      function validEmail(v) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+      }
 
       $("#authForm").addEventListener("submit", function (e) {
         e.preventDefault();
+
         var signup = current === "signup";
         var email = $("#authEmail").value.trim();
         var pw = $("#authPassword").value;
 
-        if (signup && !$("#firstName").value.trim()) { toast("Please enter your first name"); $("#firstName").focus(); return; }
-        if (!validEmail(email)) { toast("Please enter a valid email address"); $("#authEmail").focus(); return; }
-        if (!pw) { toast("Please enter a password"); $("#authPassword").focus(); return; }
-        if (signup && !$("#agreeTerms").checked) { toast("Please agree to the terms to continue"); return; }
+        if (signup && !$("#firstName").value.trim()) {
+          toast("Please enter your first name");
+          $("#firstName").focus();
+          return;
+        }
 
-        finish(signup ? "Account created. Welcome to NOIR." : "Signed in. Welcome back.", { name: signup ? ($("#firstName").value + " " + $("#lastName").value).trim() : "", email: email });
+        if (!validEmail(email)) {
+          toast("Please enter a valid email address");
+          $("#authEmail").focus();
+          return;
+        }
+
+        if (!pw) {
+          toast("Please enter a password");
+          $("#authPassword").focus();
+          return;
+        }
+
+        if (signup && !$("#agreeTerms").checked) {
+          toast("Please agree to the terms to continue");
+          return;
+        }
+
+        finish(
+          signup ? "Account created. Welcome to NOIR." : "Signed in. Welcome back.",
+          {
+            name: signup
+              ? ($("#firstName").value + " " + $("#lastName").value).trim()
+              : "",
+            email: email
+          }
+        );
       });
 
       $("#forgotBtn").addEventListener("click", function () {
@@ -334,14 +984,57 @@
       });
 
       ["socGoogle", "socApple"].forEach(function (id) {
-        $("#" + id).addEventListener("click", function () { finish("Signed in. Welcome back.", typedUser()); });
+        $("#" + id).addEventListener("click", function () {
+          finish("Signed in. Welcome back.", typedUser());
+        });
       });
 
-      $("#demoLogin").addEventListener("click", function () { finish("Continuing as guest.", { name: "Guest", email: "guest@noiratelier.example" }); });
+      $("#demoLogin").addEventListener("click", function () {
+        finish("Continuing as guest.", {
+          name: "Guest",
+          email: "guest@noiratelier.example"
+        });
+      });
 
-      if (location.hash === "#signup") setMode("signup");
+      if (location.hash === "#signup") {
+        setMode("signup");
+      }
     })();
   </script>
-</body>
 
+
+  <script>
+    /* Tries each photo URL until one loads, so one broken/blocked
+       image can never leave the panel empty. */
+    (function () {
+      var q = "?auto=format&fit=crop&w=1920&q=80";
+      var U = "https://images.unsplash.com/";
+      var signin = [
+        U + "photo-1618843479313-40f8afb4b4d8" + q,
+        U + "photo-1580273916550-e323be2ae537" + q,
+        U + "photo-1542362567-b07e54358753" + q,
+        U + "photo-1503736334956-4c8f8e92946d" + q
+      ];
+      var signup = [
+        U + "photo-1568605117036-5fe5e7bab0b7" + q,
+        U + "photo-1511919884226-fd3cad34687c" + q,
+        U + "photo-1544829099-b9a0c07fad1a" + q,
+        U + "photo-1489824904134-891ab64532f1" + q
+      ];
+      function load(selector, list) {
+        var el = document.querySelector(selector);
+        (function next(i) {
+          if (i >= list.length) return;
+          var img = new Image();
+          img.onload = function () { el.style.backgroundImage = 'url("' + list[i] + '")'; };
+          img.onerror = function () { next(i + 1); };
+          img.src = list[i];
+        })(0);
+      }
+      load(".bg-signin", signin);
+      load(".bg-signup", signup);
+    })();
+  </script>
+
+</body>
 </html>

@@ -408,24 +408,7 @@
       closeLogin();
       $("#booking")?.scrollIntoView({ behavior: "smooth" });
     });
-
-    // Image fallback
-    const fallbackImages = [
-      "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1507136566006-cfc505b114fc?auto=format&fit=crop&w=1400&q=80"
-    ];
-
-    $$("img[data-image-fallback], .gallery-grid img, .gallery-item img").forEach(
-      (image, index) => {
-        image.addEventListener("error", () => {
-          if (image.dataset.fallbackTried === "1") return;
-
-          image.dataset.fallbackTried = "1";
-          image.src = fallbackImages[index % fallbackImages.length];
-        });
-      }
-    );
+    // Keep each section image independent; do not replace failed images with one shared photo.
 
     // Smooth scrolling
     $$('a[href^="#"]').forEach(link => {
@@ -1232,18 +1215,25 @@
     // ---- vehicle finder ----
     const tabsEl = $("#nxTabs"), card = $("#nxFitCard");
     if (tabsEl && card) {
-      const U = id => "https://images.unsplash.com/photo-" + id + "?auto=format&fit=crop&w=1400&q=80";
+      const fitImages = {
+        "fit-hatch": "https://images.unsplash.com/photo-1730577220440-d89e0726c6ee?auto=format&fit=crop&w=1400&q=80",
+        "fit-sedan": "https://images.unsplash.com/photo-1485291571150-772bcfc10da5?auto=format&fit=crop&w=1400&q=80",
+        "fit-suv": "https://images.unsplash.com/photo-1598248691267-4a62dfdfd8a8?auto=format&fit=crop&w=1400&q=80",
+        "fit-lux": "https://images.unsplash.com/photo-1619431856706-ca2cc58258f6?auto=format&fit=crop&w=1400&q=80",
+        "fit-bike": "https://images.pexels.com/photos/1715189/pexels-photo-1715189.jpeg?auto=compress&cs=tinysrgb&w=1400"
+      };
+      const U = id => fitImages[id] || fitImages["fit-sedan"];
       const V = [
-        ["Hatchback", "1519641471654-76ce0107ad1b", "Compact and city-ready", "Tight panels collect dust and parking scuffs fast. Interior atelier with wheel and glass protection keeps a daily hatchback fresh.", "Half a day", "Interior + wheels", 9498, "Interior atelier"],
-        ["Sedan", "1555215695-3004980ad54e", "Long panels, long-term shine", "More paint area means more chances for swirls. Paint correction followed by a ceramic coating gives the deepest result.", "2 to 3 days", "Correction + ceramic", 28749, "Ceramic coating"],
-        ["SUV", "1533473359331-0135ef1b58bf", "Tall, large and dusty", "Big glass and tall bodies take real time and product. A ceramic coating with a full interior reset suits family SUVs.", "3 days", "Ceramic + interior", 32499, "Full detail package"],
-        ["Luxury / sports", "1449426468159-d96dbf08f19f", "Soft paint, high stakes", "Specialist paint needs measured, gentle work. We map paint depth first, then correct, coat and add film on impact zones.", "4 to 5 days", "Full detail package", 49498, "Full detail package"],
-        ["Motorcycle", "1558981806-ec527fa84c39", "Metal, chrome and tight corners", "Hand polishing of tank and fairings, chain and engine detailing, and a ceramic coat that resists heat and rain.", "1 day", "Polish + ceramic", 9999, "Ceramic coating"]
+        ["Hatchback", "fit-hatch", "Compact and city-ready", "Tight panels collect dust and parking scuffs fast. Interior atelier with wheel and glass protection keeps a daily hatchback fresh.", "Half a day", "Interior + wheels", 9498, "Interior atelier"],
+        ["Sedan", "fit-sedan", "Long panels, long-term shine", "More paint area means more chances for swirls. Paint correction followed by a ceramic coating gives the deepest result.", "2 to 3 days", "Correction + ceramic", 28749, "Ceramic coating"],
+        ["SUV", "fit-suv", "Tall, large and dusty", "Big glass and tall bodies take real time and product. A ceramic coating with a full interior reset suits family SUVs.", "3 days", "Ceramic + interior", 32499, "Full detail package"],
+        ["Luxury / sports", "fit-lux", "Soft paint, high stakes", "Specialist paint needs measured, gentle work. We map paint depth first, then correct, coat and add film on impact zones.", "4 to 5 days", "Full detail package", 49498, "Full detail package"],
+        ["Motorcycle", "fit-bike", "Metal, chrome and tight corners", "Hand polishing of tank and fairings, chain and engine detailing, and a ceramic coat that resists heat and rain.", "1 day", "Polish + ceramic", 9999, "Ceramic coating"]
       ];
       const draw = i => {
         const v = V[i];
         $$(".gt-btn", tabsEl).forEach((b, k) => { b.classList.toggle("active", k === i); b.setAttribute("aria-selected", k === i); });
-        card.innerHTML = '<div class="nx-fit-img"><img src="' + U(v[1]) + '" alt="' + v[0] + ' detailing example" loading="lazy" onerror="this.style.display=\'none\'"></div><div class="nx-fit-body"><h3>' + v[2] + '</h3><p>' + v[3] + '</p><div class="nx-facts"><div><span>Time</span><strong>' + v[4] + '</strong></div><div><span>Package</span><strong>' + v[5] + '</strong></div><div><span>From</span><strong>' + inr(v[6]) + '</strong></div></div><a class="button button-gold" href="#booking" data-pick="' + v[7] + '">Book for my ' + v[0].toLowerCase() + ' <span>↗</span></a></div>';
+        card.innerHTML = `<div class="nx-fit-img"><img src="${U(v[1])}" alt="${v[0]} detailing example" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1518306727298-4c17e1bf6942?auto=format&fit=crop&w=1600&q=80'"></div><div class="nx-fit-body"><h3>${v[2]}</h3><p>${v[3]}</p><div class="nx-facts"><div><span>Time</span><strong>${v[4]}</strong></div><div><span>Package</span><strong>${v[5]}</strong></div><div><span>From</span><strong>${inr(v[6])}</strong></div></div><a class="button button-gold" href="#booking" data-pick="${v[7]}">Book for my ${v[0].toLowerCase()} <span>↗</span></a></div>`;
         card.style.animation = "none"; void card.offsetWidth; card.style.animation = "";
       };
       V.forEach((v, i) => {
@@ -1468,4 +1458,19 @@
     img.addEventListener("dblclick", resetZoom);
     img.addEventListener("wheel", e => { if (lb.hidden) return; e.preventDefault(); if (e.deltaY < 0) { zoomed = true; img.classList.add("zoomed"); img.style.transform = `translate(${tx}px,${ty}px) scale(2.2)`; } else resetZoom(); }, { passive: false });
   });
+})();
+
+/* ---- global image safety net: if any <img> fails to load, swap in a backup car photo once ---- */
+(function () {
+  var BACKUP = [
+    "https://images.unsplash.com/photo-1518306727298-4c17e1bf6942?auto=format&fit=crop&w=1600&q=80",
+    "https://images.unsplash.com/photo-1621639532859-8b26570b96fc?auto=format&fit=crop&w=1600&q=80"
+  ];
+  var used = 0;
+  document.addEventListener("error", function (e) {
+    var el = e.target;
+    if (!el || el.tagName !== "IMG" || el.dataset.fb) return;
+    el.dataset.fb = "1";
+    el.src = BACKUP[used++ % BACKUP.length];
+  }, true);
 })();

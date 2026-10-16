@@ -9,6 +9,7 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23eef1f7'/%3E%3Cstop offset='1' stop-color='%237d93c9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='15' fill='%230a0d14'/%3E%3Crect x='3' y='3' width='58' height='58' rx='12' fill='none' stroke='url(%23g)' stroke-opacity='.45' stroke-width='1.5'/%3E%3Cpath d='M18 40V16h5.5L40 34V16h6v24h-5.5L24 22v18z' fill='url(%23g)'/%3E%3Cpath d='M9 50c3-5 7-7 12-7h22c5 0 9 2 12 7' fill='none' stroke='%237d93c9' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='21' cy='50' r='3' fill='%23d5dbe8'/%3E%3Ccircle cx='43' cy='50' r='3' fill='%23d5dbe8'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Syne:wght@500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script defer src="script.js"></script>
@@ -44,7 +45,8 @@
   </header>
 
   <main>
-<section class="page-hero" style="--ph:url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2000&q=80')">
+<!-- IMAGE 1 (hero): white cars in a studio garage -->
+<section class="page-hero" style="--ph:url('https://images.unsplash.com/photo-1735012316426-0494b0d1352b?auto=format&fit=crop&w=2200&q=85')">
       <p class="crumbs"><a href="index.html">Home</a> <span>/</span> Estimator</p>
       <h1>Your plan,<br><em>priced.</em></h1>
       <p class="page-lede">Choose your vehicle size and treatments. See the total and time estimate before you book.</p>
@@ -107,8 +109,70 @@
 </section>
 <!-- NOIR v10 -->
 <section class="plain section-pad" id="nz-budget"><div class="section-kicker reveal"><span>BUDGET FINDER</span></div><div class="section-heading-row reveal"><div><p class="eyebrow">START WITH WHAT YOU HAVE</p><h2>Tell us your budget,<br><em>we suggest a plan.</em></h2></div><p class="section-side-copy">Slide to your budget for a hatchback.</p></div><div class="calc reveal"><label for="bgt">Budget: <b id="bgtOut">₹15,000</b></label><input id="bgt" type="range" min="2000" max="80000" step="500" value="15000"><div class="nx-emi-out"><div><span>Best fit</span><strong id="bgtPlan"></strong></div><div><span>What you get</span><p id="bgtText" style="margin:0"></p></div></div></div></section>
-<section class="alt section-pad" id="nz-size"><div class="section-kicker reveal"><span>SIZE GUIDE</span></div><div class="section-heading-row reveal"><div><p class="eyebrow">NOT SURE OF YOUR SIZE?</p><h2>Find your car<br><em>in the list.</em></h2></div><p class="section-side-copy">Typical models for each size band.</p></div><div class="lab-grid cols4"><article class="lab-card reveal"><div class="lab-ico"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.2 7.8 8 9 4.8-1.2 8-4.5 8-9V6z"/></svg></div><h3>Hatchback</h3><p>Swift, i10, Tiago, Baleno. Compact panels.</p><b>×1.0</b></article><article class="lab-card reveal"><div class="lab-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Sedan</h3><p>City, Verna, Slavia, Ciaz. Longer panels.</p><b>×1.15</b></article><article class="lab-card reveal"><div class="lab-ico"><svg viewBox="0 0 24 24"><path d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.5 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg></div><h3>SUV / MUV</h3><p>Creta, Seltos, XUV700, Innova. Tall bodies.</p><b>×1.3</b></article><article class="lab-card reveal"><div class="lab-ico"><svg viewBox="0 0 24 24"><path d="M12 3c3 4 6 6.5 6 10a6 6 0 0 1-12 0c0-3.5 3-6 6-10z"/></svg></div><h3>Luxury / sports</h3><p>3 Series, A4, C-Class, 911. Specialist paint.</p><b>×1.5</b></article></div></section>
-<section class="plain section-pad" id="nz-offers"><div class="nx-split"><div class="nx-photo reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1517026575980-3e1e2dedeab4?auto=format&fit=crop&w=1400&q=80" alt="Car in evening light" onerror="this.style.display='none'"><span class="nx-photo-tag">Seasonal</span></div><div class="nx-copy reveal"><div class="section-kicker"><span>SEASONAL OFFERS</span></div><h2>Timed for<br><em>the weather.</em></h2><p>Examples of what we run through the year. Ask the studio what is live.</p><div class="tour-list"><div class="tour-item"><span>Jun–Sep</span><div><strong>Monsoon shield</strong><small>Glass and wheel coating bundled with any wash plan.</small></div></div><div class="tour-item"><span>Mar–May</span><div><strong>Summer UV pack</strong><small>Coating and tint for heat protection.</small></div></div><div class="tour-item"><span>Oct–Nov</span><div><strong>Festive shine</strong><small>Interior reset and polish before the holidays.</small></div></div></div><a class="button button-gold" href="#booking">Ask about current offers <span>↗</span></a></div></div></section>
+<!-- SIZE GUIDE: photos matching descriptions -->
+<section class="alt section-pad" id="nz-size">
+  <div class="section-kicker reveal"><span>SIZE GUIDE</span></div>
+  <div class="section-heading-row reveal">
+    <div>
+      <p class="eyebrow">NOT SURE OF YOUR SIZE?</p>
+      <h2>Find your car<br><em>in the list.</em></h2>
+    </div>
+    <p class="section-side-copy">Typical models for each size band.</p>
+  </div>
+  <div class="lab-grid cols4">
+    <!-- Card 1: Hatchback -->
+    <article class="lab-card size-card reveal">
+      <div class="size-img">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=900&q=80" alt="Volkswagen Golf compact hatchback">
+      </div>
+      <div class="size-body">
+        <h3>Hatchback</h3>
+        <p>Swift, i10, Tiago, Baleno. Compact panels.</p>
+        <b>×1.0</b>
+      </div>
+    </article>
+    
+    <!-- Card 2: Sedan -->
+    <article class="lab-card size-card reveal">
+      <div class="size-img">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=900&q=80" alt="Sleek executive sedan">
+      </div>
+      <div class="size-body">
+        <h3>Sedan</h3>
+        <p>City, Verna, Slavia, Ciaz. Longer panels.</p>
+        <b>×1.15</b>
+      </div>
+    </article>
+    
+    <!-- Card 3: SUV / MUV -->
+    <article class="lab-card size-card reveal">
+      <div class="size-img">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1598248691267-4a62dfdfd8a8?auto=format&fit=crop&w=900&q=80" alt="Black SUV parked in a garage">
+      </div>
+      <div class="size-body">
+        <h3>SUV / MUV</h3>
+        <p>Creta, Seltos, XUV700, Innova. Tall bodies.</p>
+        <b>×1.3</b>
+      </div>
+    </article>
+    
+    <!-- Card 4: Luxury / sports -->
+    <article class="lab-card size-card reveal">
+      <div class="size-img">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=85" alt="Matte dark grey luxury sports car in studio lighting">
+      </div>
+      <div class="size-body">
+        <h3>Luxury / sports</h3>
+        <p>3 Series, A4, C-Class, 911. Specialist paint.</p>
+        <b>×1.5</b>
+      </div>
+    </article>
+  </div>
+</section>
+<!-- IMAGES 2-4: "how we estimate" cards (titles rewritten to match the photos) -->
+<section class="plain section-pad" id="nz-measure"><div class="section-kicker reveal"><span>HOW WE ESTIMATE</span></div><div class="section-heading-row reveal"><div><p class="eyebrow">BEFORE ANY QUOTE</p><h2>We look first,<br><em>then we quote.</em></h2></div><p class="section-side-copy">Your estimate here is a guide. The studio confirms it after a short inspection.</p></div><div class="eq-grid reveal"><article class="eq-card reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1622329821376-a19fd6002562?auto=format&fit=crop&w=1600&q=85" alt="Advisor standing beside a black car"><div><h3>Advisor walk-round</h3><p>A short walk around the car with you before we confirm the plan.</p></div></article><article class="eq-card reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1575844611398-2a68400b437c?auto=format&fit=crop&w=1600&q=85" alt="Glossy white coupe being checked panel by panel"><div><h3>Paint inspection</h3><p>Every panel checked under light, with readings that decide how much correction is safe.</p></div></article><article class="eq-card reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1620584899131-a5ff5f8fbb03?auto=format&fit=crop&w=1600&q=85" alt="Hands on a car steering wheel inside the cabin"><div><h3>Interior check</h3><p>Seats, trim and controls noted in your written condition report.</p></div></article></div></section>
+<!-- IMAGE 5: seasonal offers — car being washed with a water splash (monsoon shield) -->
+<section class="plain section-pad" id="nz-offers"><div class="nx-split"><div class="nx-photo reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=1600&q=85" alt="Water splashing over a black coupe during a wash"><span class="nx-photo-tag">Seasonal</span></div><div class="nx-copy reveal"><div class="section-kicker"><span>SEASONAL OFFERS</span></div><h2>Timed for<br><em>the weather.</em></h2><p>Examples of what we run through the year. Ask the studio what is live.</p><div class="tour-list"><div class="tour-item"><span>Jun–Sep</span><div><strong>Monsoon shield</strong><small>Glass and wheel coating bundled with any wash plan.</small></div></div><div class="tour-item"><span>Mar–May</span><div><strong>Summer UV pack</strong><small>Coating and tint for heat protection.</small></div></div><div class="tour-item"><span>Oct–Nov</span><div><strong>Festive shine</strong><small>Interior reset and polish before the holidays.</small></div></div></div><a class="button button-gold" href="#booking">Ask about current offers <span>↗</span></a></div></div></section>
 <section class="alt section-pad" id="nz-referral"><div class="section-kicker reveal"><span>REFERRALS</span></div><div class="section-heading-row reveal"><div><p class="eyebrow">SHARE THE SHINE</p><h2>Bring a friend,<br><em>both save.</em></h2></div><p class="section-side-copy">Enter your name to get a code you can share.</p></div><div class="nz-ref reveal"><input id="refName" placeholder="Your name"><button class="button button-gold" type="button" id="refGo">Get my code <span>↗</span></button><div class="nz-code" id="refCode" hidden></div></div><small class="form-note">Reward amounts are set by the studio and confirmed at booking.</small></section>
 <section class="plain section-pad" id="nz-resale"><div class="section-kicker reveal"><span>RESALE VALUE</span></div><div class="section-heading-row reveal"><div><p class="eyebrow">WHY IT PAYS</p><h2>Care that shows up<br><em>at resale.</em></h2></div><p class="section-side-copy">Illustration only: well-kept paint can help a car sell faster and for more.</p></div><div class="calc reveal"><label for="rsVal">Car value: <b id="rsOut">₹8,00,000</b></label><input id="rsVal" type="range" min="200000" max="4000000" step="50000" value="800000"><div class="nx-emi-out"><div><span>Possible uplift (2% to 5%)</span><strong id="rsUp"></strong></div><div><span>Signature coating, hatchback</span><strong>₹24,999</strong></div></div><small>Not a valuation. Results depend on the market and the car.</small></div></section>
 <section class="alt section-pad" id="nz-next"><div class="section-kicker reveal"><span>SERVICE PLANNER</span></div><div class="section-heading-row reveal"><div><p class="eyebrow">WHEN IS IT DUE?</p><h2>Never miss<br><em>a check-up.</em></h2></div><p class="section-side-copy">Pick your last treatment and date.</p></div><div class="calc reveal"><div class="nx-row"><div><label for="nxLast">Last treatment</label><select id="nxLast"><option value="12">Ceramic coating (yearly check)</option><option value="6">Paint correction sealant</option><option value="6">Interior atelier</option><option value="1">Maintenance wash</option></select></div><div><label for="nxDate">Date done</label><input id="nxDate" type="date"></div></div><div class="nx-emi-out"><div><span>Next due</span><strong id="nxDue">Pick a date</strong></div></div></div></section>
@@ -158,7 +222,7 @@
         <div class="social-links" aria-label="Social media">
           <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></a>
           <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 21v-8h3l.5-4H14V7c0-1.2.4-2 2-2h2V1.4C17.3 1.2 16.2 1 15 1c-3.2 0-5 1.9-5 5.4V9H7v4h3v8z"/></svg></a>
-          <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7s-.2-1.7-.9-2.4S20.6 3.7 19.8 3.6C17 3.4 12 3.4 12 3.4s-5 0-7.8.2c-.8.1-1.6.3-2.3 1S1 7 1 7s-.2 2-.2 4v2c0 2 .2 4 .2 4s.2 1.7.9 2.4.9.8 1.5.9c1.1.1 8.6.2 8.6.2s5 0 7.8-.2c.8-.1 1.6-.3 2.3-1s.9-2.4.9-2.4.2-2 .2-4v-2c0-2-.2-4-.2-4z"/><path d="m9.5 8 6 3.5-6 3.5z" fill="#0b0c0b" stroke="none"/></svg></a>
+          <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M23 7s-.2-1.7-.9-2.4S20.6 3.7 19.8 3.6C17 3.4 12 3.4 12 3.4s-5 0-7.8.2c-.8.1-1.6.3-2.3 1S1 7 1 7s-.2 2-.2 4v2c0 2 .2 4 .2 4s.2 1.7.9 2.4.9.8 1.5.9c1.1.1 8.6.2 8.6.2s5 0 7.8-.2c.8-.1 1.6-.3 2.3-1s.9-2.4.9-2.4.2-2 .2-4v-2c0-2-.2-4-.2-4zM9.5 8l6 3.5-6 3.5z"/></svg></a>
           <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.6 6.2a6.7 6.7 0 0 1-4.1-4.1V1h-4.1v14.3a2.8 2.8 0 1 1-2.8-2.8c.4 0 .8.1 1.1.2V8.5a7 7 0 1 0 5.8 6.8V8a10.8 10.8 0 0 0 5.1 1.3V5.2c-.4 0-.7 0-1-.1z"/></svg></a>
           <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3A2.2 2.2 0 1 1 .8 3a2.2 2.2 0 0 1 4.4 0ZM1.2 7.3h4v15h-4zM8 7.3h3.8v2.1h.1a4.2 4.2 0 0 1 3.8-2.5c4.1 0 4.9 2.7 4.9 6.2v9.2h-4v-8.2c0-2-.1-3.6-2.2-3.6s-2.5 1.7-2.5 3.5v8.3H8z"/></svg></a>
           <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 2 17.7L.5 23.5l6-1.6A11.8 11.8 0 0 0 20.5 3.5ZM12 21a9.1 9.1 0 0 1-4.6-1.2l-.3-.2-3.5.9.9-3.4-.2-.4A9.2 9.2 0 1 1 12 21Zm5-6.9c-.3-.2-1.7-.9-2-.9s-.5-.2-.7.2-.8.9-1 1.1-.4.2-.7.1a7.5 7.5 0 0 1-2.2-1.4 8.2 8.2 0 0 1-1.5-1.9c-.2-.3 0-.5.1-.6l.5-.6c.2-.2.2-.4.3-.5s0-.4 0-.5l-.9-2.1c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.4 1 2.7 1.2 2.9a11.2 11.2 0 0 0 4.3 3.8c.6.3 1.1.5 1.5.6.6.2 1.2.2 1.6.1.5-.1 1.7-.7 1.9-1.3s.2-1.2.2-1.3-.2-.2-.5-.4z"/></svg></a>

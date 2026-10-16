@@ -54,6 +54,8 @@
     .dx-scrim { display: none; }
 
     /* Typography inside content */
+    .dx-hello-img { padding: 30px 28px 6px; margin-bottom: 22px; border: 1px solid var(--line); border-radius: 22px; background: linear-gradient(90deg, var(--bg) 6%, color-mix(in srgb, var(--bg) 72%, transparent) 52%, color-mix(in srgb, var(--bg) 18%, transparent)), url("https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1800&q=90") center/cover no-repeat; }
+    .dx-empty-img { background: linear-gradient(180deg, color-mix(in srgb, var(--panel) 80%, transparent), var(--panel) 92%), url("https://images.unsplash.com/photo-1625047509168-a7026f36de04?auto=format&fit=crop&w=1600&q=85") center/cover no-repeat; }
     .dx-hello h2 { font-size: clamp(28px, 3.2vw, 40px); margin: 0 0 6px; letter-spacing: -.02em; line-height: 1.15; font-weight: 700; }
     .dx-hello p { margin: 0 0 26px; color: var(--muted); font-size: 17px; max-width: 720px; }
     .dx-card { border: 1px solid var(--line); border-radius: 20px; background: var(--panel); padding: 26px; transition: background-color .45s, border-color .3s; }
@@ -688,7 +690,7 @@
           '<div class="dx-pbar"><span style="width:' + Math.round(cur.stage / 6 * 100) + '%"></span></div><p class="dx-note">' + esc(NOTES[cur.stage]) + '</p>' +
           '<div class="dx-actions"><button class="button button-outline button-small" type="button" data-view="services">All services</button><button class="button button-gold button-small" type="button" data-act="advance" data-id="' + cur.id + '">Simulate studio update <span>↗</span></button></div></section>';
       } else {
-        curCard = '<section class="dx-card dx-empty"><h3>No active service</h3><p>Book a detailing slot and follow every stage here, from request to ready for pickup.</p><button class="button button-gold" type="button" data-view="book">Book a slot <span>↗</span></button></section>';
+        curCard = '<section class="dx-card dx-empty dx-empty-img"><h3>No active service</h3><p>Book a detailing slot and follow every stage here, from request to ready for pickup.</p><button class="button button-gold" type="button" data-view="book">Book a slot <span>↗</span></button></section>';
       }
 
       var pct = nt ? Math.min(100, Math.round((lifetime() - t.min) / (nt.min - t.min) * 100)) : 100;
@@ -704,7 +706,7 @@
       var act6 = activity();
       var actCard = '<section class="dx-card"><h3>Recent activity</h3><p class="dx-sub">Updates and points</p><ul class="dx-list">' + act6.map(function (e) { return '<li><span>' + esc(e.text) + '</span><small>' + ago(e.t) + '</small></li>'; }).join("") + '</ul></section>';
 
-      return '<div class="dx-hello"><h2>' + greet + ', ' + esc(first) + '</h2><p>' + sub + '</p></div>' + stats + '<div class="dx-grid2">' + curCard + loy + '</div><div class="dx-grid3">' + upCard + remCard + actCard + '</div>';
+      return '<div class="dx-hello dx-hello-img"><h2>' + greet + ', ' + esc(first) + '</h2><p>' + sub + '</p></div>' + stats + '<div class="dx-grid2">' + curCard + loy + '</div><div class="dx-grid3">' + upCard + remCard + actCard + '</div>';
     };
 
     VIEWS.book = function () {
